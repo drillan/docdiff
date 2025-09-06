@@ -1,0 +1,50 @@
+✓ Parsed 432 nodes from en documents
+✓ Parsed 432 nodes from ja documents
+⠸ Parsing en documents...
+⠸ Parsing ja documents...
+⠸ Comparing documents... 
+
+Metadata Coverage Report
+============================================================
+
+By Label:
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃ Metadata                   ┃ Transla… ┃ Total ┃ Coverage ┃ Progress          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩
+│ docdiff-overview           │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ docdiff-key-features       │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ docdiff-quick-start        │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ docdiff-why                │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ docdiff-project-status     │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ docdiff-getting-help       │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-reference              │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-installation           │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-available-commands     │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-environment-variables  │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-common-workflows       │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-workflow-initial-setup │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-workflow-continuous    │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-workflow-team          │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ cli-tips-best-practices    │        1 │     1 │   100.0% │ ███████████████   │
+│                            │          │       │       ✅ │                   │
+│ docdiff-docs               │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │
+│ docdiff-documentation-con… │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │
+│ docdiff-license            │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │
+│ developer-guide            │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │
+│ dev-environment-setup      │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │
+│ dev-prerequisites          │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │
+│ dev-initial-setup          │        0 │     1 │  0.0% ❌ │ ░░░░░░░░░░░░░░░   │

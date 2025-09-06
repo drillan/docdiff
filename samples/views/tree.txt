@@ -1,0 +1,24 @@
+✓ Parsed 432 nodes from en documents
+✓ Parsed 432 nodes from ja documents
+⠙ Parsing en documents...
+⠙ Parsing ja documents...
+⠙ Comparing documents... 
+📚 Document Structure Comparison
+├── 📁 index.md
+├── 📁 developer-guide.md
+├── 📁 api-reference.md
+├── 📁 cli-reference.md
+├── 📁 architecture.md
+└── 📁 user-guide.md
+
+Structure Differences by Type
+┏━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Node Type  ┃ Source ┃ Target ┃ Difference ┃
+┡━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━┩
+│ paragraph  │    121 │    121 │          0 │
+│ section    │    141 │    141 │          0 │
+│ code_block │     78 │     78 │          0 │
+│ list       │     92 │     92 │          0 │
+└────────────┴────────┴────────┴────────────┘
+
+⚠ Warning: Translation coverage is below 50%

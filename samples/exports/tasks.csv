@@ -1,0 +1,1204 @@
+ID,File,Line,Type,Status,Similarity,Source,Target,Label,Name,Notes
+57680041-10cc-4182-89a2-bc70c97cd748,/home/driller/repo/docdiff/docs/en/index.md,2,section,missing,0.00,# docdiff Documentation,,docdiff-docs,,
+ba4faea2-9109-4b10-bcd8-922def4c7dca,/home/driller/repo/docdiff/docs/en/index.md,7,paragraph,missing,0.00,docdiff is a powerful multilingual translation management tool specifically designed for MyST and reStructuredText documentation. It provides intelligent document structure analysis and translation state tracking to streamline the internationalization of technical documentation.,,,,
+8db057b2-12bc-4113-ac40-91c60666f028,/home/driller/repo/docdiff/docs/en/index.md,12,list,missing,0.00,"- **Intelligent Structure Analysis**: Parses documents into logical structural units (sections, code blocks, tables, figures) rather than mechanical text chunks
+- **Advanced Comparison Engine**: Multi-pass matching algorithm with exact, fuzzy, and missing node detection
+- **Rich Visualization**: Multiple view modes including tree view, metadata grouping, side-by-side comparison, and statistics
+- **Flexible Export/Import**: Supports JSON, CSV, XLSX, XLIFF 2.1, and Markdown formats for seamless translation workflows
+- **Metadata-Aware Processing**: Preserves and tracks labels, names, captions, and other structural metadata
+- **Git-Friendly Reports**: Markdown output with multiple styles (detailed, GitHub-flavored, compact) for version control integration
+- **Incremental Updates**: Efficiently handles document changes through hash-based content detection
+- **Cache Management**: Centralized project cache in `.docdiff/` directory for persistence and performance",,,,
+614950ea-38a4-4e22-a2a4-8c97c319cf04,/home/driller/repo/docdiff/docs/en/index.md,24,code_block,missing,0.00,"# Install docdiff
+uv sync
+uv pip install -e .
+
+# Compare documentation between languages
+docdiff compare docs/en docs/ja
+
+# Generate detailed Markdown report
+docdiff compare docs/en docs/ja --output report.md
+
+# Export translation tasks to CSV
+docdiff export docs/en docs/ja --format csv --output tasks.csv
+
+# Import completed translations
+docdiff import tasks_completed.csv --source-dir docs/en --target-dir docs/ja",,,docdiff-code-quick-start,
+fae4b976-4853-4c27-bd93-d74519eae801,/home/driller/repo/docdiff/docs/en/index.md,47,section,missing,0.00,## Documentation Contents,,docdiff-documentation-contents,,
+801e7528-ace6-4385-98d1-6eeaec1eab4d,/home/driller/repo/docdiff/docs/en/index.md,49,code_block,missing,0.00,":caption: 'User Documentation:'
+:maxdepth: 2
+
+user-guide
+cli-reference
+architecture",,,,
+7f2442ba-a2d8-47af-b585-217e76c6c82e,/home/driller/repo/docdiff/docs/en/index.md,58,code_block,missing,0.00,":caption: 'Developer Documentation:'
+:maxdepth: 2
+
+developer-guide
+api-reference",,,,
+c2131e31-ba89-4a51-bd8e-4f4e74af8f45,/home/driller/repo/docdiff/docs/en/index.md,69,paragraph,missing,0.00,"Traditional translation tools often break documents into fragments that are too small, losing important context. docdiff solves this by:",,,,
+6043f75c-aca5-45cb-8421-5092d70c7682,/home/driller/repo/docdiff/docs/en/index.md,71,list,missing,0.00,"1. **Preserving Document Structure**: Maintains the logical organization of your documentation
+2. **Context-Aware Translation Units**: Groups related content together for better translation quality
+3. **Efficient Change Management**: Only retranslates what has actually changed
+4. **Reference Integrity**: Ensures cross-references remain valid across languages",,,,
+56862f06-b0d1-45d3-be32-b985d00cbc28,/home/driller/repo/docdiff/docs/en/index.md,79,paragraph,missing,0.00,docdiff is actively maintained with the following features available:,,,,
+16ef956d-62b8-4779-af15-aa40aeaba42d,/home/driller/repo/docdiff/docs/en/index.md,81,list,missing,0.00,"- **✅ Document Structure Analysis**: Advanced MyST/reStructuredText parsing with metadata preservation
+- **✅ Translation Coverage Analysis**: Comprehensive comparison engine with fuzzy matching
+- **✅ Multiple Export Formats**: JSON, CSV, XLSX, XLIFF 2.1, and Markdown reports
+- **✅ Rich Visualization**: Terminal-based and file-based reporting with multiple view modes
+- **✅ Translation Workflow**: Complete export/import cycle for translation management",,,,
+71fe8da6-2107-4508-96cd-44131e2197c1,/home/driller/repo/docdiff/docs/en/index.md,87,section,missing,0.00,### Upcoming Features,,,,
+f94eda21-f94a-45da-ba64-770a55327ec6,/home/driller/repo/docdiff/docs/en/index.md,88,list,missing,0.00,"- **Machine Translation Integration**: Support for AI-powered translation services
+- **Web Interface**: Browser-based UI for non-technical users
+- **Translation Memory**: Reuse of previously translated content",,,,
+521fc550-dfbe-4025-bb8b-57e1d1e71bb5,/home/driller/repo/docdiff/docs/en/index.md,95,list,missing,0.00,"- **Issues**: Report bugs or request features on [GitHub Issues](https://github.com/yourusername/docdiff/issues)
+- **Discussions**: Join the conversation on [GitHub Discussions](https://github.com/yourusername/docdiff/discussions)
+- **Contributing**: See our {doc}`developer-guide` for contribution guidelines",,,,
+2d2f0450-ed92-4ebc-84c8-c60bb3ae5aa7,/home/driller/repo/docdiff/docs/en/index.md,100,section,missing,0.00,## License,,docdiff-license,,
+e8f69cc4-e0de-4dd8-aa0a-3cc57bd652c2,/home/driller/repo/docdiff/docs/en/index.md,102,paragraph,missing,0.00,docdiff is open source software licensed under the MIT License.,,,,
+aabf0068-cdb6-493e-a11b-e4c70d3d73dd,/home/driller/repo/docdiff/docs/en/developer-guide.md,2,section,missing,0.00,# Developer Guide,,developer-guide,,
+5f4624e9-6f2d-45be-9b21-27cf256f7817,/home/driller/repo/docdiff/docs/en/developer-guide.md,5,section,missing,0.00,## Development Environment Setup,,dev-environment-setup,,
+2b15d487-570e-4195-ae5f-8e0ccb550a9f,/home/driller/repo/docdiff/docs/en/developer-guide.md,8,section,missing,0.00,### Prerequisites,,dev-prerequisites,,
+fcd6bf95-236c-47b7-862b-e422f9a57300,/home/driller/repo/docdiff/docs/en/developer-guide.md,10,list,missing,0.00,"- Python 3.12 or higher
+- uv (Python package manager)
+- Git",,,,
+1280f436-b3d6-4434-a02c-eb306e6863ca,/home/driller/repo/docdiff/docs/en/developer-guide.md,15,section,missing,0.00,### Initial Setup,,dev-initial-setup,,
+95da508c-5579-461a-aaed-f488e63ae630,/home/driller/repo/docdiff/docs/en/developer-guide.md,17,list,missing,0.00,1. Clone the repository:,,,,
+9c4febeb-97c4-4088-a7e1-1567a5b88320,/home/driller/repo/docdiff/docs/en/developer-guide.md,18,code_block,missing,0.00,"git clone https://github.com/yourusername/docdiff.git
+cd docdiff",,,dev-code-clone-repository,
+98ef089c-87dd-462e-9931-4a0aa55cf727,/home/driller/repo/docdiff/docs/en/developer-guide.md,27,list,missing,0.00,2. Install dependencies using uv:,,,,
+0926bbb0-5f8f-4dae-aaee-85c2cba1a766,/home/driller/repo/docdiff/docs/en/developer-guide.md,28,code_block,missing,0.00,uv sync,,,dev-code-install-dependencies,
+b88a3e72-2d76-4382-ab0d-57f2da2616e0,/home/driller/repo/docdiff/docs/en/developer-guide.md,35,list,missing,0.00,3. Install the package in development mode:,,,,
+ce0d33b9-d752-4e43-a880-d5fdfb8fdbe2,/home/driller/repo/docdiff/docs/en/developer-guide.md,36,code_block,missing,0.00,uv pip install -e .,,,dev-code-install-development,
+bd1bc16b-4601-44a8-b84c-ce8a2372a86f,/home/driller/repo/docdiff/docs/en/developer-guide.md,43,list,missing,0.00,4. Verify installation:,,,,
+0bfd5dd6-db26-41fe-a364-7d19e46de5fc,/home/driller/repo/docdiff/docs/en/developer-guide.md,44,code_block,missing,0.00,"uv run docdiff --version
+
+# Test a basic command
+uv run docdiff compare docs/en docs/ja --view summary",,,dev-code-verify-installation,
+dfc13a04-3e90-4135-b161-200bda228cd8,/home/driller/repo/docdiff/docs/en/developer-guide.md,55,section,missing,0.00,## Project Structure,,dev-project-structure,,
+4623cc51-8685-4f14-b2b3-037f6aff26c5,/home/driller/repo/docdiff/docs/en/developer-guide.md,57,code_block,missing,0.00,"docdiff/
+├── src/
+│   └── docdiff/
+│       ├── __init__.py
+│       ├── cli/                 # CLI commands
+│       │   ├── __init__.py
+│       │   ├── main.py         # Main CLI entry
+│       │   ├── parse.py        # Parse command
+│       │   ├── compare.py      # Compare command
+│       │   ├── export.py       # Export command
+│       │   └── import_.py      # Import command
+│       ├── models.py            # Pydantic data models
+│       ├── parsers/
+│       │   ├── __init__.py
+│       │   └── myst.py         # MyST/Markdown parser
+│       ├── cache/
+│       │   ├── __init__.py
+│       │   └── manager.py      # Cache management
+│       ├── compare/
+│       │   ├── __init__.py
+│       │   ├── engine.py       # Comparison engine
+│       │   ├── models.py       # Comparison models
+│       │   ├── views.py        # Terminal views
+│       │   └── reporters.py    # Markdown reporters
+│       └── workflow/
+│           ├── __init__.py
+│           ├── exporter.py     # Multi-format export
+│           └── importer.py     # Translation import
+├── tests/
+│   ├── unit/                   # Unit tests
+│   ├── integration/            # Integration tests
+│   ├── e2e/                    # End-to-end tests
+│   └── fixtures/               # Test data
+├── docs/
+│   ├── en/                     # English documentation
+│   └── ja/                     # Japanese documentation
+├── .docdiff/                    # Cache directory (gitignored)
+│   ├── cache/                  # Parsed data cache
+│   └── reports/                # Generated reports
+├── pyproject.toml              # Project configuration
+├── CLAUDE.md                   # AI assistant instructions
+└── .claude/                    # Claude-specific configs
+    └── commands/               # Custom commands",,,dev-code-project-structure,
+61bd9a53-1ca1-450f-8f0a-060bde28628f,/home/driller/repo/docdiff/docs/en/developer-guide.md,107,section,missing,0.00,## Testing Strategy,,dev-testing-strategy,,
+1b5c818a-c2c9-4b1a-a0f8-520ece15dbc4,/home/driller/repo/docdiff/docs/en/developer-guide.md,110,section,missing,0.00,### Running Tests,,dev-running-tests,,
+b0e956a3-0a49-4bc7-8f08-8933fd4404c5,/home/driller/repo/docdiff/docs/en/developer-guide.md,112,paragraph,missing,0.00,Run all tests:,,,,
+0153fd8e-d107-469e-8300-b9c844c62e63,/home/driller/repo/docdiff/docs/en/developer-guide.md,113,code_block,missing,0.00,uv run pytest tests/,,,dev-code-run-all-tests,
+74a203b3-7ae5-4913-9856-f616c75332e6,/home/driller/repo/docdiff/docs/en/developer-guide.md,120,paragraph,missing,0.00,Run with coverage:,,,,
+936ddee0-2641-487a-baad-d6bd2e30a9cf,/home/driller/repo/docdiff/docs/en/developer-guide.md,121,code_block,missing,0.00,uv run pytest tests/ --cov=docdiff --cov-report=term-missing,,,dev-code-run-with-coverage,
+d262505d-d77f-4b66-b81f-9c8a26ddf324,/home/driller/repo/docdiff/docs/en/developer-guide.md,128,paragraph,missing,0.00,Run specific test types:,,,,
+886953e7-7c28-4cab-8f6a-89cc2874bf91,/home/driller/repo/docdiff/docs/en/developer-guide.md,129,code_block,missing,0.00,"# Unit tests only
+uv run pytest tests/unit/
+
+# Integration tests
+uv run pytest tests/integration/
+
+# E2E tests
+uv run pytest tests/e2e/",,,dev-code-run-specific-tests,
+62f9fa67-5a89-44e1-bb32-777683bec40b,/home/driller/repo/docdiff/docs/en/developer-guide.md,144,section,missing,0.00,### Test Coverage Goals,,dev-test-coverage-goals,,
+879ab6cc-fb41-46f4-ba28-4a6f7f91bf9f,/home/driller/repo/docdiff/docs/en/developer-guide.md,146,list,missing,0.00,"- Unit test coverage: > 80%
+- Integration test coverage: Key workflows
+- E2E test coverage: Main user journeys",,,,
+b106db3b-43dd-4111-98e6-2e3afb2ff1dd,/home/driller/repo/docdiff/docs/en/developer-guide.md,151,section,missing,0.00,### Writing Tests,,dev-writing-tests,,
+ba32e255-4be6-47a6-9820-db6f39956f41,/home/driller/repo/docdiff/docs/en/developer-guide.md,153,paragraph,missing,0.00,Example unit test:,,,,
+2bc03819-ff03-45da-8d01-e4b9aec9b140,/home/driller/repo/docdiff/docs/en/developer-guide.md,154,code_block,missing,0.00,"import pytest
+from docdiff.parsers import MySTParser
+from pathlib import Path
+
+def test_parse_basic_markdown():
+    parser = MySTParser()
+    content = ""# Title\n\nParagraph""
+    nodes = parser.parse(content, Path(""test.md""))
+    
+    assert len(nodes) == 2
+    assert nodes[0].type.value == ""section""
+    assert nodes[0].content == ""# Title""
+    assert nodes[1].type.value == ""paragraph""
+    assert nodes[1].content == ""Paragraph""",,,dev-code-unit-test-example,
+9e715267-1b7e-4c10-b22e-5cd7e88b0bdc,/home/driller/repo/docdiff/docs/en/developer-guide.md,176,section,missing,0.00,## Code Style Guidelines,,dev-code-style-guidelines,,
+bcc2d3f8-6fcd-4747-a59c-8344ecf68189,/home/driller/repo/docdiff/docs/en/developer-guide.md,179,section,missing,0.00,### Python Conventions,,dev-python-conventions,,
+ffdb8c9e-409f-46e0-953c-8386da14de72,/home/driller/repo/docdiff/docs/en/developer-guide.md,181,list,missing,0.00,"- Use Python 3.12+ features
+- Type hints for all functions
+- Docstrings for all public APIs
+- Follow PEP 8 with ruff enforcement",,,,
+bf683636-ba23-41b8-8d4a-1cfdf7a7590b,/home/driller/repo/docdiff/docs/en/developer-guide.md,187,section,missing,0.00,### Quality Management Tools,,dev-quality-tools,,
+2542bc6f-6423-4308-a860-88593285e2d5,/home/driller/repo/docdiff/docs/en/developer-guide.md,189,code_block,missing,0.00,"# Format code
+uv run ruff format .
+
+# Lint and auto-fix
+uv run ruff check . --fix
+
+# Type checking
+uv run mypy .
+
+# All checks at once
+uv run ruff format . && uv run ruff check . --fix && uv run mypy . && uv run pytest tests/",,,dev-code-quality-check,
+c884bf05-65b1-42f4-be05-442df089da92,/home/driller/repo/docdiff/docs/en/developer-guide.md,208,section,missing,0.00,### Commit Guidelines,,dev-commit-guidelines,,
+ff34e104-db6c-44c6-ada0-fde85b49f300,/home/driller/repo/docdiff/docs/en/developer-guide.md,210,list,missing,0.00,"- Use conventional commits format
+- Commit messages in English
+- Reference issues when applicable",,,,
+72d40363-205c-471d-8227-8d1b17176e1a,/home/driller/repo/docdiff/docs/en/developer-guide.md,214,paragraph,missing,0.00,Examples:,,,,
+3ed10b69-d43b-4974-a3d6-ea51e72cac22,/home/driller/repo/docdiff/docs/en/developer-guide.md,215,code_block,missing,0.00,"feat: add CSV export format support
+fix: correct fuzzy matching threshold
+docs: update CLI reference for compare command
+refactor: simplify comparison engine logic
+test: add E2E tests for export/import workflow",,,,
+b95a07fa-8d00-4886-90f4-094f3176bb30,/home/driller/repo/docdiff/docs/en/developer-guide.md,224,section,missing,0.00,## Breaking Changes Policy,,dev-breaking-changes,,
+b99d102a-f86f-4763-9f1a-2833a5b37fce,/home/driller/repo/docdiff/docs/en/developer-guide.md,226,paragraph,missing,0.00,"**Important**: docdiff follows a ""breaking changes welcome"" philosophy:",,,,
+b01785ef-f484-4b64-98ff-0c5a40066c4a,/home/driller/repo/docdiff/docs/en/developer-guide.md,228,list,missing,0.00,"- No backward compatibility requirements
+- No deprecation periods needed
+- Always use the best available solution
+- Refactor freely for better design
+- Remove unused code immediately",,,,
+5a200807-0f62-4e98-a68f-a8ffcb49e1f5,/home/driller/repo/docdiff/docs/en/developer-guide.md,234,paragraph,missing,0.00,This policy accelerates development and maintains code quality by avoiding technical debt.,,,,
+c82f3d3d-18b1-47cb-b109-bfd2295174f6,/home/driller/repo/docdiff/docs/en/developer-guide.md,237,section,missing,0.00,## Contributing,,dev-contributing,,
+115aab6c-176f-4779-8b3f-a2489d398411,/home/driller/repo/docdiff/docs/en/developer-guide.md,239,section,missing,0.00,### Development Workflow,,,,
+975658a5-4ee2-47d5-a996-b9a06121d432,/home/driller/repo/docdiff/docs/en/developer-guide.md,241,list,missing,0.00,"1. Fork the repository
+2. Create a feature branch
+3. Make changes with tests
+4. Run quality checks
+5. Submit pull request",,,,
+d1282efd-d641-49ad-bc07-261d4111ec9a,/home/driller/repo/docdiff/docs/en/developer-guide.md,247,section,missing,0.00,### Pull Request Checklist,,,,
+b195c414-c8cf-4692-9d4b-03e15311a858,/home/driller/repo/docdiff/docs/en/developer-guide.md,249,list,missing,0.00,"- [ ] Tests added/updated
+- [ ] Documentation updated
+- [ ] Quality checks pass (ruff, mypy, pytest)
+- [ ] Commit messages follow conventions
+- [ ] PR description explains changes",,,,
+359fc2e3-e478-48e4-9196-f1f80f4bf720,/home/driller/repo/docdiff/docs/en/developer-guide.md,255,paragraph,missing,0.00,"def extract_references(nodes: List[DocumentNode]) -> List[Reference]:
+    """"""Extract cross-references from document nodes.",,,,
+369961c8-4e93-4fd5-82c9-33a2fcc6dcf0,/home/driller/repo/docdiff/docs/en/developer-guide.md,258,paragraph,missing,0.00,"    Args:
+        nodes: List of document nodes to process",,,,
+789553f9-7d1c-4009-a5a5-6a8091610842,/home/driller/repo/docdiff/docs/en/developer-guide.md,261,paragraph,missing,0.00,"    Returns:
+        List of extracted references",,,,
+c1057b81-1ea1-46f1-88cb-73fd9e967228,/home/driller/repo/docdiff/docs/en/developer-guide.md,264,paragraph,missing,0.00,"    Raises:
+        ParseError: If reference syntax is invalid
+    """"""",,,,
+8d911106-e275-4cfd-89a3-3ef73608865f,/home/driller/repo/docdiff/docs/en/developer-guide.md,267,code_block,missing,0.00,"
+3. **Comments**: Write comments in English
+```{code-block} python
+:name: dev-code-comment-example
+:caption: Comment Example
+:linenos:
+
+# Calculate content hash for change detection
+content_hash = hashlib.sha256(content.encode()).hexdigest()",,,,
+52ceedb5-d60d-4d4f-b9bc-e0fa3304905f,/home/driller/repo/docdiff/docs/en/developer-guide.md,280,section,missing,0.00,### Data Validation,,dev-data-validation,,
+e19de2d6-544a-498d-aeab-ea963ced9abe,/home/driller/repo/docdiff/docs/en/developer-guide.md,282,paragraph,missing,0.00,Always use Pydantic models for data validation:,,,,
+19b862fb-9e20-40bd-8f31-b1327cc2e6a7,/home/driller/repo/docdiff/docs/en/developer-guide.md,283,code_block,missing,0.00,"from pydantic import BaseModel, validator
+
+class TranslationUnit(BaseModel):
+    source_content: str
+    target_lang: str
+    
+    @validator('target_lang')
+    def validate_language_code(cls, v):
+        if len(v) != 2:
+            raise ValueError('Language code must be 2 characters')
+        return v.lower()",,,dev-code-pydantic-validation,
+f28341dc-15fd-42b5-ab31-8b8767f4a992,/home/driller/repo/docdiff/docs/en/developer-guide.md,302,section,missing,0.00,## Implementation Phases,,dev-implementation-phases,,
+b849093c-bb7e-4568-bae2-196974e40172,/home/driller/repo/docdiff/docs/en/developer-guide.md,305,section,missing,0.00,### Phase 1: MVP (2 weeks),,dev-phase-1-mvp,,
+0a0fd060-b306-4bd9-8a51-aabc75239d74,/home/driller/repo/docdiff/docs/en/developer-guide.md,307,paragraph,missing,0.00,Core functionality to be implemented:,,,,
+1e8e0531-ca97-4fa7-84a2-88b7d7525524,/home/driller/repo/docdiff/docs/en/developer-guide.md,309,list,missing,0.00,"1. **Project Structure Setup**
+   - Initialize repository structure
+   - Configure pyproject.toml
+   - Set up development environment",,,,
+c30a0f63-9190-490d-8353-71f6000f79c8,/home/driller/repo/docdiff/docs/en/developer-guide.md,314,list,missing,0.00,"2. **Pydantic Models**
+   - DocumentNode
+   - TranslationUnit
+   - NodeType enumeration",,,,
+fc4e5e05-e2ad-43ed-b088-1ce53c7e5208,/home/driller/repo/docdiff/docs/en/developer-guide.md,319,list,missing,0.00,"3. **SQLite Database Management**
+   - Schema creation
+   - CRUD operations
+   - Migration support",,,,
+be20b43c-1c9a-4b4a-93d6-bb2b103e4189,/home/driller/repo/docdiff/docs/en/developer-guide.md,324,list,missing,0.00,"4. **Basic Parser Implementation**
+   - MyST parser using myst-parser
+   - reStructuredText parser using docutils
+   - Common interface definition",,,,
+ac35f277-77f8-4fe1-b772-bf0256393547,/home/driller/repo/docdiff/docs/en/developer-guide.md,329,list,missing,0.00,"5. **CLI Commands**
+   - `parse` command
+   - `status` command
+   - Basic error handling",,,,
+f66d22eb-3d31-402c-ba8d-0925cf6561ba,/home/driller/repo/docdiff/docs/en/developer-guide.md,335,section,missing,0.00,### Phase 2: Enhancement (1 week),,dev-phase-2-enhancement,,
+77474a09-1dbb-488a-8d8c-dc22d02e3715,/home/driller/repo/docdiff/docs/en/developer-guide.md,337,paragraph,missing,0.00,Additional features:,,,,
+292e426c-325f-47eb-abbe-f90a17124b2e,/home/driller/repo/docdiff/docs/en/developer-guide.md,339,list,missing,0.00,"1. **Incremental Updates**
+   - Change detection using content hashes
+   - Efficient update strategies",,,,
+3a83e6e9-28c3-477f-928d-605757162596,/home/driller/repo/docdiff/docs/en/developer-guide.md,343,list,missing,0.00,"2. **Advanced Error Handling**
+   - Detailed error messages
+   - Recovery mechanisms
+   - Logging system",,,,
+f029fc9c-af9c-407f-a749-7de923b66a9d,/home/driller/repo/docdiff/docs/en/developer-guide.md,348,list,missing,0.00,"3. **Export Functionality**
+   - JSON export
+   - CSV export
+   - Custom formats",,,,
+14db7e5a-9668-4615-8af3-056d413e3d5f,/home/driller/repo/docdiff/docs/en/developer-guide.md,353,list,missing,0.00,"4. **Comprehensive Testing**
+   - Unit test coverage
+   - Integration tests
+   - Performance benchmarks",,,,
+76450d94-13fd-4295-b4cf-1479527c725c,/home/driller/repo/docdiff/docs/en/developer-guide.md,359,section,missing,0.00,### Phase 3: Future Extensions,,dev-phase-3-future,,
+986c0d9a-cc4f-4b54-95b0-a498c58f67b1,/home/driller/repo/docdiff/docs/en/developer-guide.md,361,paragraph,missing,0.00,Planned extensions:,,,,
+4933a078-e5a2-444d-bdf9-8d9a84491445,/home/driller/repo/docdiff/docs/en/developer-guide.md,363,list,missing,0.00,"1. **JupyterBook Support**
+   - JSON format parsing
+   - Notebook integration",,,,
+891306a0-520f-4804-b879-926b465b51ce,/home/driller/repo/docdiff/docs/en/developer-guide.md,367,list,missing,0.00,"2. **Translation API Integration**
+   - OpenAI API
+   - Claude API
+   - Custom translation services",,,,
+26f6c958-5053-4e0d-94a0-0e25f5b76663,/home/driller/repo/docdiff/docs/en/developer-guide.md,372,list,missing,0.00,"3. **Web UI**
+   - REST API backend
+   - React frontend
+   - Real-time updates",,,,
+c2ea57f1-1d6b-4410-93ac-96ec9eec8271,/home/driller/repo/docdiff/docs/en/developer-guide.md,377,list,missing,0.00,"4. **Plugin System**
+   - Custom parser plugins
+   - Translation service plugins
+   - Export format plugins",,,,
+7358b206-1ab9-4566-b4fc-46035ea2eb39,/home/driller/repo/docdiff/docs/en/developer-guide.md,383,section,missing,0.00,## Database Migrations,,dev-database-migrations,,
+0d759110-8b44-4637-89ae-9db3b73c1802,/home/driller/repo/docdiff/docs/en/developer-guide.md,386,section,missing,0.00,### Creating Migrations,,dev-creating-migrations,,
+d791196d-036f-429f-b688-8844393ea8f0,/home/driller/repo/docdiff/docs/en/developer-guide.md,388,paragraph,missing,0.00,When schema changes are needed:,,,,
+d269fec8-28a7-4200-a61d-ebe5d4b4ef74,/home/driller/repo/docdiff/docs/en/developer-guide.md,390,code_block,missing,0.00,"# migrations/001_add_review_status.py
+def upgrade(db):
+    db.execute(""""""
+        ALTER TABLE translation_units 
+        ADD COLUMN reviewer_id TEXT
+    """""")
+    
+def downgrade(db):
+    # SQLite doesn't support DROP COLUMN
+    # Need to recreate table
+    pass",,,dev-code-migration-example,
+396a2cd8-6e82-4ec5-a01d-6c5b6b214a99,/home/driller/repo/docdiff/docs/en/developer-guide.md,409,section,missing,0.00,### Running Migrations,,dev-running-migrations,,
+f818233c-d200-4675-ab98-41a894976ba5,/home/driller/repo/docdiff/docs/en/developer-guide.md,411,code_block,missing,0.00,"docdiff db upgrade
+docdiff db downgrade --to 001",,,dev-code-run-migrations,
+8baff11d-99f9-470a-943d-2847593e4edc,/home/driller/repo/docdiff/docs/en/developer-guide.md,421,section,missing,0.00,## Performance Optimization,,dev-performance-optimization,,
+3956f23a-17e6-49ad-8244-8c642f99d718,/home/driller/repo/docdiff/docs/en/developer-guide.md,424,section,missing,0.00,### Indexing Strategy,,dev-indexing-strategy,,
+b249bd4a-e81a-49dd-aba1-50955fac336a,/home/driller/repo/docdiff/docs/en/developer-guide.md,426,paragraph,missing,0.00,Critical indexes for performance:,,,,
+02d1c661-6f86-4036-b59c-026f78970b42,/home/driller/repo/docdiff/docs/en/developer-guide.md,427,list,missing,0.00,"- `nodes.label` - Reference resolution
+- `nodes.parent_id` - Hierarchy traversal
+- `nodes.file_path` - File operations
+- `translation_units.status` - Status filtering",,,,
+00c27074-7222-4a9d-9a2b-31248c6b7573,/home/driller/repo/docdiff/docs/en/developer-guide.md,433,section,missing,0.00,### Batch Operations,,dev-batch-operations,,
+7630f15e-1b88-4e28-959a-b6095ec48a84,/home/driller/repo/docdiff/docs/en/developer-guide.md,435,paragraph,missing,0.00,Process multiple files efficiently:,,,,
+f7c16e9e-3098-4518-a58a-631c71f891de,/home/driller/repo/docdiff/docs/en/developer-guide.md,436,code_block,missing,0.00,"async def parse_batch(files: List[Path]) -> List[DocumentNode]:
+    tasks = [parse_file(f) for f in files]
+    results = await asyncio.gather(*tasks)
+    return flatten(results)",,,dev-code-batch-operations,
+33448166-c8bb-4300-b8bb-0c79ffaad3e2,/home/driller/repo/docdiff/docs/en/developer-guide.md,448,section,missing,0.00,### Caching,,dev-caching,,
+87929d49-f32e-4416-bcb0-53d62730a2c2,/home/driller/repo/docdiff/docs/en/developer-guide.md,450,paragraph,missing,0.00,Implement caching for expensive operations:,,,,
+cfe4a856-002b-4095-99b6-fa8af9feac56,/home/driller/repo/docdiff/docs/en/developer-guide.md,451,code_block,missing,0.00,"from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def resolve_reference(label: str) -> Optional[str]:
+    # Expensive database lookup
+    return db.find_node_by_label(label)",,,dev-code-caching-example,
+913aedb0-1497-4e73-abd4-bf6b7b28c985,/home/driller/repo/docdiff/docs/en/developer-guide.md,465,section,missing,0.00,## Debugging Tips,,dev-debugging-tips,,
+8d73f0a1-63d2-4945-848c-73cd830a550f,/home/driller/repo/docdiff/docs/en/developer-guide.md,468,section,missing,0.00,### Enable Debug Logging,,dev-enable-debug-logging,,
+7224e3d7-5752-4ca5-92e9-cadbfcb47a80,/home/driller/repo/docdiff/docs/en/developer-guide.md,470,code_block,missing,0.00,"export DOCDIFF_LOG_LEVEL=DEBUG
+docdiff parse docs/",,,dev-code-debug-logging,
+26de0363-45a2-4ab7-b91f-c055bade953e,/home/driller/repo/docdiff/docs/en/developer-guide.md,480,section,missing,0.00,### Database Inspection,,dev-database-inspection,,
+bff469d3-0092-449c-99b9-8a2af4799b70,/home/driller/repo/docdiff/docs/en/developer-guide.md,482,code_block,missing,0.00,"# Open SQLite database
+sqlite3 .docdiff/structure.db
+
+# Useful queries
+.tables
+.schema nodes
+SELECT type, COUNT(*) FROM nodes GROUP BY type;",,,dev-code-database-inspection,
+356cb897-aac3-4db5-ab0a-8a95ac4c48e6,/home/driller/repo/docdiff/docs/en/developer-guide.md,497,section,missing,0.00,### Parser Debugging,,dev-parser-debugging,,
+2438960c-78c8-415b-a756-ebe18b96d0c3,/home/driller/repo/docdiff/docs/en/developer-guide.md,499,code_block,missing,0.00,"# Enable AST printing
+from docdiff.parsers import MySTParser
+
+parser = MySTParser(debug=True)
+nodes = parser.parse(Path(""test.md""))
+# Will print AST structure",,,dev-code-parser-debugging,
+c840b1cb-ab3b-4c3d-9117-f33670fc48d7,/home/driller/repo/docdiff/docs/en/developer-guide.md,513,section,missing,0.00,## Contributing Guidelines,,dev-contributing-guidelines,,
+5353f001-8c31-4840-8c5d-e224e9c50b33,/home/driller/repo/docdiff/docs/en/developer-guide.md,516,section,missing,0.00,### Pull Request Process,,dev-pull-request-process,,
+1769ceb4-4c6e-4555-b0e7-349c8a9beeca,/home/driller/repo/docdiff/docs/en/developer-guide.md,518,list,missing,0.00,"1. Create feature branch from `main`
+2. Write tests for new functionality
+3. Ensure all tests pass
+4. Update documentation
+5. Submit PR with clear description",,,,
+5c09e038-d5e2-4f2b-bea0-93c0977361fd,/home/driller/repo/docdiff/docs/en/developer-guide.md,525,section,missing,0.00,### Commit Message Format,,dev-commit-message-format,,
+2f4f5409-4e64-4587-82bd-c3c2d5750337,/home/driller/repo/docdiff/docs/en/developer-guide.md,527,code_block,missing,0.00,"feat: Add support for JupyterBook format
+
+- Implement JSON parser
+- Add notebook cell extraction
+- Update CLI commands
+
+Closes #123",,,dev-code-commit-message,
+4bc545d0-e454-4404-ab5f-b5c527204ec7,/home/driller/repo/docdiff/docs/en/developer-guide.md,541,section,missing,0.00,### Code Review Checklist,,dev-code-review-checklist,,
+cb608731-0710-4914-83bb-19d92d2dd164,/home/driller/repo/docdiff/docs/en/developer-guide.md,543,list,missing,0.00,"- [ ] Type hints present
+- [ ] Tests written and passing
+- [ ] Documentation updated
+- [ ] No security vulnerabilities
+- [ ] Performance considered
+- [ ] Error handling complete",,,,
+7a5bce8c-ed98-4530-b5d9-d523a5cb137f,/home/driller/repo/docdiff/docs/en/api-reference.md,2,section,missing,0.00,# API Reference,,api-reference,,
+2f16caf4-d4d7-4dd5-8d5d-560f5b7abf41,/home/driller/repo/docdiff/docs/en/api-reference.md,5,section,missing,0.00,## Data Models,,api-data-models,,
+eed7ccca-856b-488b-836a-69759d4eccee,/home/driller/repo/docdiff/docs/en/api-reference.md,8,section,missing,0.00,### NodeType Enumeration,,api-nodetype-enum,,
+f4a1e0c9-59c0-4875-ae3d-8a250c4b7203,/home/driller/repo/docdiff/docs/en/api-reference.md,10,paragraph,missing,0.00,Defines the types of document structure elements:,,,,
+a5f31fe1-f6df-4d84-9908-854a3709a647,/home/driller/repo/docdiff/docs/en/api-reference.md,12,code_block,missing,0.00,"class NodeType(str, Enum):
+    SECTION = ""section""
+    PARAGRAPH = ""paragraph""
+    CODE_BLOCK = ""code_block""
+    MATH_BLOCK = ""math_block""
+    TABLE = ""table""
+    FIGURE = ""figure""
+    ADMONITION = ""admonition""
+    LIST = ""list""
+    LIST_ITEM = ""list_item""
+    DIRECTIVE = ""directive""
+    TOC_TREE = ""toc_tree""",,,api-code-nodetype-enum,
+c7c37a41-0b6c-40e9-9b11-d6067e677ff6,/home/driller/repo/docdiff/docs/en/api-reference.md,32,section,missing,0.00,### DocumentNode Model,,api-document-node,,
+87236405-c7c5-40cc-8485-9d9639cd8c5e,/home/driller/repo/docdiff/docs/en/api-reference.md,34,paragraph,missing,0.00,Represents a single element in the document structure:,,,,
+6a278c50-f2ad-449c-b1ea-295588f9c4c8,/home/driller/repo/docdiff/docs/en/api-reference.md,36,code_block,missing,0.00,"class DocumentNode(BaseModel):
+    id: str                      # Unique ID (hash-based)
+    type: NodeType               # Element type
+    content: str                 # Text content
+    level: Optional[int]         # Section hierarchy level
+    title: Optional[str]         # Section title
+    label: Optional[str]         # Reference label
+    name: Optional[str]          # :name: attribute
+    caption: Optional[str]       # :caption: attribute
+    language: Optional[str]      # Code block language
+    parent_id: Optional[str]     # Parent node reference
+    children_ids: List[str]      # Child node references
+    file_path: Path              # Source file path
+    line_number: int             # Line number in source
+    metadata: Dict[str, Any]     # Additional metadata",,,api-code-document-node,
+8c1f2c3d-9da8-4b25-9b46-d633bdae1d2f,/home/driller/repo/docdiff/docs/en/api-reference.md,59,section,missing,0.00,### TranslationUnit Model,,api-translation-unit,,
+99899d40-ce1d-48fa-ba40-947dc99b9709,/home/driller/repo/docdiff/docs/en/api-reference.md,61,paragraph,missing,0.00,Manages translation data for document elements:,,,,
+72ce87c6-19a8-44cd-8c31-848e6be90b3a,/home/driller/repo/docdiff/docs/en/api-reference.md,63,code_block,missing,0.00,"class TranslationUnit(BaseModel):
+    node_id: str                           # Reference to DocumentNode
+    source_lang: str                       # Source language code
+    target_lang: str                       # Target language code
+    source_content: str                    # Original content
+    translated_content: Optional[str]      # Translated content
+    status: TranslationStatus              # Translation status
+    content_hash: str                      # Content hash for change detection
+    translation_date: Optional[datetime]   # Last translation timestamp",,,api-code-translation-unit,
+224efa63-df1b-4137-8bc9-2680f8d15960,/home/driller/repo/docdiff/docs/en/api-reference.md,80,section,missing,0.00,### TranslationStatus Enumeration,,api-translation-status,,
+f1850f75-8729-4d83-8172-7cc87c851f92,/home/driller/repo/docdiff/docs/en/api-reference.md,82,paragraph,missing,0.00,Tracks the state of translations:,,,,
+cf766844-bdb6-46b6-b241-1b7038f658fb,/home/driller/repo/docdiff/docs/en/api-reference.md,84,code_block,missing,0.00,"class TranslationStatus(str, Enum):
+    PENDING = ""pending""        # Not yet translated
+    TRANSLATED = ""translated""  # Translation complete
+    REVIEWED = ""reviewed""      # Translation reviewed
+    OUTDATED = ""outdated""      # Source content changed",,,api-code-translation-status,
+b51532e1-e455-4bfe-a84c-e44dfad27ce6,/home/driller/repo/docdiff/docs/en/api-reference.md,97,section,missing,0.00,## Database Schema,,api-database-schema,,
+3fda1050-5932-4076-90a4-cb55f0bb7aed,/home/driller/repo/docdiff/docs/en/api-reference.md,100,section,missing,0.00,### Nodes Table,,api-nodes-table,,
+9f8a9ef3-b568-43ef-a814-19a64b9ea661,/home/driller/repo/docdiff/docs/en/api-reference.md,102,paragraph,missing,0.00,Stores document structural elements:,,,,
+2955cfb6-f48d-4a39-b5c6-7fb0892047c8,/home/driller/repo/docdiff/docs/en/api-reference.md,104,code_block,missing,0.00,"CREATE TABLE nodes (
+    id TEXT PRIMARY KEY,
+    type TEXT NOT NULL,
+    content TEXT NOT NULL,
+    level INTEGER,
+    title TEXT,
+    label TEXT,
+    name TEXT,
+    caption TEXT,
+    language TEXT,
+    parent_id TEXT,
+    children_ids TEXT,
+    file_path TEXT NOT NULL,
+    line_number INTEGER NOT NULL,
+    content_hash TEXT NOT NULL,
+    metadata JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES nodes(id) ON DELETE CASCADE
+);",,,api-code-nodes-table-schema,
+cc747c19-9abe-4d36-a1ae-3948532ec335,/home/driller/repo/docdiff/docs/en/api-reference.md,131,paragraph,missing,0.00,**Indexes:**,,,,
+b8d36ec1-6a92-4bc8-b10a-725393eefd38,/home/driller/repo/docdiff/docs/en/api-reference.md,132,list,missing,0.00,"- `label` and `name`: Fast reference resolution
+- `parent_id`: Efficient hierarchy traversal
+- `file_path`: File-based operations
+- `content_hash`: Change detection",,,,
+94e61800-386a-476a-922c-452751f8b75a,/home/driller/repo/docdiff/docs/en/api-reference.md,138,section,missing,0.00,### References Table,,api-references-table,,
+4e2a72f7-dc9e-4804-82ef-cdd7d8ddbff2,/home/driller/repo/docdiff/docs/en/api-reference.md,140,paragraph,missing,0.00,Maintains cross-reference relationships:,,,,
+7b73c22c-5bf1-424a-98f6-5b5d559a470e,/home/driller/repo/docdiff/docs/en/api-reference.md,142,code_block,missing,0.00,"CREATE TABLE references (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_node_id TEXT NOT NULL,
+    target_label TEXT NOT NULL,
+    ref_type TEXT NOT NULL,
+    resolved_target_id TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (source_node_id) REFERENCES nodes(id) ON DELETE CASCADE
+);",,,api-code-references-table-schema,
+5bb5bd40-7e0f-4a73-9742-45636a765fc1,/home/driller/repo/docdiff/docs/en/api-reference.md,158,paragraph,missing,0.00,**Fields:**,,,,
+9161bb65-38e9-425e-963e-3f8d9c6a95d1,/home/driller/repo/docdiff/docs/en/api-reference.md,159,list,missing,0.00,"- `source_node_id`: Node containing the reference
+- `target_label`: Label being referenced
+- `ref_type`: Type of reference (e.g., 'ref', 'doc', 'numref')
+- `resolved_target_id`: Resolved target node ID (if found)",,,,
+a79b8437-1c85-487e-b4c2-9af2548c6397,/home/driller/repo/docdiff/docs/en/api-reference.md,165,section,missing,0.00,### Translation Units Table,,api-translation-units-table,,
+abb116b9-fe7f-4f7d-95a4-75db6afad987,/home/driller/repo/docdiff/docs/en/api-reference.md,167,paragraph,missing,0.00,Tracks translation status and content:,,,,
+fd2241d2-64b4-4714-8ed3-87c2b6ab64e0,/home/driller/repo/docdiff/docs/en/api-reference.md,169,code_block,missing,0.00,"CREATE TABLE translation_units (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    node_id TEXT NOT NULL,
+    source_lang TEXT NOT NULL,
+    target_lang TEXT NOT NULL,
+    source_content TEXT NOT NULL,
+    translated_content TEXT,
+    status TEXT DEFAULT 'pending',
+    content_hash TEXT NOT NULL,
+    translation_date TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (node_id) REFERENCES nodes(id) ON DELETE CASCADE,
+    UNIQUE(node_id, source_lang, target_lang)
+);",,,api-code-translation-units-schema,
+3170598c-c7eb-4cb1-a2c3-0c383cd22d2f,/home/driller/repo/docdiff/docs/en/api-reference.md,191,paragraph,missing,0.00,**Indexes:**,,,,
+94406afe-1a3c-4106-ba8f-f8177808d186,/home/driller/repo/docdiff/docs/en/api-reference.md,192,list,missing,0.00,"- `status`: Filter by translation state
+- `(node_id, source_lang, target_lang)`: Unique constraint for language pairs",,,,
+e3ca57f8-a809-4af9-bef3-14cdb55dc668,/home/driller/repo/docdiff/docs/en/api-reference.md,196,section,missing,0.00,## Core Interfaces,,api-core-interfaces,,
+bccf0ec8-25b2-4ae3-8308-635270a3292a,/home/driller/repo/docdiff/docs/en/api-reference.md,199,section,missing,0.00,### ComparisonEngine,,api-comparison-engine,,
+042d4eaf-895b-4dcd-8db1-e14397c9796b,/home/driller/repo/docdiff/docs/en/api-reference.md,201,paragraph,missing,0.00,Advanced document comparison engine:,,,,
+ae857718-a960-40e1-ba19-3bf317b762e2,/home/driller/repo/docdiff/docs/en/api-reference.md,203,code_block,missing,0.00,"class ComparisonEngine:
+    def compare(self, 
+                source_nodes: List[DocumentNode],
+                target_nodes: List[DocumentNode],
+                source_lang: str = ""en"",
+                target_lang: str = ""ja"") -> ComparisonResult:
+        """"""Compare source and target document nodes.
+        
+        Returns:
+            ComparisonResult with mappings and statistics
+        """"""
+        pass",,,api-code-comparison-engine,
+9781b323-6296-4404-8aa3-05288f343e00,/home/driller/repo/docdiff/docs/en/api-reference.md,223,section,missing,0.00,### CacheManager,,api-cache-manager,,
+9f3c9c7b-373b-4ad2-9f7d-259450c06edb,/home/driller/repo/docdiff/docs/en/api-reference.md,225,paragraph,missing,0.00,Project cache management:,,,,
+6f488aa0-ad43-43d7-9784-b02699342ff3,/home/driller/repo/docdiff/docs/en/api-reference.md,227,code_block,missing,0.00,"class CacheManager:
+    def __init__(self, project_root: Optional[Path] = None):
+        """"""Initialize cache manager.
+        
+        Args:
+            project_root: Project root directory
+        """"""
+        self.base_dir = project_root / '.docdiff'
+        self.cache_dir = self.base_dir / 'cache'
+        self.reports_dir = self.base_dir / 'reports'
+    
+    def initialize(self) -> None:
+        """"""Create cache directory structure.""""""
+        pass
+    
+    def get_cache_db(self) -> Path:
+        """"""Get path to cache database.""""""
+        return self.cache_dir / 'nodes.db'",,,api-code-cache-manager,
+6e61504f-1f46-4113-8621-fd023e547de1,/home/driller/repo/docdiff/docs/en/api-reference.md,253,section,missing,0.00,### MetadataView,,api-metadata-view,,
+0c7fa26e-7456-4822-b962-b6463e849cfc,/home/driller/repo/docdiff/docs/en/api-reference.md,255,paragraph,missing,0.00,Rich terminal visualization:,,,,
+e52fcb9e-864c-4e6c-ba1b-80a934f9943d,/home/driller/repo/docdiff/docs/en/api-reference.md,257,code_block,missing,0.00,"class MetadataView:
+    def __init__(self, console: Console):
+        """"""Initialize with Rich console.""""""
+        self.console = console
+    
+    def display_tree_view(self, result: ComparisonResult) -> None:
+        """"""Display hierarchical tree view.""""""
+        pass
+    
+    def display_metadata_groups(self, result: ComparisonResult) -> None:
+        """"""Display grouped by metadata.""""""
+        pass
+    
+    def display_side_by_side(self, result: ComparisonResult) -> None:
+        """"""Display side-by-side comparison.""""""
+        pass",,,api-code-metadata-view,
+38864be4-7c5e-4ca5-8594-db2b3f1f4749,/home/driller/repo/docdiff/docs/en/api-reference.md,281,section,missing,0.00,## Comparison Models,,api-comparison-models,,
+a21027a1-8c3a-4c14-8cbf-f426ed1a0f6b,/home/driller/repo/docdiff/docs/en/api-reference.md,284,section,missing,0.00,### ComparisonResult,,api-comparison-result,,
+531de315-10f8-4273-afc3-9af1fffad321,/home/driller/repo/docdiff/docs/en/api-reference.md,286,paragraph,missing,0.00,Contains the complete result of document comparison:,,,,
+17f78fea-501e-435e-aec9-47c54238f1cd,/home/driller/repo/docdiff/docs/en/api-reference.md,288,code_block,missing,0.00,"class ComparisonResult(BaseModel):
+    source_lang: str                    # Source language code
+    target_lang: str                    # Target language code
+    mappings: List[NodeMapping]         # All node mappings
+    coverage_stats: Dict[str, Any]      # Coverage statistics
+    structure_diff: Dict[str, Any]      # Structure differences
+    timestamp: datetime                 # Comparison timestamp
+    
+    @property
+    def overall_coverage(self) -> float:
+        """"""Calculate overall translation coverage percentage.""""""
+        return self.coverage_stats['overall']",,,api-code-comparison-result,
+40143fdd-f54d-492c-8941-38db508f0ef7,/home/driller/repo/docdiff/docs/en/api-reference.md,308,section,missing,0.00,### NodeMapping,,api-node-mapping,,
+d1ec1095-621c-4864-90dc-a733705eee76,/home/driller/repo/docdiff/docs/en/api-reference.md,310,paragraph,missing,0.00,Represents the mapping between source and target nodes:,,,,
+a57ed35c-8588-4b20-b63d-36fe8d134758,/home/driller/repo/docdiff/docs/en/api-reference.md,312,code_block,missing,0.00,"class NodeMapping(BaseModel):
+    source_node: DocumentNode           # Source document node
+    target_node: Optional[DocumentNode] # Target node (if exists)
+    mapping_type: str                   # 'exact', 'fuzzy', or 'missing'
+    similarity: float                   # Content similarity score (0-1)
+    metadata_match: bool                # Whether metadata matches",,,api-code-node-mapping,
+bf30c0cb-d088-46e6-b86f-9e6a4843d8f0,/home/driller/repo/docdiff/docs/en/api-reference.md,326,section,missing,0.00,## Reporter Classes,,api-reporter-classes,,
+b8adeee4-3e24-49a0-959d-843df9cd86c4,/home/driller/repo/docdiff/docs/en/api-reference.md,329,section,missing,0.00,### MarkdownReporter,,api-markdown-reporter,,
+5039de61-fc51-4df8-b65c-63d3eb09c3da,/home/driller/repo/docdiff/docs/en/api-reference.md,331,paragraph,missing,0.00,Generates Markdown reports from comparison results:,,,,
+157f9213-a36c-4112-aeae-5cdd24b6dcd4,/home/driller/repo/docdiff/docs/en/api-reference.md,333,code_block,missing,0.00,"class MarkdownReporter:
+    def __init__(self, style: str = ""detailed""):
+        """"""Initialize with report style.
+        
+        Args:
+            style: 'detailed', 'github', or 'compact'
+        """"""
+        self.style = style
+    
+    def generate(self, 
+                result: ComparisonResult, 
+                include_badges: bool = False) -> str:
+        """"""Generate markdown report.
+        
+        Returns:
+            Formatted markdown string
+        """"""
+        pass",,,api-code-markdown-reporter,
+731cd000-598a-4ae2-8027-8e18f7971176,/home/driller/repo/docdiff/docs/en/api-reference.md,359,section,missing,0.00,## Usage Examples,,api-usage-examples,,
+4fa85727-4705-47d2-a807-0331147a94b2,/home/driller/repo/docdiff/docs/en/api-reference.md,362,section,missing,0.00,### Comparing Documents,,api-example-comparison,,
+ee7e46e4-fe7f-4f90-be6b-f81e3ad6e8f6,/home/driller/repo/docdiff/docs/en/api-reference.md,364,code_block,missing,0.00,"from docdiff.compare import ComparisonEngine
+from docdiff.parsers import MySTParser
+from pathlib import Path
+
+# Parse documents
+parser = MySTParser()
+source_nodes = parser.parse(""Hello\n## Section"", Path(""test.md""))
+target_nodes = parser.parse(""Bonjour\n## Section"", Path(""test.fr.md""))
+
+# Compare
+engine = ComparisonEngine()
+result = engine.compare(source_nodes, target_nodes, ""en"", ""fr"")
+
+print(f""Coverage: {result.coverage_stats['overall']:.1%}"")
+print(f""Missing: {result.coverage_stats['counts']['missing']}"")",,,api-code-example-comparison,
+cec818a1-048b-4307-b3b9-606f88cceaa1,/home/driller/repo/docdiff/docs/en/api-reference.md,387,section,missing,0.00,### Exporting Translation Tasks,,api-example-export,,
+2d9d1ceb-35f7-4d4e-83df-d7aab0336469,/home/driller/repo/docdiff/docs/en/api-reference.md,389,code_block,missing,0.00,"from docdiff.workflow import Exporter
+from docdiff.compare import ComparisonResult
+
+exporter = Exporter()
+
+# Export to different formats
+exporter.export(result, Path(""tasks.csv""), format=""csv"")
+exporter.export(result, Path(""tasks.xlsx""), format=""xlsx"")
+exporter.export(result, Path(""tasks.xlf""), format=""xliff"")",,,api-code-example-export,
+9c6aaab7-f9c0-4f1a-b98d-04c72086cf55,/home/driller/repo/docdiff/docs/en/api-reference.md,406,section,missing,0.00,### Importing Translations,,api-example-import,,
+eb67e388-380d-434a-b44a-9baa4eeb38e8,/home/driller/repo/docdiff/docs/en/api-reference.md,408,code_block,missing,0.00,"from docdiff.workflow import Importer
+
+importer = Importer()
+
+# Import from CSV
+result = importer.import_file(
+    Path(""translated.csv""),
+    source_dir=Path(""docs/en""),
+    target_dir=Path(""docs/ja"")
+)
+
+print(f""Imported {result['imported_count']} translations"")",,,api-code-example-import,
+0b0aba62-176d-469c-bed9-e6b479282382,/home/driller/repo/docdiff/docs/en/cli-reference.md,4,paragraph,missing,0.00,The docdiff command-line interface provides tools for analyzing and managing document translations.,,,,
+cf25ef9b-9ff0-4ee7-abb9-6176ff5a248c,/home/driller/repo/docdiff/docs/en/cli-reference.md,9,paragraph,missing,0.00,Install docdiff using uv:,,,,
+c4c4704d-17d8-4c87-95d7-25a994aa185b,/home/driller/repo/docdiff/docs/en/cli-reference.md,11,code_block,missing,0.00,"uv sync
+uv pip install -e .",,,cli-code-installation,
+dd9c42d1-27bc-4227-839e-9666a3092eb2,/home/driller/repo/docdiff/docs/en/cli-reference.md,24,section,missing,0.00,### `docdiff compare`,,cli-command-compare,,
+eaa815b0-ddbb-49a1-8e24-c96f1ba935ac,/home/driller/repo/docdiff/docs/en/cli-reference.md,26,paragraph,missing,0.00,Advanced document comparison with translation coverage analysis.,,,,
+ab99c8c0-db13-464f-94aa-f27e98142c49,/home/driller/repo/docdiff/docs/en/cli-reference.md,28,code_block,missing,0.00,docdiff compare <source-dir> <target-dir> [OPTIONS],,,cli-code-compare-usage,
+a24b7c50-2d4b-4025-9882-9c4f7738b7a8,/home/driller/repo/docdiff/docs/en/cli-reference.md,36,list,missing,0.00,"- `source-dir`: Source documentation directory (e.g., docs/en)
+- `target-dir`: Target documentation directory (e.g., docs/ja)",,,,
+2bd9f3c5-b90f-4440-aebc-0af125b741a6,/home/driller/repo/docdiff/docs/en/cli-reference.md,40,list,missing,0.00,"- `--source-lang, -s`: Source language code (default: en)
+- `--target-lang, -t`: Target language code (default: ja)
+- `--output, -o`: Output path for report (supports .json, .md extensions)
+- `--html`: Generate HTML report in .docdiff/reports/
+- `--view`: Display view mode:
+  - `summary`: Coverage statistics overview (default)
+  - `tree`: Hierarchical tree view of documents
+  - `metadata`: Group by metadata (labels, names)
+  - `side-by-side`: Side-by-side content comparison
+  - `stats`: Detailed statistics view
+- `--verbose, -v`: Show detailed output",,,,
+34c7cfcb-baa1-4b90-8c3f-9ff7898e9d08,/home/driller/repo/docdiff/docs/en/cli-reference.md,53,code_block,missing,0.00,"# Basic comparison with summary view
+docdiff compare docs/en docs/ja
+
+# Generate Markdown report (style auto-detected from filename)
+docdiff compare docs/en docs/ja --output report.md          # detailed style
+docdiff compare docs/en docs/ja --output report.github.md   # GitHub style
+docdiff compare docs/en docs/ja --output report.compact.md  # compact style
+
+# View metadata-based grouping
+docdiff compare docs/en docs/ja --view metadata
+
+# Generate HTML report
+docdiff compare docs/en docs/ja --html",,,cli-code-compare-examples,
+9a8f3868-daaf-4501-8c6c-484519e50994,/home/driller/repo/docdiff/docs/en/cli-reference.md,75,paragraph,missing,0.00,**Markdown Report Styles:**,,,,
+a2fbb1d5-b5e5-4089-b395-b09a791ed2f4,/home/driller/repo/docdiff/docs/en/cli-reference.md,76,list,missing,0.00,"- **Detailed** (default): Comprehensive report with all sections
+- **GitHub**: GitHub-flavored markdown with collapsible sections and mermaid diagrams
+- **Compact**: Minimal report focusing on missing translations",,,,
+190d4f4d-9174-4189-8939-cc1a8fb5b197,/home/driller/repo/docdiff/docs/en/cli-reference.md,80,paragraph,missing,0.00,**Terminal View Modes:**,,,,
+b37fd8ba-7ea4-47b2-bc55-3e2b5d793627,/home/driller/repo/docdiff/docs/en/cli-reference.md,81,list,missing,0.00,"- **Summary**: Overall coverage statistics and structure differences
+- **Tree**: Document hierarchy with translation status indicators
+- **Metadata**: Grouped by labels and name attributes with coverage bars
+- **Side-by-side**: Source and target content comparison table
+- **Stats**: Detailed statistics with type distribution",,,,
+8efcc986-ac4d-4817-afd6-867dc2899c12,/home/driller/repo/docdiff/docs/en/cli-reference.md,88,section,missing,0.00,### `docdiff parse`,,cli-command-parse,,
+a983ff51-95ab-4ebd-b52b-797e055d8d1d,/home/driller/repo/docdiff/docs/en/cli-reference.md,90,paragraph,missing,0.00,Parse documentation and extract structure for analysis.,,,,
+68910470-0788-4d5d-8b38-0188661d2dd9,/home/driller/repo/docdiff/docs/en/cli-reference.md,92,code_block,missing,0.00,docdiff parse <project-dir> [OPTIONS],,,cli-code-parse-usage,
+0cdc8b86-fac2-4353-83df-48fe4edcb281,/home/driller/repo/docdiff/docs/en/cli-reference.md,100,list,missing,0.00,- `project-dir`: Path to the documentation directory,,,,
+ebc8b68c-2e0b-4e78-b9b2-9c8a4f014b65,/home/driller/repo/docdiff/docs/en/cli-reference.md,103,list,missing,0.00,"- `--cache-dir`: Override default cache directory (default: .docdiff/cache)
+- `--verbose, -v`: Show detailed parsing information",,,,
+2d9958f0-a60b-433f-a4c6-f724e62f1db0,/home/driller/repo/docdiff/docs/en/cli-reference.md,107,code_block,missing,0.00,"# Parse documentation
+docdiff parse docs/en
+
+# Parse with verbose output
+docdiff parse docs/ja --verbose",,,cli-code-parse-examples,
+37ce8b2c-666b-421f-a7ee-f1b8f7a541c1,/home/driller/repo/docdiff/docs/en/cli-reference.md,120,section,missing,0.00,### `docdiff status`,,cli-command-status,,
+af871094-3d92-423e-bf9c-607ed01a2af8,/home/driller/repo/docdiff/docs/en/cli-reference.md,122,paragraph,missing,0.00,Show translation status summary.,,,,
+c2de51d1-f6bf-4277-94e9-d85684384281,/home/driller/repo/docdiff/docs/en/cli-reference.md,124,code_block,missing,0.00,docdiff status <source-dir> <target-dir> [OPTIONS],,,cli-code-status-usage,
+44632aea-ff5d-47a1-b756-3ef10c451ac6,/home/driller/repo/docdiff/docs/en/cli-reference.md,132,list,missing,0.00,"- `source-dir`: Source documentation directory
+- `target-dir`: Target documentation directory",,,,
+2468dd23-92e2-4e93-8b56-fe126ed0d5cc,/home/driller/repo/docdiff/docs/en/cli-reference.md,136,list,missing,0.00,"- `--source-lang, -s`: Source language code (default: en)
+- `--target-lang, -t`: Target language code (default: ja)
+- `--format`: Output format (`summary`, `detailed`)",,,,
+862b3255-7e9d-45b7-8b69-f8adc7f644f6,/home/driller/repo/docdiff/docs/en/cli-reference.md,141,code_block,missing,0.00,"# Quick status check
+docdiff status docs/en docs/ja
+
+# Detailed status
+docdiff status docs/en docs/ja --format detailed",,,cli-code-status-examples,
+2fa8ef64-476a-444e-8578-44a65ede4733,/home/driller/repo/docdiff/docs/en/cli-reference.md,154,section,missing,0.00,### `docdiff export`,,cli-command-export,,
+da361153-6179-441e-86f8-e67a319f5d42,/home/driller/repo/docdiff/docs/en/cli-reference.md,156,paragraph,missing,0.00,Export translation tasks to various formats.,,,,
+f985c492-dfd4-4d7e-8731-0eaf60037e4b,/home/driller/repo/docdiff/docs/en/cli-reference.md,158,code_block,missing,0.00,docdiff export <source-dir> <target-dir> [OPTIONS],,,cli-code-export-usage,
+8ffa0969-2e09-449a-a306-0f5a1738ba5e,/home/driller/repo/docdiff/docs/en/cli-reference.md,166,list,missing,0.00,"- `source-dir`: Source documentation directory
+- `target-dir`: Target documentation directory",,,,
+881a03dc-d8c4-452e-872f-5730aaeac0ad,/home/driller/repo/docdiff/docs/en/cli-reference.md,170,list,missing,0.00,"- `--format, -f`: Export format:
+  - `json`: JSON format (default)
+  - `csv`: CSV spreadsheet format
+  - `xlsx`: Excel workbook format
+  - `xliff`: XLIFF 2.1 translation format
+- `--output, -o`: Output file path (required)
+- `--source-lang, -s`: Source language code (default: en)
+- `--target-lang, -t`: Target language code (default: ja)
+- `--include-translated`: Include already translated content
+- `--metadata-only`: Export only metadata without content",,,,
+310f8759-c1a4-46ef-9be1-e7e0a180bfcc,/home/driller/repo/docdiff/docs/en/cli-reference.md,182,code_block,missing,0.00,"# Export to CSV for spreadsheet translation
+docdiff export docs/en docs/ja --format csv --output tasks.csv
+
+# Export to XLIFF for CAT tools
+docdiff export docs/en docs/ja --format xliff --output translation.xlf
+
+# Export to Excel with multiple sheets
+docdiff export docs/en docs/ja --format xlsx --output tasks.xlsx
+
+# Include already translated content for review
+docdiff export docs/en docs/ja --format json --output all.json --include-translated",,,cli-code-export-examples,
+069bb5e6-a61b-406e-a280-78d71b182202,/home/driller/repo/docdiff/docs/en/cli-reference.md,200,paragraph,missing,0.00,**Output Formats:**,,,,
+d29704aa-c8e9-4a9c-8628-dcb49443171d,/home/driller/repo/docdiff/docs/en/cli-reference.md,203,code_block,missing,0.00,"ID,File,Line,Type,Status,Similarity,Source,Target,Label,Name,Notes
+7f3a2b,index.md,7,paragraph,missing,0.0,""docdiff is a powerful..."",,,,,
+8c4d5e,index.md,11,list,fuzzy,100.0,""- **Intelligent Structure..."",""- **Intelligent Structure..."",,,",,,cli-code-export-csv-format,
+0386cf78-1860-4eaa-9c76-70fc1d3c3fa1,/home/driller/repo/docdiff/docs/en/cli-reference.md,213,code_block,missing,0.00,"<?xml version=""1.0"" encoding=""UTF-8""?>
+<xliff version=""2.1"" srcLang=""en"" trgLang=""ja"">
+  <file id=""index.md"">
+    <unit id=""7f3a2b"">
+      <segment>
+        <source>docdiff is a powerful multilingual...</source>
+        <target state=""initial""></target>
+      </segment>
+    </unit>
+  </file>
+</xliff>",,,cli-code-export-xliff-format,
+b903fe98-185b-4d30-93d8-ef97b5553677,/home/driller/repo/docdiff/docs/en/cli-reference.md,231,section,missing,0.00,### `docdiff import`,,cli-command-import,,
+40c13b1a-003a-45d4-9597-0d347dab8091,/home/driller/repo/docdiff/docs/en/cli-reference.md,233,paragraph,missing,0.00,Import translations from exported files.,,,,
+109c6c3a-ae85-4207-b86c-2d151245f448,/home/driller/repo/docdiff/docs/en/cli-reference.md,235,code_block,missing,0.00,docdiff import <input-file> [OPTIONS],,,cli-code-import-usage,
+ad6d24e1-b8ab-4242-9112-ea5a1514dbc8,/home/driller/repo/docdiff/docs/en/cli-reference.md,243,list,missing,0.00,"- `input-file`: Path to the file containing translations (CSV, JSON, XLSX, or XLIFF)",,,,
+013b93c3-7faa-4fa4-81e8-e43b1a41b2f2,/home/driller/repo/docdiff/docs/en/cli-reference.md,246,list,missing,0.00,"- `--source-dir`: Source documentation directory (for validation)
+- `--target-dir`: Target documentation directory (where to write translations)
+- `--source-lang, -s`: Source language code (default: en)
+- `--target-lang, -t`: Target language code (default: ja)
+- `--dry-run`: Preview changes without writing files
+- `--verbose, -v`: Show detailed import progress",,,,
+51786277-05e1-4b71-a191-64b4fde46868,/home/driller/repo/docdiff/docs/en/cli-reference.md,254,code_block,missing,0.00,"# Import translations from CSV
+docdiff import translated.csv --source-dir docs/en --target-dir docs/ja
+
+# Dry run to preview changes
+docdiff import translated.xlsx --source-dir docs/en --target-dir docs/ja --dry-run
+
+# Import from XLIFF with verbose output
+docdiff import translation.xlf --target-dir docs/ja --verbose",,,cli-code-import-examples,
+5ff82c47-df21-45df-b5ea-2bb6bf309145,/home/driller/repo/docdiff/docs/en/cli-reference.md,270,section,missing,0.00,### `docdiff simple-compare`,,cli-command-simple-compare,,
+2bdf1f7f-f852-4aea-9fef-3c1fe1a7c16a,/home/driller/repo/docdiff/docs/en/cli-reference.md,272,paragraph,missing,0.00,Basic structure comparison between directories.,,,,
+51144160-f883-4766-b7fa-d14dbfb2043a,/home/driller/repo/docdiff/docs/en/cli-reference.md,274,code_block,missing,0.00,docdiff simple-compare <source-dir> <target-dir> [OPTIONS],,,cli-code-simple-compare-usage,
+7cd0416b-970e-495c-9be3-8d25ccf741df,/home/driller/repo/docdiff/docs/en/cli-reference.md,282,list,missing,0.00,"- `source-dir`: Source documentation directory
+- `target-dir`: Target documentation directory",,,,
+b5b2ad2b-31e4-478b-99cf-c4c583bd6ffb,/home/driller/repo/docdiff/docs/en/cli-reference.md,286,list,missing,0.00,"- `--verbose, -v`: Show detailed comparison",,,,
+59c3cab5-eab4-4157-b9f4-21c273d63657,/home/driller/repo/docdiff/docs/en/cli-reference.md,289,code_block,missing,0.00,"# Quick structure comparison
+docdiff simple-compare docs/en docs/ja
+
+# Detailed comparison
+docdiff simple-compare docs/en docs/ja --verbose",,,cli-code-simple-compare-examples,
+eb950249-1df5-4af9-9a67-b8a7c40ec51c,/home/driller/repo/docdiff/docs/en/cli-reference.md,302,section,missing,0.00,## Configuration,,cli-configuration,,
+6bdf4f55-afb3-4644-aea6-82fa4a74ccb5,/home/driller/repo/docdiff/docs/en/cli-reference.md,304,paragraph,missing,0.00,docdiff uses a `.docdiff/` directory in your project root for cache and reports:,,,,
+0fcaea19-b800-4d9e-97ef-f159b25f8c5a,/home/driller/repo/docdiff/docs/en/cli-reference.md,306,code_block,missing,0.00,".docdiff/
+├── cache/           # Parsed document cache
+│   ├── nodes.db     # Document structure database
+│   └── mappings.db  # Translation mappings
+└── reports/         # Generated reports
+    ├── comparison_en_ja.html
+    └── *.md         # Markdown reports",,,cli-code-cache-structure,
+62c109e7-0891-4a4b-b8f9-1a1b888ddafc,/home/driller/repo/docdiff/docs/en/cli-reference.md,319,paragraph,missing,0.00,**Note:** Add `.docdiff/` to your `.gitignore` file to exclude cache from version control.,,,,
+28883347-9b91-4143-a2ab-49913609c696,/home/driller/repo/docdiff/docs/en/cli-reference.md,324,list,missing,0.00,"- `DOCDIFF_DB_PATH`: Override default database location
+- `DOCDIFF_CONFIG`: Path to configuration file
+- `DOCDIFF_LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)",,,,
+b7ea9aea-f986-417f-abdc-3ea72d0461fc,/home/driller/repo/docdiff/docs/en/cli-reference.md,334,code_block,missing,0.00,"# 1. Compare source and target documentation
+docdiff compare docs/en docs/ja
+
+# 2. Generate detailed report for review
+docdiff compare docs/en docs/ja --output initial-status.md
+
+# 3. Export missing translations to CSV
+docdiff export docs/en docs/ja --format csv --output translations-needed.csv
+
+# 4. After translation, import the completed CSV
+docdiff import translations-completed.csv --source-dir docs/en --target-dir docs/ja",,,cli-code-workflow-initial,
+46aacc5a-0b13-4268-a356-7fec3f559a5c,/home/driller/repo/docdiff/docs/en/cli-reference.md,355,code_block,missing,0.00,"# Daily workflow
+# 1. Check current translation coverage
+docdiff compare docs/en docs/ja --view summary
+
+# 2. Generate GitHub-style report for PR
+docdiff compare docs/en docs/ja --output report.github.md
+
+# 3. Export only missing translations
+docdiff export docs/en docs/ja --format xlsx --output weekly-tasks.xlsx
+
+# 4. View metadata-based grouping for prioritization
+docdiff compare docs/en docs/ja --view metadata",,,cli-code-workflow-continuous,
+4d17ce8f-ee64-47e5-8ae8-846e640afded,/home/driller/repo/docdiff/docs/en/cli-reference.md,377,code_block,missing,0.00,"# Project manager: Export tasks
+docdiff export docs/en docs/ja --format xlsx --output team-tasks.xlsx
+
+# Translator: Work on Excel file
+# ... translation work ...
+
+# Project manager: Import completed translations
+docdiff import team-tasks-completed.xlsx \
+  --source-dir docs/en \
+  --target-dir docs/ja \
+  --dry-run  # Preview first
+
+# If preview looks good, import for real
+docdiff import team-tasks-completed.xlsx \
+  --source-dir docs/en \
+  --target-dir docs/ja
+
+# Generate report for stakeholders
+docdiff compare docs/en docs/ja --output status-report.md",,,cli-code-workflow-team,
+00a6f977-df90-4000-8609-e1462d0ebf31,/home/driller/repo/docdiff/docs/en/cli-reference.md,404,section,missing,0.00,## Exit Codes,,cli-exit-codes,,
+690f3152-a8f9-498c-8036-c30c0d541d0e,/home/driller/repo/docdiff/docs/en/cli-reference.md,406,list,missing,0.00,"- `0`: Success
+- `1`: General error
+- `2`: Parse error
+- `3`: Database error
+- `4`: Validation error
+- `5`: Configuration error",,,,
+adfd294b-ce83-4296-bf07-d2d2831cdc3e,/home/driller/repo/docdiff/docs/en/cli-reference.md,416,list,missing,0.00,"1. **Regular Parsing**: Re-parse your documentation regularly to detect structural changes
+2. **Version Control**: Include `.docdiff.yml` in version control, exclude `.docdiff/` directory
+3. **Incremental Updates**: Use `--filter outdated` to focus on changed content
+4. **Validation**: Run validation before major releases to ensure reference integrity
+5. **Batch Operations**: Process multiple target languages in configuration rather than individual commands",,,,
+70a700b2-843b-4be1-b154-da9aec0b6664,/home/driller/repo/docdiff/docs/en/architecture.md,2,section,missing,0.00,# Architecture,,architecture,,
+95fab335-c642-4fc5-b046-62203e2ad5eb,/home/driller/repo/docdiff/docs/en/architecture.md,5,section,missing,0.00,## Overview,,architecture-overview,,
+7c01673d-c20e-4291-a623-24d71f9d36f7,/home/driller/repo/docdiff/docs/en/architecture.md,7,paragraph,missing,0.00,docdiff is a multilingual translation management tool for MyST/reStructuredText documents. It analyzes documents by structural units and tracks translation states to support internationalization of technical documentation.,,,,
+926ba1d2-c6b3-44a1-88bd-8d20d54a3681,/home/driller/repo/docdiff/docs/en/architecture.md,10,section,missing,0.00,## Core Design Philosophy,,architecture-core-design,,
+c1559879-e04b-43a0-a562-fc487329a142,/home/driller/repo/docdiff/docs/en/architecture.md,12,paragraph,missing,0.00,The system adopts the following design principles:,,,,
+6a30d2db-7c67-4726-8755-2bf4c4eff443,/home/driller/repo/docdiff/docs/en/architecture.md,14,list,missing,0.00,"- **Layered Architecture**: Clear separation of concerns between layers
+- **Structural Unit Separation**: Documents are separated by logical structural units (sections, code blocks, figures, tables, etc.)
+- **No Mechanical Character-based Splitting**: Preserves document context and meaning
+- **Translation State Management**: Tracks status for each structural element (pending/translated/reviewed/outdated)",,,,
+a58836da-437e-4ce6-b788-a37826703784,/home/driller/repo/docdiff/docs/en/architecture.md,20,section,missing,0.00,## System Architecture,,architecture-system,,
+22a04366-9dfe-4880-abc5-f2739c45aeb7,/home/driller/repo/docdiff/docs/en/architecture.md,22,paragraph,missing,0.00,The system follows a modular architecture with specialized components for each aspect of translation management:,,,,
+a88ee6c8-de16-4e14-bb5d-36d5862c07d2,/home/driller/repo/docdiff/docs/en/architecture.md,24,code_block,missing,0.00,"┌───────────────────────────────────────────────────┐
+│                   CLI Layer (Typer)               │
+│     Commands: compare, export, import, parse      │
+├───────────────────────────────────────────────────┤
+│              Comparison & Analysis Layer           │
+│  ┌─────────────────┐  ┌────────────────┐          │
+│  │ComparisonEngine │  │ MetadataView   │          │
+│  └─────────────────┘  └────────────────┘          │
+│  ┌─────────────────┐  ┌────────────────┐          │
+│  │MarkdownReporter │  │ NodeMapping    │          │
+│  └─────────────────┘  └────────────────┘          │
+├───────────────────────────────────────────────────┤
+│               Translation Workflow Layer           │
+│  ┌─────────────────┐  ┌────────────────┐          │
+│  │   Exporter     │  │   Importer     │          │
+│  │ (JSON/CSV/     │  │ (Multi-format  │          │
+│  │  XLSX/XLIFF)   │  │   support)     │          │
+│  └─────────────────┘  └────────────────┘          │
+├───────────────────────────────────────────────────┤
+│                  Parser Layer                      │
+│  ┌─────────────────┐  ┌────────────────┐          │
+│  │  MySTParser    │  │ DocumentNode   │          │
+│  └─────────────────┘  └────────────────┘          │
+├───────────────────────────────────────────────────┤
+│              Cache Management Layer                │
+│  ┌──────────────────────────────────────────┐     │
+│  │         CacheManager (.docdiff/)         │     │
+│  │    - cache/: SQLite databases            │     │
+│  │    - reports/: Generated reports         │     │
+│  └──────────────────────────────────────────┘     │
+└───────────────────────────────────────────────────┘",,,architecture-diagram-layers,
+13705d37-51ec-40cd-9576-5277ac5ca441,/home/driller/repo/docdiff/docs/en/architecture.md,62,section,missing,0.00,## Core Components,,architecture-core-components,,
+55eaef5f-0f8a-4238-8e08-6cbf0b87776a,/home/driller/repo/docdiff/docs/en/architecture.md,65,section,missing,0.00,### DocumentNode,,architecture-document-node,,
+d4461ef4-2ab4-43ed-a5e8-26f9ca17d429,/home/driller/repo/docdiff/docs/en/architecture.md,66,paragraph,missing,0.00,"The basic unit of document structure, implemented as a Pydantic model. Represents individual elements like sections, paragraphs, code blocks, etc. with full metadata preservation including labels, names, and captions.",,,,
+2b004297-ab08-4244-b62b-a254da240e65,/home/driller/repo/docdiff/docs/en/architecture.md,69,section,missing,0.00,### MySTParser,,architecture-myst-parser,,
+1a2a6697-84ea-428b-bfa0-671db7aeb2da,/home/driller/repo/docdiff/docs/en/architecture.md,70,paragraph,missing,0.00,Advanced parser for MyST (Markedly Structured Text) and standard Markdown formats. Extracts document structure while preserving all metadata attributes and cross-references.,,,,
+a1b91e57-90ab-434c-8de4-e2a5c035787b,/home/driller/repo/docdiff/docs/en/architecture.md,73,section,missing,0.00,### ComparisonEngine,,architecture-comparison-engine,,
+72f912c4-52fc-4601-90bc-4743c164f51c,/home/driller/repo/docdiff/docs/en/architecture.md,74,paragraph,missing,0.00,Sophisticated multi-pass comparison system that:,,,,
+3c85ebed-4062-4c77-8493-4f9d89da40a2,/home/driller/repo/docdiff/docs/en/architecture.md,75,list,missing,0.00,"- **Exact Matching**: First pass matches nodes by label and name attributes
+- **Fuzzy Matching**: Second pass uses content similarity for approximate matches
+- **Missing Detection**: Identifies untranslated content
+- **Performance**: Processes 14,000+ nodes per second",,,,
+884029f0-b917-4b44-9f90-d1fda8de9e15,/home/driller/repo/docdiff/docs/en/architecture.md,81,section,missing,0.00,### MetadataView,,architecture-metadata-view,,
+d4f9c69e-e502-4f02-8b71-a9472b05d715,/home/driller/repo/docdiff/docs/en/architecture.md,82,paragraph,missing,0.00,Rich terminal visualization component providing multiple display modes:,,,,
+4f6515f2-983d-467b-aca2-036e266586d4,/home/driller/repo/docdiff/docs/en/architecture.md,83,list,missing,0.00,"- **Tree View**: Hierarchical document structure with status indicators
+- **Metadata Groups**: Coverage statistics grouped by labels and names
+- **Side-by-Side**: Parallel source/target content comparison
+- **Statistics**: Detailed type distribution and coverage metrics",,,,
+0161d60d-615b-43d3-af9b-9b87af5de355,/home/driller/repo/docdiff/docs/en/architecture.md,89,section,missing,0.00,### MarkdownReporter,,architecture-markdown-reporter,,
+3b0a8608-dac5-448a-8618-eeb77b85922b,/home/driller/repo/docdiff/docs/en/architecture.md,90,paragraph,missing,0.00,Generates Git-friendly Markdown reports with three styles:,,,,
+61d69b85-7e0b-43f0-8876-ec40234a36f7,/home/driller/repo/docdiff/docs/en/architecture.md,91,list,missing,0.00,"- **Detailed**: Comprehensive report with all sections and visualizations
+- **GitHub**: Collapsible sections, mermaid diagrams, and task lists
+- **Compact**: Minimal format focusing on critical missing translations",,,,
+26671e8c-60c1-4056-8f6b-83519f4f0c79,/home/driller/repo/docdiff/docs/en/architecture.md,96,section,missing,0.00,### Exporter,,architecture-exporter,,
+4d9c04e8-d18c-4f67-945e-9a2335c0544a,/home/driller/repo/docdiff/docs/en/architecture.md,97,paragraph,missing,0.00,Multi-format export system supporting:,,,,
+d167d231-3245-4be2-b831-fe59b4cbaa3f,/home/driller/repo/docdiff/docs/en/architecture.md,98,list,missing,0.00,"- **JSON**: Complete structural data with metadata
+- **CSV**: Universal spreadsheet format for easy editing
+- **XLSX**: Excel workbooks with multiple sheets
+- **XLIFF 2.1**: Industry-standard CAT tool format",,,,
+cdab5ab1-6b80-44ad-9af2-2587d2968311,/home/driller/repo/docdiff/docs/en/architecture.md,104,section,missing,0.00,### Importer,,architecture-importer,,
+7baa5088-3a87-4769-bfc3-f39f7d0e291c,/home/driller/repo/docdiff/docs/en/architecture.md,105,paragraph,missing,0.00,Intelligent import system that:,,,,
+eb3cd604-2d63-4499-8cc2-12c90bb01c2c,/home/driller/repo/docdiff/docs/en/architecture.md,106,list,missing,0.00,"- Validates translations against source structure
+- Preserves document formatting and metadata
+- Supports dry-run mode for preview
+- Handles all export formats seamlessly",,,,
+43a13618-58fb-40df-b42c-9a64ce64c370,/home/driller/repo/docdiff/docs/en/architecture.md,112,section,missing,0.00,### CacheManager,,architecture-cache-manager,,
+ff2ad5ec-8c9a-48bc-ae03-b66ee96640ea,/home/driller/repo/docdiff/docs/en/architecture.md,113,paragraph,missing,0.00,Centralized cache management system:,,,,
+b58f83a0-5aec-4856-a5be-1bc04b6c4414,/home/driller/repo/docdiff/docs/en/architecture.md,114,list,missing,0.00,"- **Location**: Project-root `.docdiff/` directory
+- **Structure**: Organized cache/ and reports/ subdirectories
+- **Persistence**: SQLite databases for parsed structures
+- **Performance**: Eliminates redundant parsing operations",,,,
+34136731-0bc0-40bc-96f6-3f81ac8e2428,/home/driller/repo/docdiff/docs/en/architecture.md,120,section,missing,0.00,### CLI,,architecture-cli,,
+3b818ed1-0723-45cd-9dff-df07baf72175,/home/driller/repo/docdiff/docs/en/architecture.md,121,paragraph,missing,0.00,"Command-line interface built with Typer, providing intuitive commands:",,,,
+fce250b2-b4f2-498c-bf61-8215c42da698,/home/driller/repo/docdiff/docs/en/architecture.md,122,list,missing,0.00,"- `compare`: Advanced comparison with multiple view modes
+- `export`: Multi-format translation task export
+- `import`: Translation import with validation
+- `parse`: Document structure extraction
+- `status`: Quick coverage summary",,,,
+27675c58-76ab-48a6-bfe0-77d7d595017a,/home/driller/repo/docdiff/docs/en/architecture.md,129,section,missing,0.00,## Key Features,,architecture-key-features,,
+ccb93beb-06a5-4321-ad5c-ea3b69a36e99,/home/driller/repo/docdiff/docs/en/architecture.md,132,section,missing,0.00,### Document Structure Analysis,,architecture-structure-analysis,,
+9c294b80-a2bf-49e7-adbb-c0d448da094e,/home/driller/repo/docdiff/docs/en/architecture.md,133,list,missing,0.00,"- **Section Identification**: Recognizes heading levels, titles, and labels
+- **Attribute Extraction**: Preserves `:name:` and `:caption:` attributes
+- **Cross-reference Tracking**: Maintains JupyterBook/Sphinx reference system
+- **Logical Separation**: Separates by structural units (code blocks, tables, figures)
+- **Context Preservation**: No mechanical character-count based splitting",,,,
+8bf0870d-167b-4464-ab89-442affcc5047,/home/driller/repo/docdiff/docs/en/architecture.md,140,section,missing,0.00,### Translation Management,,architecture-translation-management,,
+c0a8f3f9-cbad-40c5-bc45-1be8b1d64bfe,/home/driller/repo/docdiff/docs/en/architecture.md,141,list,missing,0.00,"- **State Tracking**: Monitors translation status for each structural element
+- **Change Detection**: Hash-based content change detection
+- **Incremental Updates**: Supports efficient updates of changed content only
+- **Version History**: Maintains translation history and timestamps",,,,
+7c92b031-ef5c-4d7e-9b6e-17f7a3d79371,/home/driller/repo/docdiff/docs/en/architecture.md,147,section,missing,0.00,### Sphinx Project Support,,architecture-sphinx-support,,
+add6655b-365d-4da4-a73b-3a4dff6e761f,/home/driller/repo/docdiff/docs/en/architecture.md,148,list,missing,0.00,"- **Configuration Reading**: Automatic `conf.py` configuration loading
+- **Batch Analysis**: Processes entire projects in one operation
+- **Toctree Understanding**: Comprehends document hierarchy and relationships",,,,
+11703c19-673e-44a8-9097-a996e4d9c702,/home/driller/repo/docdiff/docs/en/architecture.md,153,section,missing,0.00,## Database Design,,architecture-database-design,,
+cbe8d036-66dc-4605-8657-b1ca5eb87de9,/home/driller/repo/docdiff/docs/en/architecture.md,155,paragraph,missing,0.00,The system uses SQLite for data persistence with the following main tables:,,,,
+c92c330d-a4e7-4943-8b37-e770d72d9d19,/home/driller/repo/docdiff/docs/en/architecture.md,158,section,missing,0.00,### Nodes Table,,architecture-nodes-table,,
+14e00afb-1492-4ccd-ba3a-ecd1375c6bee,/home/driller/repo/docdiff/docs/en/architecture.md,159,paragraph,missing,0.00,"Stores document structural elements with full metadata including type, content, hierarchy, and references.",,,,
+d876deaa-f899-46eb-b2d4-88852c9786ad,/home/driller/repo/docdiff/docs/en/architecture.md,162,section,missing,0.00,### References Table,,architecture-references-table,,
+79e11d5a-59fc-4e0e-b33a-b12134a654ff,/home/driller/repo/docdiff/docs/en/architecture.md,163,paragraph,missing,0.00,Maintains relationships between document elements for cross-reference resolution.,,,,
+914b4db9-d431-466f-9fed-eac78de976b7,/home/driller/repo/docdiff/docs/en/architecture.md,166,section,missing,0.00,### Translation Units Table,,architecture-translation-units-table,,
+f0ed0ebd-b1f1-48c2-be3c-cd758dbed07f,/home/driller/repo/docdiff/docs/en/architecture.md,167,paragraph,missing,0.00,Tracks translation status and content for each document element across language pairs.,,,,
+77b3a56e-2a5c-4572-ba1d-0ef137d26d82,/home/driller/repo/docdiff/docs/en/architecture.md,169,paragraph,missing,0.00,"The database includes strategic indexing on labels, names, parent IDs, file paths, and status fields for optimal query performance.",,,,
+1a393c5d-b22e-4191-9707-0a83a4102a09,/home/driller/repo/docdiff/docs/en/architecture.md,172,section,missing,0.00,## Technology Stack,,architecture-technology-stack,,
+927d511c-1790-46df-8310-8e229206f713,/home/driller/repo/docdiff/docs/en/architecture.md,174,code_block,missing,0.00,":name: architecture-table-tech-stack
+:header-rows: 1
+:widths: 30 70
+
+* - Technology
+  - Purpose
+* - Python 3.12+
+  - Modern type hints, improved performance
+* - Pydantic
+  - Data validation, serialization, type safety
+* - Typer
+  - Type-hint based CLI with automatic help generation
+* - SQLite
+  - Lightweight, embedded database with transaction support
+* - myst-parser
+  - Advanced MyST/Markdown parsing with metadata extraction
+* - Rich
+  - Beautiful terminal output, tables, and progress indicators
+* - difflib
+  - Fuzzy string matching for content comparison
+* - csv/openpyxl/lxml
+  - Multi-format export/import support
+* - pytest
+  - Comprehensive testing framework with fixtures
+* - ruff
+  - Fast Python linter and formatter
+* - mypy
+  - Static type checking for code quality",,,,
+5bffeb08-3349-4817-88b7-be5ab0d647d8,/home/driller/repo/docdiff/docs/en/architecture.md,206,section,missing,0.00,## Future Extensibility,,architecture-future-extensibility,,
+1cd3f886-c62a-4531-a52d-965246701483,/home/driller/repo/docdiff/docs/en/architecture.md,208,paragraph,missing,0.00,The architecture is designed with the following extension points:,,,,
+7995c083-be0e-422e-9733-4ab0be0fc41b,/home/driller/repo/docdiff/docs/en/architecture.md,210,list,missing,0.00,"- **JupyterBook JSON Format Support**: For modern documentation workflows
+- **Translation API Integration**: OpenAI, Claude, and other AI translation services
+- **Web UI**: Browser-based interface for non-technical users
+- **Multi-language Pair Support**: Simultaneous translation to multiple languages
+- **Plugin System**: Custom processors and integrations",,,,
+e7607be1-0ca9-4549-8c3b-9eb6536b1ad7,/home/driller/repo/docdiff/docs/en/architecture.md,217,section,missing,0.00,## Design Considerations,,architecture-design-considerations,,
+be0db9b5-2379-4ce8-b9df-4ad759b88847,/home/driller/repo/docdiff/docs/en/architecture.md,220,section,missing,0.00,### Interface Separation,,architecture-interface-separation,,
+ee05eeaf-fd4a-4f5b-a0b9-9267c2a2d4ff,/home/driller/repo/docdiff/docs/en/architecture.md,221,paragraph,missing,0.00,"Components communicate through well-defined interfaces, ensuring loose coupling and maintainability.",,,,
+ca166b08-19dd-40c6-95f8-9f096b5e85b1,/home/driller/repo/docdiff/docs/en/architecture.md,224,section,missing,0.00,### Flexible Data Models,,architecture-flexible-data-models,,
+2d0512af-95d6-4504-897c-ce65f0f2a483,/home/driller/repo/docdiff/docs/en/architecture.md,225,paragraph,missing,0.00,Pydantic models allow for easy extension and validation of data structures.,,,,
+293d2b3c-cd17-413d-8498-bd22f0171f3f,/home/driller/repo/docdiff/docs/en/architecture.md,228,section,missing,0.00,### Data Persistence,,architecture-data-persistence,,
+cecd70ee-a7a0-48d7-9e87-9f471bf2515a,/home/driller/repo/docdiff/docs/en/architecture.md,229,paragraph,missing,0.00,SQLite provides reliable storage with ACID compliance while remaining lightweight.,,,,
+e7205e44-9067-4a92-856e-98231616be4c,/home/driller/repo/docdiff/docs/en/architecture.md,232,section,missing,0.00,### Extensibility Through Abstraction,,architecture-extensibility-abstraction,,
+65f687d5-6d7d-489d-a78e-89f572631ef0,/home/driller/repo/docdiff/docs/en/architecture.md,233,paragraph,missing,0.00,Abstract base classes allow for new parser implementations and processing strategies.,,,,
+b0b2d796-8211-4dda-9b89-fb1cbbb825f2,/home/driller/repo/docdiff/docs/en/user-guide.md,2,section,missing,0.00,# User Guide,,user-guide,,
+60ad7ff4-83b6-45fd-af95-a659c848e8e7,/home/driller/repo/docdiff/docs/en/user-guide.md,4,paragraph,missing,0.00,This guide provides practical instructions for using docdiff to manage multilingual documentation translations.,,,,
+13cf9c92-5d71-4727-9382-9919c4f4973d,/home/driller/repo/docdiff/docs/en/user-guide.md,7,section,missing,0.00,## Overview,,user-guide-overview,,
+9e95918f-3f86-49c0-b081-62cdd08dc94b,/home/driller/repo/docdiff/docs/en/user-guide.md,9,paragraph,missing,0.00,docdiff helps you track and manage translations of technical documentation by:,,,,
+e696adbd-e8b6-4942-830d-6e3c4574949f,/home/driller/repo/docdiff/docs/en/user-guide.md,10,list,missing,0.00,"- Analyzing document structure rather than raw text
+- Tracking translation coverage with detailed metrics
+- Providing multiple export formats for translation workflows
+- Generating reports for project management",,,,
+d0c6301e-d148-417e-9955-4a0a462efb3b,/home/driller/repo/docdiff/docs/en/user-guide.md,16,section,missing,0.00,## Getting Started,,user-guide-getting-started,,
+88598068-068c-4839-b583-10c315938083,/home/driller/repo/docdiff/docs/en/user-guide.md,19,section,missing,0.00,### Installation,,user-guide-installation,,
+d59a37f0-771b-491b-ac63-542c9011d50b,/home/driller/repo/docdiff/docs/en/user-guide.md,21,paragraph,missing,0.00,Install docdiff using uv package manager:,,,,
+d29a98f7-dde0-4bba-91d8-c5113c01823f,/home/driller/repo/docdiff/docs/en/user-guide.md,23,code_block,missing,0.00,"# Clone the repository
+git clone https://github.com/yourusername/docdiff.git
+cd docdiff
+
+# Install dependencies
+uv sync
+
+# Install docdiff
+uv pip install -e .
+
+# Verify installation
+uv run docdiff --version",,,user-code-installation,
+7f9b420d-0f15-4d0c-8fd5-735fb0e31318,/home/driller/repo/docdiff/docs/en/user-guide.md,42,section,missing,0.00,## Basic Translation Workflow,,user-guide-basic-workflow,,
+d3f6b7f5-43ed-444c-9035-58175cf5b931,/home/driller/repo/docdiff/docs/en/user-guide.md,44,paragraph,missing,0.00,The typical workflow for managing translations consists of four main steps:,,,,
+2463cd2b-7a91-4434-8943-a899713df5a3,/home/driller/repo/docdiff/docs/en/user-guide.md,46,code_block,missing,0.00,"1. Compare → 2. Export → 3. Translate → 4. Import
+     ↑                                         ↓
+     └─────────────── 5. Verify ←─────────────┘",,,user-workflow-diagram,
+544e7b6f-7e6b-4987-b1c2-42086ca0267f,/home/driller/repo/docdiff/docs/en/user-guide.md,56,section,missing,0.00,### Step 1: Compare Documents,,user-guide-step1-compare,,
+db31af44-bd5d-4095-9570-bc6f75076643,/home/driller/repo/docdiff/docs/en/user-guide.md,58,paragraph,missing,0.00,"First, analyze the current translation status:",,,,
+16378d5e-efd2-446f-b2c5-a44d5abc6bdd,/home/driller/repo/docdiff/docs/en/user-guide.md,60,code_block,missing,0.00,"# Basic comparison
+uv run docdiff compare docs/en docs/ja
+
+# With detailed view
+uv run docdiff compare docs/en docs/ja --view metadata
+
+# Generate markdown report
+uv run docdiff compare docs/en docs/ja --output status.md",,,user-code-compare,
+b3384bab-7076-4424-ba28-8f02b93750da,/home/driller/repo/docdiff/docs/en/user-guide.md,74,paragraph,missing,0.00,The comparison will show:,,,,
+5bd47cf1-37de-4014-8461-5604ced5ed37,/home/driller/repo/docdiff/docs/en/user-guide.md,75,list,missing,0.00,"- Overall translation coverage percentage
+- Number of translated, missing, and fuzzy-matched nodes
+- Structure differences between source and target",,,,
+b2a36b45-50fb-4969-9a1f-ae9ff01134be,/home/driller/repo/docdiff/docs/en/user-guide.md,80,section,missing,0.00,### Step 2: Export for Translation,,user-guide-step2-export,,
+08c825aa-5990-4a52-a33b-b45e07e087a5,/home/driller/repo/docdiff/docs/en/user-guide.md,82,paragraph,missing,0.00,Export missing translations to a format suitable for your translation workflow:,,,,
+37333a88-52f7-44e3-8d39-e628de0544fb,/home/driller/repo/docdiff/docs/en/user-guide.md,84,code_block,missing,0.00,"# Export to CSV (recommended for spreadsheet tools)
+uv run docdiff export docs/en docs/ja --format csv --output tasks.csv
+
+# Export to Excel with metadata
+uv run docdiff export docs/en docs/ja --format xlsx --output tasks.xlsx
+
+# Export to XLIFF for CAT tools
+uv run docdiff export docs/en docs/ja --format xliff --output tasks.xlf",,,user-code-export,
+e6126af6-f1dd-4ab3-ba95-0636af7c6e9c,/home/driller/repo/docdiff/docs/en/user-guide.md,98,paragraph,missing,0.00,**CSV Format** is recommended for:,,,,
+9f3247f7-aad1-4be7-971c-df1822d2db2c,/home/driller/repo/docdiff/docs/en/user-guide.md,99,list,missing,0.00,"- Simple spreadsheet editing
+- Version control (Git-friendly)
+- Universal compatibility",,,,
+4e7f7cce-aa7b-4e4b-8ce1-b23fb2c4f0f4,/home/driller/repo/docdiff/docs/en/user-guide.md,103,paragraph,missing,0.00,**Excel Format** provides:,,,,
+6f3d2eed-37de-469d-b031-8eff4fe993ba,/home/driller/repo/docdiff/docs/en/user-guide.md,104,list,missing,0.00,"- Multiple sheets for organization
+- Rich formatting options
+- Comments and notes support",,,,
+14db372b-36e2-47b2-b604-e79a0ee69131,/home/driller/repo/docdiff/docs/en/user-guide.md,108,paragraph,missing,0.00,**XLIFF Format** is best for:,,,,
+cb3d5ef6-70f5-4496-bf24-83615e2f1cb1,/home/driller/repo/docdiff/docs/en/user-guide.md,109,list,missing,0.00,"- Professional CAT tools
+- Translation memory systems
+- Industry-standard workflows",,,,
+0e817dd8-38a6-44fa-a7ae-c611d1ec58f7,/home/driller/repo/docdiff/docs/en/user-guide.md,114,section,missing,0.00,### Step 3: Translate Content,,user-guide-step3-translate,,
+3ca199bf-89f8-4576-9d59-5e72a01ec77b,/home/driller/repo/docdiff/docs/en/user-guide.md,116,paragraph,missing,0.00,Open the exported file in your preferred tool:,,,,
+e73892d2-4a9c-4860-aff5-28a7077662af,/home/driller/repo/docdiff/docs/en/user-guide.md,117,list,missing,0.00,"- **CSV**: Excel, Google Sheets, LibreOffice Calc
+- **XLSX**: Microsoft Excel
+- **XLIFF**: SDL Trados, MemoQ, OmegaT",,,,
+9359579a-5d9f-4f29-b55e-cf59d77e9eb9,/home/driller/repo/docdiff/docs/en/user-guide.md,121,paragraph,missing,0.00,Translation tips:,,,,
+29265d6e-25c5-46b8-b4e7-dce59b6489d2,/home/driller/repo/docdiff/docs/en/user-guide.md,122,list,missing,0.00,"- Preserve formatting markers (like `**bold**` in Markdown)
+- Keep technical terms consistent
+- Don't modify the ID, File, or Type columns
+- Fill in the Target column with translations",,,,
+85776e70-298e-4351-9b43-48dd925a1cb1,/home/driller/repo/docdiff/docs/en/user-guide.md,128,section,missing,0.00,### Step 4: Import Translations,,user-guide-step4-import,,
+f2ac0d41-5884-4a21-a4a1-bfd95bb9970d,/home/driller/repo/docdiff/docs/en/user-guide.md,130,paragraph,missing,0.00,"After translation, import the completed file:",,,,
+b6cb3d26-eee4-4525-b44d-906b9b8b9216,/home/driller/repo/docdiff/docs/en/user-guide.md,132,code_block,missing,0.00,"# Preview changes first (dry run)
+uv run docdiff import translated.csv \
+  --source-dir docs/en \
+  --target-dir docs/ja \
+  --dry-run
+
+# If preview looks good, import for real
+uv run docdiff import translated.csv \
+  --source-dir docs/en \
+  --target-dir docs/ja",,,user-code-import,
+7c41529c-7f59-43dd-b5a9-bb9a3b38fa7e,/home/driller/repo/docdiff/docs/en/user-guide.md,148,paragraph,missing,0.00,The import process will:,,,,
+e857022e-dd26-4457-ac34-6e40e4777718,/home/driller/repo/docdiff/docs/en/user-guide.md,149,list,missing,0.00,"- Validate translations against source structure
+- Create or update target files
+- Preserve document formatting
+- Report any issues found",,,,
+7eb8b219-0743-4047-913b-14b0cf63e3dd,/home/driller/repo/docdiff/docs/en/user-guide.md,155,section,missing,0.00,### Step 5: Verify Results,,user-guide-step5-verify,,
+8add535e-be17-4e3a-9f21-838eb3cf9897,/home/driller/repo/docdiff/docs/en/user-guide.md,157,paragraph,missing,0.00,"After import, verify the translation update:",,,,
+c7e7326b-3dbf-4de4-b333-087aaa7164cd,/home/driller/repo/docdiff/docs/en/user-guide.md,159,code_block,missing,0.00,"# Check new coverage
+uv run docdiff compare docs/en docs/ja
+
+# Generate detailed report
+uv run docdiff compare docs/en docs/ja --output final-report.md",,,user-code-verify,
+e9ad8696-073d-410d-a4d8-ebd0baf2720e,/home/driller/repo/docdiff/docs/en/user-guide.md,171,section,missing,0.00,## Understanding Reports,,user-guide-reports,,
+b101a71e-1a5b-474c-bdce-9c5f7507e99e,/home/driller/repo/docdiff/docs/en/user-guide.md,174,section,missing,0.00,### Markdown Reports,,user-guide-markdown-reports,,
+96e9150d-56d1-431f-9568-93ec1a9149e7,/home/driller/repo/docdiff/docs/en/user-guide.md,176,paragraph,missing,0.00,docdiff generates Markdown reports in three styles:,,,,
+90b4826e-b776-4ad6-92d1-8d6708e573ee,/home/driller/repo/docdiff/docs/en/user-guide.md,178,paragraph,missing,0.00,**Detailed Report** (default):,,,,
+831f7587-f924-4fc6-b5d8-32cf8bc1767c,/home/driller/repo/docdiff/docs/en/user-guide.md,179,code_block,missing,0.00,uv run docdiff compare docs/en docs/ja --output report.md,,,,
+c392f429-7a01-40f8-861b-e7be19cce0a8,/home/driller/repo/docdiff/docs/en/user-guide.md,182,list,missing,0.00,"- Comprehensive coverage statistics
+- Metadata-based grouping
+- Side-by-side comparisons
+- Missing translation details",,,,
+a3b7cb24-db5c-4883-85c0-4d05ac76ec6e,/home/driller/repo/docdiff/docs/en/user-guide.md,187,paragraph,missing,0.00,**GitHub-Flavored Report**:,,,,
+939717f7-99e4-41c0-9bc2-bd9d2316d091,/home/driller/repo/docdiff/docs/en/user-guide.md,188,code_block,missing,0.00,uv run docdiff compare docs/en docs/ja --output report.github.md,,,,
+b1d13ee1-e981-4fcc-b317-e89513f90c01,/home/driller/repo/docdiff/docs/en/user-guide.md,191,list,missing,0.00,"- Collapsible sections
+- Mermaid diagrams
+- Task lists for tracking
+- Badges and alerts",,,,
+dfab85bf-36d6-42c6-817b-4b06e483cf43,/home/driller/repo/docdiff/docs/en/user-guide.md,196,paragraph,missing,0.00,**Compact Report**:,,,,
+753fb061-2c9e-48f5-848c-25870245a8d4,/home/driller/repo/docdiff/docs/en/user-guide.md,197,code_block,missing,0.00,uv run docdiff compare docs/en docs/ja --output report.compact.md,,,,
+b0a1f6f9-bbe4-4d7f-8d83-633ccaa48731,/home/driller/repo/docdiff/docs/en/user-guide.md,200,list,missing,0.00,"- Minimal format
+- Top missing items only
+- Quick status overview",,,,
+6a02bb74-9d05-4021-9097-88554630fc7e,/home/driller/repo/docdiff/docs/en/user-guide.md,205,section,missing,0.00,### Terminal View Modes,,user-guide-terminal-views,,
+ec36fc6c-8896-439b-b2d8-3c3f8de77a2f,/home/driller/repo/docdiff/docs/en/user-guide.md,207,paragraph,missing,0.00,Different views help you understand translation status:,,,,
+ede94165-0870-4a57-b952-f70faa5b56ff,/home/driller/repo/docdiff/docs/en/user-guide.md,209,code_block,missing,0.00,"# Summary view (default)
+uv run docdiff compare docs/en docs/ja --view summary
+
+# Tree view - hierarchical structure
+uv run docdiff compare docs/en docs/ja --view tree
+
+# Metadata view - grouped by labels/names
+uv run docdiff compare docs/en docs/ja --view metadata
+
+# Side-by-side - parallel comparison
+uv run docdiff compare docs/en docs/ja --view side-by-side
+
+# Statistics - detailed metrics
+uv run docdiff compare docs/en docs/ja --view stats",,,user-code-views,
+05bee60e-a778-4430-8260-cffc6e508851,/home/driller/repo/docdiff/docs/en/user-guide.md,230,section,missing,0.00,## Team Translation Workflow,,user-guide-team-workflow,,
+c5ef0f5d-89d3-4c26-8d23-35208f7d520b,/home/driller/repo/docdiff/docs/en/user-guide.md,232,paragraph,missing,0.00,For teams working on translations:,,,,
+9054bba2-8ddf-4121-808f-4ddd9d0636db,/home/driller/repo/docdiff/docs/en/user-guide.md,235,section,missing,0.00,### Initial Setup,,user-guide-team-setup,,
+317de114-ef38-4570-b5ef-e2d7e4905bac,/home/driller/repo/docdiff/docs/en/user-guide.md,237,list,missing,0.00,1. **Project Manager**: Export all translation tasks,,,,
+f292134f-3607-4597-90c6-be2d3173e009,/home/driller/repo/docdiff/docs/en/user-guide.md,238,code_block,missing,0.00,"uv run docdiff export docs/en docs/ja \
+  --format xlsx \
+  --output team-tasks-week1.xlsx",,,,
+fc5a0408-9a41-42f0-93c4-812c868582f6,/home/driller/repo/docdiff/docs/en/user-guide.md,244,list,missing,0.00,2. **Assign** sections to different translators using Excel sheets,,,,
+4eae96a4-e0d3-4e5d-b82e-06e021903c15,/home/driller/repo/docdiff/docs/en/user-guide.md,246,list,missing,0.00,3. **Share** via cloud storage or version control,,,,
+5344c3da-3f52-4b23-8bcf-9b45b1d3a138,/home/driller/repo/docdiff/docs/en/user-guide.md,249,section,missing,0.00,### Translation Process,,user-guide-team-process,,
+891370d0-cd23-42ea-a04b-c03c794adaca,/home/driller/repo/docdiff/docs/en/user-guide.md,251,list,missing,0.00,"1. **Translators** work on assigned sections
+2. **Save** progress regularly
+3. **Mark** completed items in a Status column",,,,
+001d5c50-47c6-42b8-8525-4d053e661831,/home/driller/repo/docdiff/docs/en/user-guide.md,256,section,missing,0.00,### Integration Process,,user-guide-team-integration,,
+d30cb00e-1522-4d15-9826-a58781c6a4f9,/home/driller/repo/docdiff/docs/en/user-guide.md,258,list,missing,0.00,1. **Collect** completed files from translators,,,,
+ca0fdeef-253c-4182-b5ce-a9032ee84bfb,/home/driller/repo/docdiff/docs/en/user-guide.md,260,list,missing,0.00,2. **Import** each file sequentially:,,,,
+729c652a-974d-4616-9f8e-e3a258c05d79,/home/driller/repo/docdiff/docs/en/user-guide.md,261,code_block,missing,0.00,"# Import translator A's work
+uv run docdiff import translator-a.xlsx \
+  --source-dir docs/en \
+  --target-dir docs/ja
+
+# Import translator B's work  
+uv run docdiff import translator-b.xlsx \
+  --source-dir docs/en \
+  --target-dir docs/ja",,,,
+af10f44f-22b0-4712-b38a-81daed673917,/home/driller/repo/docdiff/docs/en/user-guide.md,273,list,missing,0.00,3. **Generate** progress report:,,,,
+56e4ce6c-3ab3-422c-9c16-d71f2d98963c,/home/driller/repo/docdiff/docs/en/user-guide.md,274,code_block,missing,0.00,"uv run docdiff compare docs/en docs/ja \
+  --output weekly-progress.github.md",,,,
+1b05db01-2b19-412c-981f-d189d495a1df,/home/driller/repo/docdiff/docs/en/user-guide.md,280,section,missing,0.00,## Managing Continuous Updates,,user-guide-continuous-updates,,
+628a7b98-6709-4fa1-ae09-75144f2f08bd,/home/driller/repo/docdiff/docs/en/user-guide.md,282,paragraph,missing,0.00,When source documentation changes:,,,,
+0cac961a-5175-4595-bc53-a5cadea8e14d,/home/driller/repo/docdiff/docs/en/user-guide.md,284,list,missing,0.00,1. **Detect Changes**:,,,,
+08676744-f1b3-4c81-9ab2-5d31977c7ea5,/home/driller/repo/docdiff/docs/en/user-guide.md,285,code_block,missing,0.00,"# Compare current status
+uv run docdiff compare docs/en docs/ja --view summary",,,,
+3bb8f84b-320f-40aa-a6a6-de737ec4fd97,/home/driller/repo/docdiff/docs/en/user-guide.md,290,list,missing,0.00,2. **Export Only New/Changed Content**:,,,,
+e547b370-9310-4034-9b47-713c9bb8ad2f,/home/driller/repo/docdiff/docs/en/user-guide.md,291,code_block,missing,0.00,"# Export missing translations
+uv run docdiff export docs/en docs/ja \
+  --format csv \
+  --output updates-$(date +%Y%m%d).csv",,,,
+4bd03f2f-b8b6-4cc1-9692-1db155852bb2,/home/driller/repo/docdiff/docs/en/user-guide.md,298,list,missing,0.00,3. **Track Progress** with Git:,,,,
+2b7e188e-31bb-43b5-8846-b28aaae72f76,/home/driller/repo/docdiff/docs/en/user-guide.md,299,code_block,missing,0.00,"# Commit translation updates
+git add docs/ja/
+git commit -m ""docs: update Japanese translations""
+
+# Track reports
+git add *.md
+git commit -m ""docs: add translation status report""",,,,
+dfdacf55-a96c-42d9-b1e5-87c1a1e88014,/home/driller/repo/docdiff/docs/en/user-guide.md,310,section,missing,0.00,## Tips and Best Practices,,user-guide-tips,,
+01947688-0f39-4403-80dc-f4bc2dc9559d,/home/driller/repo/docdiff/docs/en/user-guide.md,313,section,missing,0.00,### Performance Optimization,,user-guide-tips-performance,,
+0e2a49c4-bdd5-4946-86eb-2fd7bc7e67d2,/home/driller/repo/docdiff/docs/en/user-guide.md,315,list,missing,0.00,"- Use `.docdiff/` cache to avoid re-parsing
+- Run compare before export to check status
+- Process large projects in sections if needed",,,,
+999d1549-b8d5-4645-a436-9e25cb71e43c,/home/driller/repo/docdiff/docs/en/user-guide.md,320,section,missing,0.00,### Translation Quality,,user-guide-tips-quality,,
+ebc2b059-5210-4727-8a78-8b5c0ce109fb,/home/driller/repo/docdiff/docs/en/user-guide.md,322,list,missing,0.00,"- Maintain consistent terminology
+- Preserve code blocks exactly
+- Keep cross-references intact
+- Review fuzzy matches carefully",,,,
+9e72500e-7082-4e03-a09b-82e88ddedb7d,/home/driller/repo/docdiff/docs/en/user-guide.md,328,section,missing,0.00,### Project Organization,,user-guide-tips-organization,,
+af6ff230-7586-4f2a-a114-e6f2ebc08329,/home/driller/repo/docdiff/docs/en/user-guide.md,330,code_block,missing,0.00,"project/
+├── docs/
+│   ├── en/          # Source documentation
+│   ├── ja/          # Japanese translation
+│   ├── zh/          # Chinese translation
+│   └── ko/          # Korean translation
+├── translations/    # Translation work files
+│   ├── exports/     # Exported task files
+│   ├── completed/   # Completed translations
+│   └── reports/     # Status reports
+└── .docdiff/        # Cache (gitignored)",,,user-project-structure,
+6ad0d7db-a8df-433e-b5f3-ba6b19b3c2b7,/home/driller/repo/docdiff/docs/en/user-guide.md,348,section,missing,0.00,## Troubleshooting,,user-guide-troubleshooting,,
+c4e0ee5c-c94b-4808-8821-8eb0d066e91c,/home/driller/repo/docdiff/docs/en/user-guide.md,351,section,missing,0.00,### Common Issues,,user-guide-common-issues,,
+6453447e-037c-4b43-9d7d-533b958ef989,/home/driller/repo/docdiff/docs/en/user-guide.md,353,paragraph,missing,0.00,"**Issue**: Import fails with ""structure mismatch""",,,,
+1191c17f-27bb-4ef3-9d13-3dbdffd63cc5,/home/driller/repo/docdiff/docs/en/user-guide.md,354,list,missing,0.00,- **Solution**: Ensure source directory matches the one used for export,,,,
+4161503e-a87a-49ff-8735-210b01c0ce4c,/home/driller/repo/docdiff/docs/en/user-guide.md,356,paragraph,missing,0.00,**Issue**: Low fuzzy match accuracy,,,,
+cc0c4cab-b485-46e2-9bce-178859241e20,/home/driller/repo/docdiff/docs/en/user-guide.md,357,list,missing,0.00,- **Solution**: Check if content has minor formatting differences,,,,
+27668081-6ff8-4cb7-8255-b00eb890920a,/home/driller/repo/docdiff/docs/en/user-guide.md,359,paragraph,missing,0.00,**Issue**: Missing translations not detected,,,,
+2392f165-6165-4911-9dc0-f2df1c24cec1,/home/driller/repo/docdiff/docs/en/user-guide.md,360,list,missing,0.00,- **Solution**: Verify target files exist in the correct location,,,,
+5ee100d1-be38-40e0-bff8-00bcb2600cc5,/home/driller/repo/docdiff/docs/en/user-guide.md,362,paragraph,missing,0.00,**Issue**: Cache seems outdated,,,,
+35a43c93-d8fe-4bb5-b359-37b57ec770be,/home/driller/repo/docdiff/docs/en/user-guide.md,363,list,missing,0.00,- **Solution**: Delete `.docdiff/cache/` and re-run comparison,,,,
+01b7f879-6fb2-4dad-b97d-d1e538b64726,/home/driller/repo/docdiff/docs/en/user-guide.md,366,section,missing,0.00,### Getting Help,,user-guide-getting-help,,
+5eb0e466-8190-44bd-9ec3-0f315cb14fde,/home/driller/repo/docdiff/docs/en/user-guide.md,368,list,missing,0.00,"- Check the {doc}`cli-reference` for command details
+- Review the {doc}`api-reference` for programmatic usage
+- Report issues on [GitHub Issues](https://github.com/yourusername/docdiff/issues)
+- Join discussions on [GitHub Discussions](https://github.com/yourusername/docdiff/discussions)",,,,

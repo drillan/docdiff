@@ -1,0 +1,50 @@
+✓ Parsed 432 nodes from en documents
+✓ Parsed 432 nodes from ja documents
+⠙ Parsing en documents...
+⠙ Parsing ja documents...
+⠙ Comparing documents... 
+                            Side-by-Side Comparison                             
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━┓
+┃ Source (EN)                    ┃ Target (JA)                     ┃ Stat… ┃ … ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━┩
+│ # docdiff Documentation        │ MISSING                         │  ❌   │ … │
+│ :docdiff-docs                  │                                 │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ ## Overview                    │ ## 概要                         │   ⚠️   │ … │
+│ :docdiff-overview              │ :docdiff-overview               │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ docdiff is a powerful          │ MISSING                         │  ❌   │ … │
+│ multilingual translation       │                                 │       │   │
+│ management tool specifically   │                                 │       │   │
+│ desi                           │                                 │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ ## Key Features                │ ## 主な機能                     │  ✅   │ … │
+│ :docdiff-key-features          │ :docdiff-key-features           │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ - **Intelligent Structure      │ MISSING                         │  ❌   │ … │
+│ Analysis**: Parses documents   │                                 │       │   │
+│ into logical structural u      │                                 │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ ## Quick Start                 │ ## クイックスタート             │  ✅   │ … │
+│ :docdiff-quick-start           │ :docdiff-quick-start            │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ # Install docdiff              │ MISSING                         │  ❌   │ … │
+│ uv sync                        │                                 │       │   │
+│ uv pip install -e .            │                                 │       │   │
+│                                │                                 │       │   │
+│ # Compare documentation        │                                 │       │   │
+│ between l                      │                                 │       │   │
+│ @docdiff-code-quick-start      │                                 │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ ## Documentation Contents      │ MISSING                         │  ❌   │ … │
+│ :docdiff-documentation-conten… │                                 │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ :caption: 'User                │ MISSING                         │  ❌   │ … │
+│ Documentation:'                │                                 │       │   │
+│ :maxdepth: 2                   │                                 │       │   │
+│                                │                                 │       │   │
+│ user-guide                     │                                 │       │   │
+│ cli-reference                  │                                 │       │   │
+│ architect                      │                                 │       │   │
+├────────────────────────────────┼─────────────────────────────────┼───────┼───┤
+│ :caption: 'Developer           │ MISSING                         │  ❌   │ … │

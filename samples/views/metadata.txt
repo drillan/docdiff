@@ -1,0 +1,50 @@
+✓ Parsed 432 nodes from en documents
+✓ Parsed 432 nodes from ja documents
+⠙ Parsing en documents...
+⠙ Parsing ja documents...
+⠙ Comparing documents... 
+
+Label-based Mappings:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ ❌ Missing
+  # docdiff Documentation
+  → (not translated)
+
+ ✅ Complete
+  ## Overview
+  → ## 概要
+
+ ✅ Complete
+  ## Key Features
+  → ## 主な機能
+
+ ✅ Complete
+  ## Quick Start
+  → ## クイックスタート
+
+ ❌ Missing
+  ## Documentation Contents
+  → (not translated)
+
+ ✅ Complete
+  ## Why docdiff?
+  → ## docdiff を選ぶ理由
+
+ ✅ Complete
+  ## Project Status
+  → ## プロジェクトの現状
+
+ ✅ Complete
+  ## Getting Help
+  → ## サポートを受けるには
+
+ ❌ Missing
+  ## License
+  → (not translated)
+
+ ❌ Missing
+  # Developer Guide
+  → (not translated)
+
+ ❌ Missing

@@ -1,0 +1,25 @@
+✓ Parsed 432 nodes from en documents
+✓ Parsed 432 nodes from ja documents
+
+Translation Coverage Summary
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Metric               ┃ Value ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ Overall Coverage     │  8.3% │
+│ Total Nodes          │   432 │
+│ Translated           │    36 │
+│ Missing              │   396 │
+│ Fuzzy Matches        │    24 │
+└──────────────────────┴───────┘
+
+Structure Differences by Type
+┏━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Node Type  ┃ Source ┃ Target ┃ Difference ┃
+┡━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━┩
+│ section    │    141 │    141 │          0 │
+│ list       │     92 │     92 │          0 │
+│ paragraph  │    121 │    121 │          0 │
+│ code_block │     78 │     78 │          0 │
+└────────────┴────────┴────────┴────────────┘
+
+⚠ Warning: Translation coverage is below 50%
