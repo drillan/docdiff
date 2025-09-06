@@ -1,0 +1,17 @@
+version: '1.0'
+project:
+  source_lang: en
+  target_langs:
+  - ja
+  source_dir: docs/en
+  target_dirs:
+    ja: docs/ja
+cache:
+  location: .docdiff/cache
+  auto_clean: false
+comparison:
+  similarity_threshold: 0.8
+  ignore_patterns:
+  - _build/
+  - '*.pyc'
+  - __pycache__/

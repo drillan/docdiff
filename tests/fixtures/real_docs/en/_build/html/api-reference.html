@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; docdiff  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer Guide" href="developer-guide.html" />
+    <link rel="prev" title="CLI Reference" href="cli-reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            docdiff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli-reference.html">CLI Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-models">Data Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nodetype-enumeration">NodeType Enumeration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentnode-model">DocumentNode Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translationunit-model">TranslationUnit Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translationstatus-enumeration">TranslationStatus Enumeration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#database-schema">Database Schema</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nodes-table">Nodes Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references-table">References Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translation-units-table">Translation Units Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core-interfaces">Core Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documentparser-abstract-base-class">DocumentParser (Abstract Base Class)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structuredb">StructureDB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#projectanalyzer">ProjectAnalyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsing-a-document">Parsing a Document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-translations">Managing Translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analyzing-a-project">Analyzing a Project</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer-guide.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">docdiff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api-reference.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<span id="id1"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<section id="data-models">
+<span id="api-data-models"></span><h2>Data Models<a class="headerlink" href="#data-models" title="Link to this heading"></a></h2>
+<section id="nodetype-enumeration">
+<span id="api-nodetype-enum"></span><h3>NodeType Enumeration<a class="headerlink" href="#nodetype-enumeration" title="Link to this heading"></a></h3>
+<p>Defines the types of document structure elements:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-nodetype-enum">
+<div class="code-block-caption"><span class="caption-text">NodeType Enumeration Definition</span><a class="headerlink" href="#api-code-nodetype-enum" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span><span class="w"> </span><span class="nc">NodeType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="linenos"> 2</span>    <span class="n">SECTION</span> <span class="o">=</span> <span class="s2">&quot;section&quot;</span>
+<span class="linenos"> 3</span>    <span class="n">PARAGRAPH</span> <span class="o">=</span> <span class="s2">&quot;paragraph&quot;</span>
+<span class="linenos"> 4</span>    <span class="n">CODE_BLOCK</span> <span class="o">=</span> <span class="s2">&quot;code_block&quot;</span>
+<span class="linenos"> 5</span>    <span class="n">MATH_BLOCK</span> <span class="o">=</span> <span class="s2">&quot;math_block&quot;</span>
+<span class="linenos"> 6</span>    <span class="n">TABLE</span> <span class="o">=</span> <span class="s2">&quot;table&quot;</span>
+<span class="linenos"> 7</span>    <span class="n">FIGURE</span> <span class="o">=</span> <span class="s2">&quot;figure&quot;</span>
+<span class="linenos"> 8</span>    <span class="n">ADMONITION</span> <span class="o">=</span> <span class="s2">&quot;admonition&quot;</span>
+<span class="linenos"> 9</span>    <span class="n">LIST</span> <span class="o">=</span> <span class="s2">&quot;list&quot;</span>
+<span class="linenos">10</span>    <span class="n">LIST_ITEM</span> <span class="o">=</span> <span class="s2">&quot;list_item&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="documentnode-model">
+<span id="api-document-node"></span><h3>DocumentNode Model<a class="headerlink" href="#documentnode-model" title="Link to this heading"></a></h3>
+<p>Represents a single element in the document structure:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-document-node">
+<div class="code-block-caption"><span class="caption-text">DocumentNode Model</span><a class="headerlink" href="#api-code-document-node" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span><span class="w"> </span><span class="nc">DocumentNode</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="linenos"> 2</span>    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>                      <span class="c1"># Unique ID (hash-based)</span>
+<span class="linenos"> 3</span>    <span class="nb">type</span><span class="p">:</span> <span class="n">NodeType</span>               <span class="c1"># Element type</span>
+<span class="linenos"> 4</span>    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>                 <span class="c1"># Text content</span>
+<span class="linenos"> 5</span>    <span class="n">level</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>         <span class="c1"># Section hierarchy level</span>
+<span class="linenos"> 6</span>    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>         <span class="c1"># Section title</span>
+<span class="linenos"> 7</span>    <span class="n">label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>         <span class="c1"># Reference label</span>
+<span class="linenos"> 8</span>    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>          <span class="c1"># :name: attribute</span>
+<span class="linenos"> 9</span>    <span class="n">caption</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>       <span class="c1"># :caption: attribute</span>
+<span class="linenos">10</span>    <span class="n">language</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>      <span class="c1"># Code block language</span>
+<span class="linenos">11</span>    <span class="n">parent_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>     <span class="c1"># Parent node reference</span>
+<span class="linenos">12</span>    <span class="n">children_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>      <span class="c1"># Child node references</span>
+<span class="linenos">13</span>    <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span>              <span class="c1"># Source file path</span>
+<span class="linenos">14</span>    <span class="n">line_number</span><span class="p">:</span> <span class="nb">int</span>             <span class="c1"># Line number in source</span>
+<span class="linenos">15</span>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>     <span class="c1"># Additional metadata</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="translationunit-model">
+<span id="api-translation-unit"></span><h3>TranslationUnit Model<a class="headerlink" href="#translationunit-model" title="Link to this heading"></a></h3>
+<p>Manages translation data for document elements:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-translation-unit">
+<div class="code-block-caption"><span class="caption-text">TranslationUnit Model</span><a class="headerlink" href="#api-code-translation-unit" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span><span class="w"> </span><span class="nc">TranslationUnit</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span>                           <span class="c1"># Reference to DocumentNode</span>
+<span class="linenos">3</span>    <span class="n">source_lang</span><span class="p">:</span> <span class="nb">str</span>                       <span class="c1"># Source language code</span>
+<span class="linenos">4</span>    <span class="n">target_lang</span><span class="p">:</span> <span class="nb">str</span>                       <span class="c1"># Target language code</span>
+<span class="linenos">5</span>    <span class="n">source_content</span><span class="p">:</span> <span class="nb">str</span>                    <span class="c1"># Original content</span>
+<span class="linenos">6</span>    <span class="n">translated_content</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>      <span class="c1"># Translated content</span>
+<span class="linenos">7</span>    <span class="n">status</span><span class="p">:</span> <span class="n">TranslationStatus</span>              <span class="c1"># Translation status</span>
+<span class="linenos">8</span>    <span class="n">content_hash</span><span class="p">:</span> <span class="nb">str</span>                      <span class="c1"># Content hash for change detection</span>
+<span class="linenos">9</span>    <span class="n">translation_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span>   <span class="c1"># Last translation timestamp</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="translationstatus-enumeration">
+<span id="api-translation-status"></span><h3>TranslationStatus Enumeration<a class="headerlink" href="#translationstatus-enumeration" title="Link to this heading"></a></h3>
+<p>Tracks the state of translations:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-translation-status">
+<div class="code-block-caption"><span class="caption-text">TranslationStatus Enumeration</span><a class="headerlink" href="#api-code-translation-status" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span><span class="w"> </span><span class="nc">TranslationStatus</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="n">PENDING</span> <span class="o">=</span> <span class="s2">&quot;pending&quot;</span>        <span class="c1"># Not yet translated</span>
+<span class="linenos">3</span>    <span class="n">TRANSLATED</span> <span class="o">=</span> <span class="s2">&quot;translated&quot;</span>  <span class="c1"># Translation complete</span>
+<span class="linenos">4</span>    <span class="n">REVIEWED</span> <span class="o">=</span> <span class="s2">&quot;reviewed&quot;</span>      <span class="c1"># Translation reviewed</span>
+<span class="linenos">5</span>    <span class="n">OUTDATED</span> <span class="o">=</span> <span class="s2">&quot;outdated&quot;</span>      <span class="c1"># Source content changed</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="database-schema">
+<span id="api-database-schema"></span><h2>Database Schema<a class="headerlink" href="#database-schema" title="Link to this heading"></a></h2>
+<section id="nodes-table">
+<span id="api-nodes-table"></span><h3>Nodes Table<a class="headerlink" href="#nodes-table" title="Link to this heading"></a></h3>
+<p>Stores document structural elements:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-nodes-table-schema">
+<div class="code-block-caption"><span class="caption-text">Nodes Table Schema</span><a class="headerlink" href="#api-code-nodes-table-schema" title="Link to this code"></a></div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="p">(</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="k">level</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">caption</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">language</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">    </span><span class="n">parent_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">children_ids</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">    </span><span class="n">file_path</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">line_number</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">content_hash</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">metadata</span><span class="w"> </span><span class="n">JSON</span><span class="p">,</span>
+<span class="linenos">17</span><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="linenos">18</span><span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="linenos">19</span><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">parent_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span>
+<span class="linenos">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Indexes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>: Fast reference resolution</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent_id</span></code>: Efficient hierarchy traversal</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code>: File-based operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">content_hash</span></code>: Change detection</p></li>
+</ul>
+</section>
+<section id="references-table">
+<span id="api-references-table"></span><h3>References Table<a class="headerlink" href="#references-table" title="Link to this heading"></a></h3>
+<p>Maintains cross-reference relationships:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-references-table-schema">
+<div class="code-block-caption"><span class="caption-text">References Table Schema</span><a class="headerlink" href="#api-code-references-table-schema" title="Link to this code"></a></div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="p">(</span>
+<span class="linenos">2</span><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTOINCREMENT</span><span class="p">,</span>
+<span class="linenos">3</span><span class="w">    </span><span class="n">source_node_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">4</span><span class="w">    </span><span class="n">target_label</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">5</span><span class="w">    </span><span class="n">ref_type</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">6</span><span class="w">    </span><span class="n">resolved_target_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos">7</span><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="linenos">8</span><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">source_node_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span>
+<span class="linenos">9</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source_node_id</span></code>: Node containing the reference</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target_label</span></code>: Label being referenced</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ref_type</span></code>: Type of reference (e.g., ‘ref’, ‘doc’, ‘numref’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolved_target_id</span></code>: Resolved target node ID (if found)</p></li>
+</ul>
+</section>
+<section id="translation-units-table">
+<span id="api-translation-units-table"></span><h3>Translation Units Table<a class="headerlink" href="#translation-units-table" title="Link to this heading"></a></h3>
+<p>Tracks translation status and content:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-translation-units-schema">
+<div class="code-block-caption"><span class="caption-text">Translation Units Table Schema</span><a class="headerlink" href="#api-code-translation-units-schema" title="Link to this code"></a></div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">translation_units</span><span class="w"> </span><span class="p">(</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTOINCREMENT</span><span class="p">,</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="n">node_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="n">source_lang</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="n">target_lang</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">source_content</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="n">translated_content</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span><span class="p">,</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">content_hash</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="linenos">10</span><span class="w">    </span><span class="n">translation_date</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">UNIQUE</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span><span class="w"> </span><span class="n">source_lang</span><span class="p">,</span><span class="w"> </span><span class="n">target_lang</span><span class="p">)</span>
+<span class="linenos">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Indexes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: Filter by translation state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(node_id,</span> <span class="pre">source_lang,</span> <span class="pre">target_lang)</span></code>: Unique constraint for language pairs</p></li>
+</ul>
+</section>
+</section>
+<section id="core-interfaces">
+<span id="api-core-interfaces"></span><h2>Core Interfaces<a class="headerlink" href="#core-interfaces" title="Link to this heading"></a></h2>
+<section id="documentparser-abstract-base-class">
+<span id="api-document-parser-abc"></span><h3>DocumentParser (Abstract Base Class)<a class="headerlink" href="#documentparser-abstract-base-class" title="Link to this heading"></a></h3>
+<p>Base interface for all document parsers:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-document-parser-interface">
+<div class="code-block-caption"><span class="caption-text">DocumentParser Interface</span><a class="headerlink" href="#api-code-document-parser-interface" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span><span class="w"> </span><span class="nc">DocumentParser</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="linenos"> 2</span>    <span class="nd">@abstractmethod</span>
+<span class="linenos"> 3</span>    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DocumentNode</span><span class="p">]:</span>
+<span class="linenos"> 4</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a document file and return structured nodes.&quot;&quot;&quot;</span>
+<span class="linenos"> 5</span>        <span class="k">pass</span>
+<span class="linenos"> 6</span>    
+<span class="linenos"> 7</span>    <span class="nd">@abstractmethod</span>
+<span class="linenos"> 8</span>    <span class="k">def</span><span class="w"> </span><span class="nf">extract_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DocumentNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Reference</span><span class="p">]:</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract cross-references from document nodes.&quot;&quot;&quot;</span>
+<span class="linenos">10</span>        <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="structuredb">
+<span id="api-structure-db"></span><h3>StructureDB<a class="headerlink" href="#structuredb" title="Link to this heading"></a></h3>
+<p>Database management interface:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-structure-db-interface">
+<div class="code-block-caption"><span class="caption-text">StructureDB Interface</span><a class="headerlink" href="#api-code-structure-db-interface" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span><span class="w"> </span><span class="nc">StructureDB</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+<span class="linenos"> 3</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize database connection.&quot;&quot;&quot;</span>
+<span class="linenos"> 4</span>        
+<span class="linenos"> 5</span>    <span class="k">def</span><span class="w"> </span><span class="nf">insert_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">DocumentNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 6</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert a document node.&quot;&quot;&quot;</span>
+<span class="linenos"> 7</span>        
+<span class="linenos"> 8</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DocumentNode</span><span class="p">]:</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve a node by ID.&quot;&quot;&quot;</span>
+<span class="linenos">10</span>        
+<span class="linenos">11</span>    <span class="k">def</span><span class="w"> </span><span class="nf">update_translation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">TranslationUnit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Update translation unit status.&quot;&quot;&quot;</span>
+<span class="linenos">13</span>        
+<span class="linenos">14</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_pending_translations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang_pair</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TranslationUnit</span><span class="p">]:</span>
+<span class="linenos">15</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all pending translations for a language pair.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="projectanalyzer">
+<span id="api-project-analyzer"></span><h3>ProjectAnalyzer<a class="headerlink" href="#projectanalyzer" title="Link to this heading"></a></h3>
+<p>Sphinx project analysis interface:</p>
+<div class="literal-block-wrapper docutils container" id="api-code-project-analyzer-interface">
+<div class="code-block-caption"><span class="caption-text">ProjectAnalyzer Interface</span><a class="headerlink" href="#api-code-project-analyzer-interface" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span><span class="w"> </span><span class="nc">ProjectAnalyzer</span><span class="p">:</span>
+<span class="linenos"> 2</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+<span class="linenos"> 3</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with project directory.&quot;&quot;&quot;</span>
+<span class="linenos"> 4</span>        
+<span class="linenos"> 5</span>    <span class="k">def</span><span class="w"> </span><span class="nf">load_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="linenos"> 6</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load Sphinx configuration from conf.py.&quot;&quot;&quot;</span>
+<span class="linenos"> 7</span>        
+<span class="linenos"> 8</span>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_project</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProjectStructure</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Analyze entire project structure.&quot;&quot;&quot;</span>
+<span class="linenos">10</span>        
+<span class="linenos">11</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_toctree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TocTree</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract table of contents structure.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="usage-examples">
+<span id="api-usage-examples"></span><h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<section id="parsing-a-document">
+<span id="api-example-parsing"></span><h3>Parsing a Document<a class="headerlink" href="#parsing-a-document" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="api-code-example-parsing">
+<div class="code-block-caption"><span class="caption-text">Document Parsing Example</span><a class="headerlink" href="#api-code-example-parsing" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">docdiff.parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">MySTParser</span>
+<span class="linenos">2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="n">parser</span> <span class="o">=</span> <span class="n">MySTParser</span><span class="p">()</span>
+<span class="linenos">5</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;docs/index.md&quot;</span><span class="p">))</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+<span class="linenos">8</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">content</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="managing-translations">
+<span id="api-example-translations"></span><h3>Managing Translations<a class="headerlink" href="#managing-translations" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="api-code-example-translations">
+<div class="code-block-caption"><span class="caption-text">Translation Management Example</span><a class="headerlink" href="#api-code-example-translations" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">docdiff.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructureDB</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">docdiff.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">TranslationStatus</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="n">db</span> <span class="o">=</span> <span class="n">StructureDB</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.docdiff/structure.db&quot;</span><span class="p">))</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># Get pending translations</span>
+<span class="linenos"> 7</span><span class="n">pending</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_pending_translations</span><span class="p">((</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="s2">&quot;ja&quot;</span><span class="p">))</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Update translation status</span>
+<span class="linenos">10</span><span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">pending</span><span class="p">:</span>
+<span class="linenos">11</span>    <span class="n">unit</span><span class="o">.</span><span class="n">translated_content</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">source_content</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">unit</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">TranslationStatus</span><span class="o">.</span><span class="n">TRANSLATED</span>
+<span class="linenos">13</span>    <span class="n">db</span><span class="o">.</span><span class="n">update_translation</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="analyzing-a-project">
+<span id="api-example-analyzing"></span><h3>Analyzing a Project<a class="headerlink" href="#analyzing-a-project" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="api-code-example-analyzing">
+<div class="code-block-caption"><span class="caption-text">Project Analysis Example</span><a class="headerlink" href="#api-code-example-analyzing" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">docdiff.analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProjectAnalyzer</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">ProjectAnalyzer</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;docs/&quot;</span><span class="p">))</span>
+<span class="linenos">4</span><span class="n">structure</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">analyze_project</span><span class="p">()</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2"> documentation files&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total nodes: </span><span class="si">{</span><span class="n">structure</span><span class="o">.</span><span class="n">total_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cli-reference.html" class="btn btn-neutral float-left" title="CLI Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="developer-guide.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, driller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

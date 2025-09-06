@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide &mdash; docdiff  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CLI Reference" href="cli-reference.html" />
+    <link rel="prev" title="docdiff Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            docdiff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-translation-workflow">Basic Translation Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-compare-documents">Step 1: Compare Documents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-export-for-translation">Step 2: Export for Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-translate-content">Step 3: Translate Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-import-translations">Step 4: Import Translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-verify-results">Step 5: Verify Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-reports">Understanding Reports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#markdown-reports">Markdown Reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terminal-view-modes">Terminal View Modes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#team-translation-workflow">Team Translation Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-setup">Initial Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translation-process">Translation Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-process">Integration Process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-continuous-updates">Managing Continuous Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-and-best-practices">Tips and Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translation-quality">Translation Quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-organization">Project Organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli-reference.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer-guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">docdiff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/user-guide.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-guide">
+<span id="id1"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading"></a></h1>
+<p>This guide provides practical instructions for using docdiff to manage multilingual documentation translations.</p>
+<section id="overview">
+<span id="user-guide-overview"></span><h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>docdiff helps you track and manage translations of technical documentation by:</p>
+<ul class="simple">
+<li><p>Analyzing document structure rather than raw text</p></li>
+<li><p>Tracking translation coverage with detailed metrics</p></li>
+<li><p>Providing multiple export formats for translation workflows</p></li>
+<li><p>Generating reports for project management</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<span id="user-guide-getting-started"></span><h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<section id="installation">
+<span id="user-guide-installation"></span><h3>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h3>
+<p>Install docdiff using uv package manager:</p>
+<div class="literal-block-wrapper docutils container" id="user-code-installation">
+<div class="code-block-caption"><span class="caption-text">Installation Steps</span><a class="headerlink" href="#user-code-installation" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/yourusername/docdiff.git
+<span class="nb">cd</span><span class="w"> </span>docdiff
+
+<span class="c1"># Install dependencies</span>
+uv<span class="w"> </span>sync
+
+<span class="c1"># Install docdiff</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+
+<span class="c1"># Verify installation</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>--version
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="basic-translation-workflow">
+<span id="user-guide-basic-workflow"></span><h2>Basic Translation Workflow<a class="headerlink" href="#basic-translation-workflow" title="Link to this heading"></a></h2>
+<p>The typical workflow for managing translations consists of four main steps:</p>
+<div class="literal-block-wrapper docutils container" id="user-workflow-diagram">
+<div class="code-block-caption"><span class="caption-text">Translation Workflow</span><a class="headerlink" href="#user-workflow-diagram" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1. Compare → 2. Export → 3. Translate → 4. Import
+     ↑                                         ↓
+     └─────────────── 5. Verify ←─────────────┘
+</pre></div>
+</div>
+</div>
+<section id="step-1-compare-documents">
+<span id="user-guide-step1-compare"></span><h3>Step 1: Compare Documents<a class="headerlink" href="#step-1-compare-documents" title="Link to this heading"></a></h3>
+<p>First, analyze the current translation status:</p>
+<div class="literal-block-wrapper docutils container" id="user-code-compare">
+<div class="code-block-caption"><span class="caption-text">Compare Source and Target Documentation</span><a class="headerlink" href="#user-code-compare" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic comparison</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja
+
+<span class="c1"># With detailed view</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>metadata
+
+<span class="c1"># Generate markdown report</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>status.md
+</pre></div>
+</div>
+</div>
+<p>The comparison will show:</p>
+<ul class="simple">
+<li><p>Overall translation coverage percentage</p></li>
+<li><p>Number of translated, missing, and fuzzy-matched nodes</p></li>
+<li><p>Structure differences between source and target</p></li>
+</ul>
+</section>
+<section id="step-2-export-for-translation">
+<span id="user-guide-step2-export"></span><h3>Step 2: Export for Translation<a class="headerlink" href="#step-2-export-for-translation" title="Link to this heading"></a></h3>
+<p>Export missing translations to a format suitable for your translation workflow:</p>
+<div class="literal-block-wrapper docutils container" id="user-code-export">
+<div class="code-block-caption"><span class="caption-text">Export Translation Tasks</span><a class="headerlink" href="#user-code-export" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export to CSV (recommended for spreadsheet tools)</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>csv<span class="w"> </span>--output<span class="w"> </span>tasks.csv
+
+<span class="c1"># Export to Excel with metadata</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>xlsx<span class="w"> </span>--output<span class="w"> </span>tasks.xlsx
+
+<span class="c1"># Export to XLIFF for CAT tools</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>xliff<span class="w"> </span>--output<span class="w"> </span>tasks.xlf
+</pre></div>
+</div>
+</div>
+<p><strong>CSV Format</strong> is recommended for:</p>
+<ul class="simple">
+<li><p>Simple spreadsheet editing</p></li>
+<li><p>Version control (Git-friendly)</p></li>
+<li><p>Universal compatibility</p></li>
+</ul>
+<p><strong>Excel Format</strong> provides:</p>
+<ul class="simple">
+<li><p>Multiple sheets for organization</p></li>
+<li><p>Rich formatting options</p></li>
+<li><p>Comments and notes support</p></li>
+</ul>
+<p><strong>XLIFF Format</strong> is best for:</p>
+<ul class="simple">
+<li><p>Professional CAT tools</p></li>
+<li><p>Translation memory systems</p></li>
+<li><p>Industry-standard workflows</p></li>
+</ul>
+</section>
+<section id="step-3-translate-content">
+<span id="user-guide-step3-translate"></span><h3>Step 3: Translate Content<a class="headerlink" href="#step-3-translate-content" title="Link to this heading"></a></h3>
+<p>Open the exported file in your preferred tool:</p>
+<ul class="simple">
+<li><p><strong>CSV</strong>: Excel, Google Sheets, LibreOffice Calc</p></li>
+<li><p><strong>XLSX</strong>: Microsoft Excel</p></li>
+<li><p><strong>XLIFF</strong>: SDL Trados, MemoQ, OmegaT</p></li>
+</ul>
+<p>Translation tips:</p>
+<ul class="simple">
+<li><p>Preserve formatting markers (like <code class="docutils literal notranslate"><span class="pre">**bold**</span></code> in Markdown)</p></li>
+<li><p>Keep technical terms consistent</p></li>
+<li><p>Don’t modify the ID, File, or Type columns</p></li>
+<li><p>Fill in the Target column with translations</p></li>
+</ul>
+</section>
+<section id="step-4-import-translations">
+<span id="user-guide-step4-import"></span><h3>Step 4: Import Translations<a class="headerlink" href="#step-4-import-translations" title="Link to this heading"></a></h3>
+<p>After translation, import the completed file:</p>
+<div class="literal-block-wrapper docutils container" id="user-code-import">
+<div class="code-block-caption"><span class="caption-text">Import Completed Translations</span><a class="headerlink" href="#user-code-import" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preview changes first (dry run)</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>import<span class="w"> </span>translated.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dir<span class="w"> </span>docs/ja<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dry-run
+
+<span class="c1"># If preview looks good, import for real</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>import<span class="w"> </span>translated.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dir<span class="w"> </span>docs/ja
+</pre></div>
+</div>
+</div>
+<p>The import process will:</p>
+<ul class="simple">
+<li><p>Validate translations against source structure</p></li>
+<li><p>Create or update target files</p></li>
+<li><p>Preserve document formatting</p></li>
+<li><p>Report any issues found</p></li>
+</ul>
+</section>
+<section id="step-5-verify-results">
+<span id="user-guide-step5-verify"></span><h3>Step 5: Verify Results<a class="headerlink" href="#step-5-verify-results" title="Link to this heading"></a></h3>
+<p>After import, verify the translation update:</p>
+<div class="literal-block-wrapper docutils container" id="user-code-verify">
+<div class="code-block-caption"><span class="caption-text">Verify Translation Updates</span><a class="headerlink" href="#user-code-verify" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check new coverage</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja
+
+<span class="c1"># Generate detailed report</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>final-report.md
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="understanding-reports">
+<span id="user-guide-reports"></span><h2>Understanding Reports<a class="headerlink" href="#understanding-reports" title="Link to this heading"></a></h2>
+<section id="markdown-reports">
+<span id="user-guide-markdown-reports"></span><h3>Markdown Reports<a class="headerlink" href="#markdown-reports" title="Link to this heading"></a></h3>
+<p>docdiff generates Markdown reports in three styles:</p>
+<p><strong>Detailed Report</strong> (default):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.md
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Comprehensive coverage statistics</p></li>
+<li><p>Metadata-based grouping</p></li>
+<li><p>Side-by-side comparisons</p></li>
+<li><p>Missing translation details</p></li>
+</ul>
+<p><strong>GitHub-Flavored Report</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.github.md
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Collapsible sections</p></li>
+<li><p>Mermaid diagrams</p></li>
+<li><p>Task lists for tracking</p></li>
+<li><p>Badges and alerts</p></li>
+</ul>
+<p><strong>Compact Report</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.compact.md
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Minimal format</p></li>
+<li><p>Top missing items only</p></li>
+<li><p>Quick status overview</p></li>
+</ul>
+</section>
+<section id="terminal-view-modes">
+<span id="user-guide-terminal-views"></span><h3>Terminal View Modes<a class="headerlink" href="#terminal-view-modes" title="Link to this heading"></a></h3>
+<p>Different views help you understand translation status:</p>
+<div class="literal-block-wrapper docutils container" id="user-code-views">
+<div class="code-block-caption"><span class="caption-text">Terminal View Options</span><a class="headerlink" href="#user-code-views" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Summary view (default)</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>summary
+
+<span class="c1"># Tree view - hierarchical structure</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>tree
+
+<span class="c1"># Metadata view - grouped by labels/names</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>metadata
+
+<span class="c1"># Side-by-side - parallel comparison</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>side-by-side
+
+<span class="c1"># Statistics - detailed metrics</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>stats
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="team-translation-workflow">
+<span id="user-guide-team-workflow"></span><h2>Team Translation Workflow<a class="headerlink" href="#team-translation-workflow" title="Link to this heading"></a></h2>
+<p>For teams working on translations:</p>
+<section id="initial-setup">
+<span id="user-guide-team-setup"></span><h3>Initial Setup<a class="headerlink" href="#initial-setup" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Project Manager</strong>: Export all translation tasks</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span>xlsx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>team-tasks-week1.xlsx
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Assign</strong> sections to different translators using Excel sheets</p></li>
+<li><p><strong>Share</strong> via cloud storage or version control</p></li>
+</ol>
+</section>
+<section id="translation-process">
+<span id="user-guide-team-process"></span><h3>Translation Process<a class="headerlink" href="#translation-process" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Translators</strong> work on assigned sections</p></li>
+<li><p><strong>Save</strong> progress regularly</p></li>
+<li><p><strong>Mark</strong> completed items in a Status column</p></li>
+</ol>
+</section>
+<section id="integration-process">
+<span id="user-guide-team-integration"></span><h3>Integration Process<a class="headerlink" href="#integration-process" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Collect</strong> completed files from translators</p></li>
+<li><p><strong>Import</strong> each file sequentially:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import translator A&#39;s work</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>import<span class="w"> </span>translator-a.xlsx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dir<span class="w"> </span>docs/ja
+
+<span class="c1"># Import translator B&#39;s work  </span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>import<span class="w"> </span>translator-b.xlsx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dir<span class="w"> </span>docs/ja
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Generate</strong> progress report:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>weekly-progress.github.md
+</pre></div>
+</div>
+</section>
+</section>
+<section id="managing-continuous-updates">
+<span id="user-guide-continuous-updates"></span><h2>Managing Continuous Updates<a class="headerlink" href="#managing-continuous-updates" title="Link to this heading"></a></h2>
+<p>When source documentation changes:</p>
+<ol class="arabic simple">
+<li><p><strong>Detect Changes</strong>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare current status</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>summary
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Export Only New/Changed Content</strong>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export missing translations</span>
+uv<span class="w"> </span>run<span class="w"> </span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--format<span class="w"> </span>csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>updates-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.csv
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Track Progress</strong> with Git:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Commit translation updates</span>
+git<span class="w"> </span>add<span class="w"> </span>docs/ja/
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update Japanese translations&quot;</span>
+
+<span class="c1"># Track reports</span>
+git<span class="w"> </span>add<span class="w"> </span>*.md
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add translation status report&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="tips-and-best-practices">
+<span id="user-guide-tips"></span><h2>Tips and Best Practices<a class="headerlink" href="#tips-and-best-practices" title="Link to this heading"></a></h2>
+<section id="performance-optimization">
+<span id="user-guide-tips-performance"></span><h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">.docdiff/</span></code> cache to avoid re-parsing</p></li>
+<li><p>Run compare before export to check status</p></li>
+<li><p>Process large projects in sections if needed</p></li>
+</ul>
+</section>
+<section id="translation-quality">
+<span id="user-guide-tips-quality"></span><h3>Translation Quality<a class="headerlink" href="#translation-quality" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Maintain consistent terminology</p></li>
+<li><p>Preserve code blocks exactly</p></li>
+<li><p>Keep cross-references intact</p></li>
+<li><p>Review fuzzy matches carefully</p></li>
+</ul>
+</section>
+<section id="project-organization">
+<span id="user-guide-tips-organization"></span><h3>Project Organization<a class="headerlink" href="#project-organization" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="user-project-structure">
+<div class="code-block-caption"><span class="caption-text">Recommended Project Structure</span><a class="headerlink" href="#user-project-structure" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>project/
+├── docs/
+│   ├── en/          # Source documentation
+│   ├── ja/          # Japanese translation
+│   ├── zh/          # Chinese translation
+│   └── ko/          # Korean translation
+├── translations/    # Translation work files
+│   ├── exports/     # Exported task files
+│   ├── completed/   # Completed translations
+│   └── reports/     # Status reports
+└── .docdiff/        # Cache (gitignored)
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<span id="user-guide-troubleshooting"></span><h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<span id="user-guide-common-issues"></span><h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Issue</strong>: Import fails with “structure mismatch”</p>
+<ul class="simple">
+<li><p><strong>Solution</strong>: Ensure source directory matches the one used for export</p></li>
+</ul>
+<p><strong>Issue</strong>: Low fuzzy match accuracy</p>
+<ul class="simple">
+<li><p><strong>Solution</strong>: Check if content has minor formatting differences</p></li>
+</ul>
+<p><strong>Issue</strong>: Missing translations not detected</p>
+<ul class="simple">
+<li><p><strong>Solution</strong>: Verify target files exist in the correct location</p></li>
+</ul>
+<p><strong>Issue</strong>: Cache seems outdated</p>
+<ul class="simple">
+<li><p><strong>Solution</strong>: Delete <code class="docutils literal notranslate"><span class="pre">.docdiff/cache/</span></code> and re-run comparison</p></li>
+</ul>
+</section>
+<section id="getting-help">
+<span id="user-guide-getting-help"></span><h3>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Check the <a class="reference internal" href="cli-reference.html"><span class="doc">CLI Reference</span></a> for command details</p></li>
+<li><p>Review the <a class="reference internal" href="api-reference.html"><span class="doc">API Reference</span></a> for programmatic usage</p></li>
+<li><p>Report issues on <a class="reference external" href="https://github.com/yourusername/docdiff/issues">GitHub Issues</a></p></li>
+<li><p>Join discussions on <a class="reference external" href="https://github.com/yourusername/docdiff/discussions">GitHub Discussions</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="docdiff Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli-reference.html" class="btn btn-neutral float-right" title="CLI Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, driller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

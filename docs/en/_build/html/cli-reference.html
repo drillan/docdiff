@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI Reference &mdash; docdiff  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="User Guide" href="user-guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            docdiff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CLI Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-commands">Available Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docdiff-compare"><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">compare</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docdiff-parse"><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">parse</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docdiff-status"><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docdiff-export"><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">export</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docdiff-import"><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">import</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docdiff-simple-compare"><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">simple-compare</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-workflows">Common Workflows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-translation-setup">Initial Translation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#continuous-translation-management">Continuous Translation Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#team-translation-workflow">Team Translation Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exit-codes">Exit Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-and-best-practices">Tips and Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer-guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">docdiff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">CLI Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cli-reference.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cli-reference">
+<span id="id1"></span><h1>CLI Reference<a class="headerlink" href="#cli-reference" title="Link to this heading"></a></h1>
+<p>The docdiff command-line interface provides tools for analyzing and managing document translations.</p>
+<section id="installation">
+<span id="cli-installation"></span><h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Install docdiff using uv:</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-installation">
+<div class="code-block-caption"><span class="caption-text">Installation Commands</span><a class="headerlink" href="#cli-code-installation" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>uv<span class="w"> </span>sync
+<span class="linenos">2</span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</div>
+</section>
+<section id="available-commands">
+<span id="cli-available-commands"></span><h2>Available Commands<a class="headerlink" href="#available-commands" title="Link to this heading"></a></h2>
+<section id="docdiff-compare">
+<span id="cli-command-compare"></span><h3><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">compare</span></code><a class="headerlink" href="#docdiff-compare" title="Link to this heading"></a></h3>
+<p>Advanced document comparison with translation coverage analysis.</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-compare-usage">
+<div class="code-block-caption"><span class="caption-text">Compare Command Usage</span><a class="headerlink" href="#cli-code-compare-usage" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docdiff<span class="w"> </span>compare<span class="w"> </span>&lt;source-dir&gt;<span class="w"> </span>&lt;target-dir&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source-dir</span></code>: Source documentation directory (e.g., docs/en)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target-dir</span></code>: Target documentation directory (e.g., docs/ja)</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--source-lang,</span> <span class="pre">-s</span></code>: Source language code (default: en)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--target-lang,</span> <span class="pre">-t</span></code>: Target language code (default: ja)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output,</span> <span class="pre">-o</span></code>: Output path for report (supports .json, .md extensions)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--html</span></code>: Generate HTML report in .docdiff/reports/</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--view</span></code>: Display view mode:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">summary</span></code>: Coverage statistics overview (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tree</span></code>: Hierarchical tree view of documents</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code>: Group by metadata (labels, names)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">side-by-side</span></code>: Side-by-side content comparison</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats</span></code>: Detailed statistics view</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose,</span> <span class="pre">-v</span></code>: Show detailed output</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-compare-examples">
+<div class="code-block-caption"><span class="caption-text">Compare Command Examples</span><a class="headerlink" href="#cli-code-compare-examples" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Basic comparison with summary view</span>
+<span class="linenos"> 2</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Generate Markdown report (style auto-detected from filename)</span>
+<span class="linenos"> 5</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.md<span class="w">          </span><span class="c1"># detailed style</span>
+<span class="linenos"> 6</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.github.md<span class="w">   </span><span class="c1"># GitHub style</span>
+<span class="linenos"> 7</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.compact.md<span class="w">  </span><span class="c1"># compact style</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># View metadata-based grouping</span>
+<span class="linenos">10</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>metadata
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># Generate HTML report</span>
+<span class="linenos">13</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--html
+</pre></div>
+</div>
+</div>
+<p><strong>Output Formats:</strong></p>
+<p><strong>Markdown Report Styles:</strong></p>
+<ul class="simple">
+<li><p><strong>Detailed</strong> (default): Comprehensive report with all sections</p></li>
+<li><p><strong>GitHub</strong>: GitHub-flavored markdown with collapsible sections and mermaid diagrams</p></li>
+<li><p><strong>Compact</strong>: Minimal report focusing on missing translations</p></li>
+</ul>
+<p><strong>Terminal View Modes:</strong></p>
+<ul class="simple">
+<li><p><strong>Summary</strong>: Overall coverage statistics and structure differences</p></li>
+<li><p><strong>Tree</strong>: Document hierarchy with translation status indicators</p></li>
+<li><p><strong>Metadata</strong>: Grouped by labels and name attributes with coverage bars</p></li>
+<li><p><strong>Side-by-side</strong>: Source and target content comparison table</p></li>
+<li><p><strong>Stats</strong>: Detailed statistics with type distribution</p></li>
+</ul>
+</section>
+<section id="docdiff-parse">
+<span id="cli-command-parse"></span><h3><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">parse</span></code><a class="headerlink" href="#docdiff-parse" title="Link to this heading"></a></h3>
+<p>Parse documentation and extract structure for analysis.</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-parse-usage">
+<div class="code-block-caption"><span class="caption-text">Parse Command Usage</span><a class="headerlink" href="#cli-code-parse-usage" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docdiff<span class="w"> </span>parse<span class="w"> </span>&lt;project-dir&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">project-dir</span></code>: Path to the documentation directory</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--cache-dir</span></code>: Override default cache directory (default: .docdiff/cache)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose,</span> <span class="pre">-v</span></code>: Show detailed parsing information</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-parse-examples">
+<div class="code-block-caption"><span class="caption-text">Parse Command Examples</span><a class="headerlink" href="#cli-code-parse-examples" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Parse documentation</span>
+<span class="linenos">2</span>docdiff<span class="w"> </span>parse<span class="w"> </span>docs/en
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Parse with verbose output</span>
+<span class="linenos">5</span>docdiff<span class="w"> </span>parse<span class="w"> </span>docs/ja<span class="w"> </span>--verbose
+</pre></div>
+</div>
+</div>
+</section>
+<section id="docdiff-status">
+<span id="cli-command-status"></span><h3><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">status</span></code><a class="headerlink" href="#docdiff-status" title="Link to this heading"></a></h3>
+<p>Show translation status summary.</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-status-usage">
+<div class="code-block-caption"><span class="caption-text">Status Command Usage</span><a class="headerlink" href="#cli-code-status-usage" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docdiff<span class="w"> </span>status<span class="w"> </span>&lt;source-dir&gt;<span class="w"> </span>&lt;target-dir&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source-dir</span></code>: Source documentation directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target-dir</span></code>: Target documentation directory</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--source-lang,</span> <span class="pre">-s</span></code>: Source language code (default: en)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--target-lang,</span> <span class="pre">-t</span></code>: Target language code (default: ja)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--format</span></code>: Output format (<code class="docutils literal notranslate"><span class="pre">summary</span></code>, <code class="docutils literal notranslate"><span class="pre">detailed</span></code>)</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-status-examples">
+<div class="code-block-caption"><span class="caption-text">Status Command Examples</span><a class="headerlink" href="#cli-code-status-examples" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Quick status check</span>
+<span class="linenos">2</span>docdiff<span class="w"> </span>status<span class="w"> </span>docs/en<span class="w"> </span>docs/ja
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Detailed status</span>
+<span class="linenos">5</span>docdiff<span class="w"> </span>status<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>detailed
+</pre></div>
+</div>
+</div>
+</section>
+<section id="docdiff-export">
+<span id="cli-command-export"></span><h3><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">export</span></code><a class="headerlink" href="#docdiff-export" title="Link to this heading"></a></h3>
+<p>Export translation tasks to various formats.</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-export-usage">
+<div class="code-block-caption"><span class="caption-text">Export Command Usage</span><a class="headerlink" href="#cli-code-export-usage" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>&lt;source-dir&gt;<span class="w"> </span>&lt;target-dir&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source-dir</span></code>: Source documentation directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target-dir</span></code>: Target documentation directory</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--format,</span> <span class="pre">-f</span></code>: Export format:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">json</span></code>: JSON format (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">csv</span></code>: CSV spreadsheet format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xlsx</span></code>: Excel workbook format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xliff</span></code>: XLIFF 2.1 translation format</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output,</span> <span class="pre">-o</span></code>: Output file path (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--source-lang,</span> <span class="pre">-s</span></code>: Source language code (default: en)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--target-lang,</span> <span class="pre">-t</span></code>: Target language code (default: ja)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--include-translated</span></code>: Include already translated content</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--metadata-only</span></code>: Export only metadata without content</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-export-examples">
+<div class="code-block-caption"><span class="caption-text">Export Command Examples</span><a class="headerlink" href="#cli-code-export-examples" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Export to CSV for spreadsheet translation</span>
+<span class="linenos"> 2</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>csv<span class="w"> </span>--output<span class="w"> </span>tasks.csv
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Export to XLIFF for CAT tools</span>
+<span class="linenos"> 5</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>xliff<span class="w"> </span>--output<span class="w"> </span>translation.xlf
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Export to Excel with multiple sheets</span>
+<span class="linenos"> 8</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>xlsx<span class="w"> </span>--output<span class="w"> </span>tasks.xlsx
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Include already translated content for review</span>
+<span class="linenos">11</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>--output<span class="w"> </span>all.json<span class="w"> </span>--include-translated
+</pre></div>
+</div>
+</div>
+<p><strong>Output Formats:</strong></p>
+<p><strong>CSV Format:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-export-csv-format">
+<div class="code-block-caption"><span class="caption-text">CSV Export Format</span><a class="headerlink" href="#cli-code-export-csv-format" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ID,File,Line,Type,Status,Similarity,Source,Target,Label,Name,Notes
+7f3a2b,index.md,7,paragraph,missing,0.0,&quot;docdiff is a powerful...&quot;,,,,,
+8c4d5e,index.md,11,list,fuzzy,100.0,&quot;- **Intelligent Structure...&quot;,&quot;- **Intelligent Structure...&quot;,,,
+</pre></div>
+</div>
+</div>
+<p><strong>XLIFF Format:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-export-xliff-format">
+<div class="code-block-caption"><span class="caption-text">XLIFF 2.1 Export Format</span><a class="headerlink" href="#cli-code-export-xliff-format" title="Link to this code"></a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;xliff</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;2.1&quot;</span><span class="w"> </span><span class="na">srcLang=</span><span class="s">&quot;en&quot;</span><span class="w"> </span><span class="na">trgLang=</span><span class="s">&quot;ja&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;file</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;index.md&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;unit</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;7f3a2b&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;segment&gt;</span>
+<span class="w">        </span><span class="nt">&lt;source&gt;</span>docdiff<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>powerful<span class="w"> </span>multilingual...<span class="nt">&lt;/source&gt;</span>
+<span class="w">        </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">state=</span><span class="s">&quot;initial&quot;</span><span class="nt">&gt;&lt;/target&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/segment&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/unit&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/file&gt;</span>
+<span class="nt">&lt;/xliff&gt;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="docdiff-import">
+<span id="cli-command-import"></span><h3><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">import</span></code><a class="headerlink" href="#docdiff-import" title="Link to this heading"></a></h3>
+<p>Import translations from exported files.</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-import-usage">
+<div class="code-block-caption"><span class="caption-text">Import Command Usage</span><a class="headerlink" href="#cli-code-import-usage" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docdiff<span class="w"> </span>import<span class="w"> </span>&lt;input-file&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">input-file</span></code>: Path to the file containing translations (CSV, JSON, XLSX, or XLIFF)</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--source-dir</span></code>: Source documentation directory (for validation)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--target-dir</span></code>: Target documentation directory (where to write translations)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--source-lang,</span> <span class="pre">-s</span></code>: Source language code (default: en)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--target-lang,</span> <span class="pre">-t</span></code>: Target language code (default: ja)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>: Preview changes without writing files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose,</span> <span class="pre">-v</span></code>: Show detailed import progress</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-import-examples">
+<div class="code-block-caption"><span class="caption-text">Import Command Examples</span><a class="headerlink" href="#cli-code-import-examples" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Import translations from CSV</span>
+<span class="linenos">2</span>docdiff<span class="w"> </span>import<span class="w"> </span>translated.csv<span class="w"> </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span>--target-dir<span class="w"> </span>docs/ja
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Dry run to preview changes</span>
+<span class="linenos">5</span>docdiff<span class="w"> </span>import<span class="w"> </span>translated.xlsx<span class="w"> </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span>--target-dir<span class="w"> </span>docs/ja<span class="w"> </span>--dry-run
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="c1"># Import from XLIFF with verbose output</span>
+<span class="linenos">8</span>docdiff<span class="w"> </span>import<span class="w"> </span>translation.xlf<span class="w"> </span>--target-dir<span class="w"> </span>docs/ja<span class="w"> </span>--verbose
+</pre></div>
+</div>
+</div>
+</section>
+<section id="docdiff-simple-compare">
+<span id="cli-command-simple-compare"></span><h3><code class="docutils literal notranslate"><span class="pre">docdiff</span> <span class="pre">simple-compare</span></code><a class="headerlink" href="#docdiff-simple-compare" title="Link to this heading"></a></h3>
+<p>Basic structure comparison between directories.</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-simple-compare-usage">
+<div class="code-block-caption"><span class="caption-text">Simple Compare Command Usage</span><a class="headerlink" href="#cli-code-simple-compare-usage" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docdiff<span class="w"> </span>simple-compare<span class="w"> </span>&lt;source-dir&gt;<span class="w"> </span>&lt;target-dir&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source-dir</span></code>: Source documentation directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target-dir</span></code>: Target documentation directory</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose,</span> <span class="pre">-v</span></code>: Show detailed comparison</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="literal-block-wrapper docutils container" id="cli-code-simple-compare-examples">
+<div class="code-block-caption"><span class="caption-text">Simple Compare Command Examples</span><a class="headerlink" href="#cli-code-simple-compare-examples" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Quick structure comparison</span>
+<span class="linenos">2</span>docdiff<span class="w"> </span>simple-compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="c1"># Detailed comparison</span>
+<span class="linenos">5</span>docdiff<span class="w"> </span>simple-compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--verbose
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="configuration">
+<span id="cli-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>docdiff uses a <code class="docutils literal notranslate"><span class="pre">.docdiff/</span></code> directory in your project root for cache and reports:</p>
+<div class="literal-block-wrapper docutils container" id="cli-code-cache-structure">
+<div class="code-block-caption"><span class="caption-text">Cache Directory Structure</span><a class="headerlink" href="#cli-code-cache-structure" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.docdiff/
+├── cache/           # Parsed document cache
+│   ├── nodes.db     # Document structure database
+│   └── mappings.db  # Translation mappings
+└── reports/         # Generated reports
+    ├── comparison_en_ja.html
+    └── *.md         # Markdown reports
+</pre></div>
+</div>
+</div>
+<p><strong>Note:</strong> Add <code class="docutils literal notranslate"><span class="pre">.docdiff/</span></code> to your <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file to exclude cache from version control.</p>
+</section>
+<section id="environment-variables">
+<span id="cli-environment-variables"></span><h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCDIFF_DB_PATH</span></code>: Override default database location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCDIFF_CONFIG</span></code>: Path to configuration file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCDIFF_LOG_LEVEL</span></code>: Logging level (DEBUG, INFO, WARNING, ERROR)</p></li>
+</ul>
+</section>
+<section id="common-workflows">
+<span id="cli-common-workflows"></span><h2>Common Workflows<a class="headerlink" href="#common-workflows" title="Link to this heading"></a></h2>
+<section id="initial-translation-setup">
+<span id="cli-workflow-initial-setup"></span><h3>Initial Translation Setup<a class="headerlink" href="#initial-translation-setup" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="cli-code-workflow-initial">
+<div class="code-block-caption"><span class="caption-text">Initial Translation Setup</span><a class="headerlink" href="#cli-code-workflow-initial" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 1. Compare source and target documentation</span>
+<span class="linenos"> 2</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># 2. Generate detailed report for review</span>
+<span class="linenos"> 5</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>initial-status.md
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># 3. Export missing translations to CSV</span>
+<span class="linenos"> 8</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>csv<span class="w"> </span>--output<span class="w"> </span>translations-needed.csv
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># 4. After translation, import the completed CSV</span>
+<span class="linenos">11</span>docdiff<span class="w"> </span>import<span class="w"> </span>translations-completed.csv<span class="w"> </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span>--target-dir<span class="w"> </span>docs/ja
+</pre></div>
+</div>
+</div>
+</section>
+<section id="continuous-translation-management">
+<span id="cli-workflow-continuous"></span><h3>Continuous Translation Management<a class="headerlink" href="#continuous-translation-management" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="cli-code-workflow-continuous">
+<div class="code-block-caption"><span class="caption-text">Continuous Translation Workflow</span><a class="headerlink" href="#cli-code-workflow-continuous" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Daily workflow</span>
+<span class="linenos"> 2</span><span class="c1"># 1. Check current translation coverage</span>
+<span class="linenos"> 3</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>summary
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># 2. Generate GitHub-style report for PR</span>
+<span class="linenos"> 6</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>report.github.md
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># 3. Export only missing translations</span>
+<span class="linenos"> 9</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>xlsx<span class="w"> </span>--output<span class="w"> </span>weekly-tasks.xlsx
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># 4. View metadata-based grouping for prioritization</span>
+<span class="linenos">12</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--view<span class="w"> </span>metadata
+</pre></div>
+</div>
+</div>
+</section>
+<section id="team-translation-workflow">
+<span id="cli-workflow-team"></span><h3>Team Translation Workflow<a class="headerlink" href="#team-translation-workflow" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="cli-code-workflow-team">
+<div class="code-block-caption"><span class="caption-text">Team Translation Workflow</span><a class="headerlink" href="#cli-code-workflow-team" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Project manager: Export tasks</span>
+<span class="linenos"> 2</span>docdiff<span class="w"> </span><span class="nb">export</span><span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--format<span class="w"> </span>xlsx<span class="w"> </span>--output<span class="w"> </span>team-tasks.xlsx
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Translator: Work on Excel file</span>
+<span class="linenos"> 5</span><span class="c1"># ... translation work ...</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># Project manager: Import completed translations</span>
+<span class="linenos"> 8</span>docdiff<span class="w"> </span>import<span class="w"> </span>team-tasks-completed.xlsx<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 9</span><span class="w">  </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span><span class="se">\</span>
+<span class="linenos">10</span><span class="w">  </span>--target-dir<span class="w"> </span>docs/ja<span class="w"> </span><span class="se">\</span>
+<span class="linenos">11</span><span class="w">  </span>--dry-run<span class="w">  </span><span class="c1"># Preview first</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># If preview looks good, import for real</span>
+<span class="linenos">14</span>docdiff<span class="w"> </span>import<span class="w"> </span>team-tasks-completed.xlsx<span class="w"> </span><span class="se">\</span>
+<span class="linenos">15</span><span class="w">  </span>--source-dir<span class="w"> </span>docs/en<span class="w"> </span><span class="se">\</span>
+<span class="linenos">16</span><span class="w">  </span>--target-dir<span class="w"> </span>docs/ja
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Generate report for stakeholders</span>
+<span class="linenos">19</span>docdiff<span class="w"> </span>compare<span class="w"> </span>docs/en<span class="w"> </span>docs/ja<span class="w"> </span>--output<span class="w"> </span>status-report.md
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="exit-codes">
+<span id="cli-exit-codes"></span><h2>Exit Codes<a class="headerlink" href="#exit-codes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: Success</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: General error</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: Parse error</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code>: Database error</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4</span></code>: Validation error</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5</span></code>: Configuration error</p></li>
+</ul>
+</section>
+<section id="tips-and-best-practices">
+<span id="cli-tips-best-practices"></span><h2>Tips and Best Practices<a class="headerlink" href="#tips-and-best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Regular Parsing</strong>: Re-parse your documentation regularly to detect structural changes</p></li>
+<li><p><strong>Version Control</strong>: Include <code class="docutils literal notranslate"><span class="pre">.docdiff.yml</span></code> in version control, exclude <code class="docutils literal notranslate"><span class="pre">.docdiff/</span></code> directory</p></li>
+<li><p><strong>Incremental Updates</strong>: Use <code class="docutils literal notranslate"><span class="pre">--filter</span> <span class="pre">outdated</span></code> to focus on changed content</p></li>
+<li><p><strong>Validation</strong>: Run validation before major releases to ensure reference integrity</p></li>
+<li><p><strong>Batch Operations</strong>: Process multiple target languages in configuration rather than individual commands</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user-guide.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, driller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
