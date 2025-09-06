@@ -28,7 +28,7 @@ def parse_command(
     # Initialize cache manager
     cache_manager = CacheManager()
     cache_manager.initialize()
-    
+
     # Set default database path using cache manager
     if db_path is None:
         db_path = cache_manager.get_default_db_path(project_dir)

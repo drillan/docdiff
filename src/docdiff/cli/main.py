@@ -179,8 +179,14 @@ def compare(
 ) -> None:
     """Advanced document comparison with translation coverage analysis."""
     compare_command(
-        source_dir, target_dir, source_lang, target_lang,
-        output_report, html_report, view, verbose
+        source_dir,
+        target_dir,
+        source_lang,
+        target_lang,
+        output_report,
+        html_report,
+        view,
+        verbose,
     )
 
 
@@ -248,9 +254,16 @@ def export(
 ) -> None:
     """Export translation tasks to various formats."""
     export_command(
-        source_dir, target_dir, output_file, format,
-        source_lang, target_lang, include_missing,
-        include_outdated, include_context, verbose
+        source_dir,
+        target_dir,
+        output_file,
+        format,
+        source_lang,
+        target_lang,
+        include_missing,
+        include_outdated,
+        include_context,
+        verbose,
     )
 
 
@@ -307,8 +320,14 @@ def import_cmd(
 ) -> None:
     """Import translations from exported files."""
     import_command(
-        import_file, target_dir, format, target_lang,
-        create_missing, overwrite_existing, dry_run, verbose
+        import_file,
+        target_dir,
+        format,
+        target_lang,
+        create_missing,
+        overwrite_existing,
+        dry_run,
+        verbose,
     )
 
 

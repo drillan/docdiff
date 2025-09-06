@@ -53,8 +53,10 @@ def simple_compare_command(
     if output_file:
         # If no path specified, use cache manager's reports directory
         if output_file.name == output_file:
-            output_file = cache_manager.get_report_path(str(output_file), timestamp=False)
-        
+            output_file = cache_manager.get_report_path(
+                str(output_file), timestamp=False
+            )
+
         with open(output_file, "w") as f:
             json.dump(results, f, indent=2, default=str)
         console.print(f"[green]✓[/green] Results saved to {output_file}")

@@ -10,74 +10,82 @@ from docdiff.models import DocumentNode, TranslationPair
 @dataclass
 class NodeMapping:
     """Represents a mapping between source and target nodes."""
-    
+
     source_node: DocumentNode
     target_node: Optional[DocumentNode]
     similarity: float
     mapping_type: str  # 'exact', 'fuzzy', 'missing'
-    
+
     def is_translated(self) -> bool:
         """Check if this mapping represents a translated node."""
         return self.target_node is not None
-    
+
     def needs_translation(self) -> bool:
         """Check if this node needs translation."""
-        return self.mapping_type == 'missing' or (
-            self.mapping_type == 'fuzzy' and self.similarity < 0.95
+        return self.mapping_type == "missing" or (
+            self.mapping_type == "fuzzy" and self.similarity < 0.95
         )
 
 
 @dataclass
 class ComparisonResult:
     """Complete comparison results."""
-    
+
     # Structure comparison
     structure_diff: Dict[str, Any]
-    
-    # Content comparison  
+
+    # Content comparison
     content_changes: List[Dict[str, Any]]
-    
+
     # Translation analysis
     translation_pairs: List[TranslationPair]
     coverage_stats: Dict[str, float]
-    
+
     # Node mappings
     mappings: List[NodeMapping]
-    
+
     # Metadata
     source_lang: str = "en"
     target_lang: str = "ja"
     timestamp: datetime = field(default_factory=datetime.now)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
-            'metadata': {
-                'source_lang': self.source_lang,
-                'target_lang': self.target_lang,
-                'timestamp': self.timestamp.isoformat(),
-                'total_mappings': len(self.mappings)
+            "metadata": {
+                "source_lang": self.source_lang,
+                "target_lang": self.target_lang,
+                "timestamp": self.timestamp.isoformat(),
+                "total_mappings": len(self.mappings),
             },
-            'structure_diff': self.structure_diff,
-            'content_changes': self.content_changes,
-            'coverage': self.coverage_stats,
-            'summary': {
-                'exact_matches': len([m for m in self.mappings if m.mapping_type == 'exact']),
-                'fuzzy_matches': len([m for m in self.mappings if m.mapping_type == 'fuzzy']),
-                'missing': len([m for m in self.mappings if m.mapping_type == 'missing']),
-                'needs_translation': len([m for m in self.mappings if m.needs_translation()])
-            }
+            "structure_diff": self.structure_diff,
+            "content_changes": self.content_changes,
+            "coverage": self.coverage_stats,
+            "summary": {
+                "exact_matches": len(
+                    [m for m in self.mappings if m.mapping_type == "exact"]
+                ),
+                "fuzzy_matches": len(
+                    [m for m in self.mappings if m.mapping_type == "fuzzy"]
+                ),
+                "missing": len(
+                    [m for m in self.mappings if m.mapping_type == "missing"]
+                ),
+                "needs_translation": len(
+                    [m for m in self.mappings if m.needs_translation()]
+                ),
+            },
         }
-    
+
     def generate_html_report(self) -> str:
         """Generate HTML report of comparison results."""
         # Simplified HTML generation without jinja2 dependency
-        coverage_pct = round(self.coverage_stats.get('overall', 0) * 100, 1)
-        
-        missing_count = len([m for m in self.mappings if m.mapping_type == 'missing'])
-        fuzzy_count = len([m for m in self.mappings if m.mapping_type == 'fuzzy'])
-        exact_count = len([m for m in self.mappings if m.mapping_type == 'exact'])
-        
+        coverage_pct = round(self.coverage_stats.get("overall", 0) * 100, 1)
+
+        missing_count = len([m for m in self.mappings if m.mapping_type == "missing"])
+        fuzzy_count = len([m for m in self.mappings if m.mapping_type == "fuzzy"])
+        exact_count = len([m for m in self.mappings if m.mapping_type == "exact"])
+
         html = f"""
         <!DOCTYPE html>
         <html>
@@ -103,7 +111,7 @@ class ComparisonResult:
             <div class="header">
                 <h1>Translation Comparison Report</h1>
                 <p><strong>Source:</strong> {self.source_lang} | <strong>Target:</strong> {self.target_lang}</p>
-                <p><strong>Generated:</strong> {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}</p>
+                <p><strong>Generated:</strong> {self.timestamp.strftime("%Y-%m-%d %H:%M:%S")}</p>
             </div>
             
             <div class="metric">
@@ -137,18 +145,18 @@ class ComparisonResult:
                     <th>Coverage</th>
                 </tr>
         """
-        
+
         for node_type, data in self.structure_diff.items():
-            coverage = data.get('coverage', 0)
+            coverage = data.get("coverage", 0)
             html += f"""
                 <tr>
                     <td>{node_type}</td>
-                    <td>{data.get('source', 0)}</td>
-                    <td>{data.get('target', 0)}</td>
+                    <td>{data.get("source", 0)}</td>
+                    <td>{data.get("target", 0)}</td>
                     <td>{coverage:.1f}%</td>
                 </tr>
             """
-        
+
         html += """
             </table>
             
@@ -161,7 +169,7 @@ class ComparisonResult:
         """.format(
             len(self.mappings),
             len([m for m in self.mappings if m.needs_translation()]),
-            len(self.content_changes)
+            len(self.content_changes),
         )
-        
+
         return html

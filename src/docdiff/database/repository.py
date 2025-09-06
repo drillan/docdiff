@@ -141,6 +141,17 @@ class NodeRepository:
         self.connection.execute("DELETE FROM document_nodes WHERE id = ?", (node_id,))
         self.connection.commit()
 
+    def get_all_nodes(self) -> List[DocumentNode]:
+        """Get all nodes from the database.
+
+        Returns:
+            List of all DocumentNodes
+        """
+        result = self.connection.execute(
+            "SELECT * FROM document_nodes ORDER BY file_path, line_number"
+        )
+        return [self._row_to_node(row) for row in result]
+
     def _row_to_node(self, row: Dict[str, Any]) -> DocumentNode:
         """Convert a database row to a DocumentNode.
 
