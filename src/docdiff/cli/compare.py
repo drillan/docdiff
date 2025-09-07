@@ -1,7 +1,7 @@
 """Compare command for advanced document comparison."""
 
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 import typer
 from rich.console import Console
@@ -9,7 +9,7 @@ from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from docdiff.cache import CacheManager
-from docdiff.parsers import MySTParser
+from docdiff.parsers import MySTParser, ReSTParser
 from docdiff.compare import ComparisonEngine, MetadataView
 from docdiff.compare.reporters import MarkdownReporter
 
@@ -51,6 +51,10 @@ def compare_command(
     cache_manager = CacheManager()
     cache_manager.initialize()
 
+    # Initialize parsers
+    myst_parser = MySTParser()
+    rest_parser = ReSTParser()
+
     # Parse documents with progress
     with Progress(
         SpinnerColumn(),
@@ -59,15 +63,27 @@ def compare_command(
     ) as progress:
         # Parse source documents
         task = progress.add_task(f"Parsing {source_lang} documents...", total=None)
-        parser = MySTParser()
         source_nodes = []
 
-        for md_file in source_dir.rglob("*.md"):
+        # Find all document files (.md and .rst)
+        doc_files = list(source_dir.rglob("*.md")) + list(source_dir.rglob("*.rst"))
+
+        for doc_file in doc_files:
             if verbose:
-                console.print(f"  Parsing: {md_file.relative_to(source_dir)}")
-            with open(md_file, "r", encoding="utf-8") as f:
+                console.print(f"  Parsing: {doc_file.relative_to(source_dir)}")
+
+            # Choose parser based on file extension
+            parser: Union[MySTParser, ReSTParser]
+            if doc_file.suffix == ".md":
+                parser = myst_parser
+            elif doc_file.suffix == ".rst":
+                parser = rest_parser
+            else:
+                continue
+
+            with open(doc_file, "r", encoding="utf-8") as f:
                 content = f.read()
-            nodes = parser.parse(content, md_file)
+            nodes = parser.parse(content, doc_file)
             # Set language for all nodes
             for node in nodes:
                 node.doc_language = source_lang
@@ -82,12 +98,24 @@ def compare_command(
         task = progress.add_task(f"Parsing {target_lang} documents...", total=None)
         target_nodes = []
 
-        for md_file in target_dir.rglob("*.md"):
+        # Find all document files (.md and .rst)
+        doc_files = list(target_dir.rglob("*.md")) + list(target_dir.rglob("*.rst"))
+
+        for doc_file in doc_files:
             if verbose:
-                console.print(f"  Parsing: {md_file.relative_to(target_dir)}")
-            with open(md_file, "r", encoding="utf-8") as f:
+                console.print(f"  Parsing: {doc_file.relative_to(target_dir)}")
+
+            # Choose parser based on file extension
+            if doc_file.suffix == ".md":
+                target_parser: Union[MySTParser, ReSTParser] = myst_parser
+            elif doc_file.suffix == ".rst":
+                target_parser = rest_parser
+            else:
+                continue
+
+            with open(doc_file, "r", encoding="utf-8") as f:
                 content = f.read()
-            nodes = parser.parse(content, md_file)
+            nodes = target_parser.parse(content, doc_file)
             # Set language for all nodes
             for node in nodes:
                 node.doc_language = target_lang
