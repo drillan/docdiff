@@ -2,6 +2,60 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🚨 重要: ファイル生成に関する厳格なルール（必須遵守）
+
+### ❌ 絶対禁止事項
+- プロジェクトルートへの一時ファイル生成を**厳禁**とする
+- `test_*`、`tmp_*`、`temp_*` などのファイル/ディレクトリをルートに作成**禁止**
+- レポートやログファイルをルートに直接生成**禁止**
+- 実験的なコードやテストデータをルートに配置**禁止**
+
+### ✅ 必須ルール
+すべての一時的なファイル生成は以下の場所で行う：
+
+| ファイルタイプ | 配置場所 | 例 |
+|------------|---------|-----|
+| 一時ファイル | `.ai-workspace/tmp/` | `.ai-workspace/tmp/test_data.json` |
+| テスト用ディレクトリ | `.ai-workspace/experiments/` | `.ai-workspace/experiments/test_readme/` |
+| 生成レポート | `.ai-workspace/reports/` | `.ai-workspace/reports/translation-status.md` |
+| 一時スクリプト | `.ai-workspace/scripts/` | `.ai-workspace/scripts/analyze.py` |
+| 比較・差分ファイル | `.ai-workspace/tmp/` | `.ai-workspace/tmp/diff_result.txt` |
+| CSVエクスポート | `.ai-workspace/reports/` | `.ai-workspace/reports/tasks.csv` |
+| 実験データ | `.ai-workspace/experiments/` | `.ai-workspace/experiments/sample_data/` |
+
+### 📝 実行例
+
+```bash
+# ❌ 悪い例（絶対禁止）
+mkdir test_readme
+echo "test" > tmp_output.txt
+uv run python test_script.py > output.log
+docdiff compare . . --output translation-report.md
+cp README.md README_backup.md
+
+# ✅ 良い例（必須）
+mkdir -p .ai-workspace/experiments/test_readme
+echo "test" > .ai-workspace/tmp/output.txt
+uv run python .ai-workspace/scripts/test_script.py > .ai-workspace/tmp/output.log
+docdiff compare . . --output .ai-workspace/reports/translation-report.md
+cp README.md .ai-workspace/tmp/README_backup.md
+```
+
+### 🧹 クリーンアップルール
+1. 作業完了後、不要な一時ファイルは**必ず削除**する
+2. 恒久的に必要なファイルは適切な場所に移動：
+   - ドキュメント → `docs/`
+   - テストコード → `tests/`
+   - ソースコード → `src/`
+   - サンプル → `samples/`
+3. `.ai-workspace/`内のファイルは定期的にクリーンアップ可能
+4. 作業セッション終了時に`ls .ai-workspace/*/`で残存ファイルを確認
+
+### ⚠️ 違反時の対応
+- ルートに一時ファイルを作成した場合、**即座に削除**して`.ai-workspace/`に移動
+- 誤って作成したファイルは`git status`で確認し、適切に処理
+- 不明な場合は削除前にユーザーに確認
+
 ## プロジェクト概要
 
 docdiffは、MyST/reStructuredTextドキュメントの多言語翻訳管理ツールです。文書を構造単位で解析し、翻訳状態を追跡することで、技術ドキュメントの国際化を支援します。
