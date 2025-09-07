@@ -7,6 +7,21 @@ from typing import Any, Dict, List, Optional
 from datetime import datetime
 
 from docdiff.compare.models import ComparisonResult, NodeMapping
+from docdiff.ai.adaptive_optimizer import AdaptiveBatchOptimizer
+from docdiff.ai.glossary import Glossary
+from docdiff.export import HierarchyBuilder
+from docdiff.models.export_schema import (
+    DocumentHierarchy,
+    ExportMetadata,
+    ExportSchema,
+    ExportStatistics,
+    GlossaryTermExport,
+    CrossReferenceExport,
+    SphinxContextExport,
+)
+from docdiff.sphinx.glossary import GlossaryExtractor
+from docdiff.sphinx.references import ReferenceDatabase, ReferenceType
+from docdiff.sphinx.project import detect_sphinx_project, export_sphinx_config
 
 
 class TranslationExporter:
@@ -46,84 +61,304 @@ class TranslationExporter:
     def _export_json(
         self, result: ComparisonResult, output_path: Path, options: Dict[str, Any]
     ) -> Path:
-        """Export as JSON for programmatic processing."""
-        data = {
-            "metadata": {
-                "source_lang": result.source_lang,
-                "target_lang": result.target_lang,
-                "timestamp": result.timestamp.isoformat(),
-                "coverage": result.coverage_stats,
-                "export_date": datetime.now().isoformat(),
-            },
-            "translations": [],
-        }
+        """Export as AI-optimized hierarchical JSON format.
 
-        # Filter options
-        include_missing = options.get("include_missing", True)
-        include_outdated = options.get("include_outdated", False)
-        include_all = options.get("include_all", False)
+        Complete replacement with new schema v1.0 for AI translation optimization.
+        """
+        # Build hierarchy from flat mappings
+        context_window = options.get("context_window", 3)
+        builder = HierarchyBuilder(context_window=context_window)
+        hierarchy = builder.build_hierarchy(result.mappings)
 
-        for mapping in result.mappings:
-            # Determine if this mapping should be included
-            should_include = (
-                include_all
-                or (include_missing and mapping.mapping_type == "missing")
-                or (
-                    include_outdated
-                    and mapping.mapping_type == "fuzzy"
-                    and mapping.similarity < 0.95
-                )
+        # Extract Sphinx context if available
+        sphinx_context = self._extract_sphinx_context_v2(result, options)
+        glossary_terms = []
+        if sphinx_context and sphinx_context.glossary_terms:
+            glossary_terms = [term.term for term in sphinx_context.glossary_terms]
+
+        # Create optimized batches using adaptive optimizer
+        batch_size = options.get("batch_size", 2000)
+        source_lang = result.source_lang
+
+        # Always use adaptive optimizer for best efficiency
+        adaptive_optimizer = AdaptiveBatchOptimizer(
+            target_batch_size=batch_size,
+            min_batch_size=max(500, batch_size // 4),
+            max_batch_size=batch_size,
+            source_lang=source_lang,
+            preserve_hierarchy=options.get("preserve_hierarchy", True),
+            enable_context=options.get("include_context", False),
+            context_window=options.get("context_window", 3),
+        )
+
+        # Load glossary if provided
+        glossary = None
+        glossary_file = options.get("glossary_file")
+        if glossary_file and glossary_file.exists():
+            glossary = Glossary()
+            glossary.load_from_file(glossary_file)
+
+        batches, metrics = adaptive_optimizer.optimize_hierarchy(hierarchy, glossary)
+
+        # Print optimization report if verbose
+        if options.get("verbose"):
+            print(adaptive_optimizer.get_metrics_report())
+
+        # Create metadata
+        metadata = self._create_export_metadata(result, hierarchy)
+
+        # Build final schema
+        export_data = ExportSchema(
+            schema_version="1.0",
+            metadata=metadata,
+            sphinx_context=sphinx_context,
+            document_hierarchy=hierarchy,
+            translation_batches=batches,
+        )
+
+        # Write to file
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        json_content = export_data.model_dump(
+            exclude_none=True, by_alias=False, mode="json"
+        )
+
+        # Custom serialization for datetime
+        def serialize_datetime(obj):
+            if isinstance(obj, datetime):
+                return obj.isoformat()
+            raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
+
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(
+                json_content,
+                f,
+                ensure_ascii=False,
+                indent=2,
+                default=serialize_datetime,
             )
 
-            if should_include:
-                item = {
-                    "id": mapping.source_node.id,
-                    "type": mapping.source_node.type.value
-                    if hasattr(mapping.source_node.type, "value")
-                    else str(mapping.source_node.type),
-                    "source": mapping.source_node.content,
-                    "target": mapping.target_node.content
-                    if mapping.target_node
-                    else "",
-                    "status": mapping.mapping_type,
-                    "similarity": mapping.similarity,
-                    "metadata": {},
-                }
-
-                # Add file and position info
-                if hasattr(mapping.source_node, "file_path"):
-                    item["file"] = str(mapping.source_node.file_path)
-                    item["line"] = mapping.source_node.line_number
-
-                # Add context if requested
-                if options.get("include_context"):
-                    context = {}
-                    if mapping.source_node.label:
-                        context["label"] = mapping.source_node.label
-                    if mapping.source_node.name:
-                        context["name"] = mapping.source_node.name
-                    if (
-                        hasattr(mapping.source_node, "caption")
-                        and mapping.source_node.caption
-                    ):
-                        context["caption"] = mapping.source_node.caption
-                    if (
-                        hasattr(mapping.source_node, "title")
-                        and mapping.source_node.title
-                    ):
-                        context["title"] = mapping.source_node.title
-                    item["context"] = context
-
-                translations_list = data["translations"]
-                assert isinstance(translations_list, list)
-                translations_list.append(item)
-
-        # Write JSON file
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-
         return output_path
+
+    def _extract_sphinx_context(
+        self, result: ComparisonResult, options: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Extract Sphinx-specific context from comparison results.
+
+        Args:
+            result: Comparison results
+            options: Export options
+
+        Returns:
+            Sphinx context dictionary or None if not a Sphinx project
+        """
+        # Detect project root
+        source_path = options.get("source_path")
+        if not source_path:
+            # Try to extract from first node with file_path
+            for mapping in result.mappings:
+                if hasattr(mapping.source_node, "file_path"):
+                    source_path = Path(mapping.source_node.file_path).parent
+                    break
+
+        if not source_path:
+            return None
+
+        # Detect Sphinx project
+        project = detect_sphinx_project(Path(source_path))
+        if not project:
+            return None
+
+        # Initialize context with project info
+        context = export_sphinx_config(project)
+
+        # Extract glossary if requested
+        if options.get("extract_glossary", True):
+            glossary_extractor = GlossaryExtractor()
+
+            # Process source files for glossary terms
+            for doc_file in project.get_source_files()[:50]:  # Limit for performance
+                try:
+                    content = doc_file.read_text(encoding="utf-8")
+                    if doc_file.suffix == ".rst":
+                        glossary_extractor.extract_from_rst(content, doc_file)
+                    elif doc_file.suffix in [".md", ".myst"]:
+                        glossary_extractor.extract_from_myst(content, doc_file)
+
+                    # Also find term references
+                    glossary_extractor.find_term_references(content, doc_file)
+                except Exception:
+                    continue  # Skip files that can't be read
+
+            # Add glossary context
+            context["glossary"] = glossary_extractor.export_glossary_context()
+
+        # Extract references if requested
+        if options.get("track_references", True):
+            ref_db = ReferenceDatabase()
+
+            # Process source files for references
+            for doc_file in project.get_source_files()[:50]:  # Limit for performance
+                try:
+                    content = doc_file.read_text(encoding="utf-8")
+                    if doc_file.suffix == ".rst":
+                        ref_db.extract_labels_from_rst(content, doc_file)
+                        ref_db.extract_references_from_rst(content, doc_file)
+                    elif doc_file.suffix in [".md", ".myst"]:
+                        ref_db.extract_labels_from_myst(content, doc_file)
+                        ref_db.extract_references_from_myst(content, doc_file)
+                except Exception:
+                    continue  # Skip files that can't be read
+
+            # Add reference context
+            context["references"] = ref_db.export_reference_context()
+
+        return context
+
+    def _extract_sphinx_context_v2(
+        self, result: ComparisonResult, options: Dict[str, Any]
+    ) -> Optional[SphinxContextExport]:
+        """Extract Sphinx context for new export format.
+
+        Args:
+            result: Comparison results
+            options: Export options
+
+        Returns:
+            Sphinx context or None if not a Sphinx project
+        """
+        if not options.get("extract_glossary", True) and not options.get(
+            "track_references", True
+        ):
+            return None
+
+        # Detect project root
+        source_path = options.get("source_path")
+        if not source_path:
+            # Try to extract from first node with file_path
+            for mapping in result.mappings:
+                if hasattr(mapping.source_node, "file_path"):
+                    source_path = Path(mapping.source_node.file_path).parent
+                    break
+
+        if not source_path:
+            return None
+
+        # Detect Sphinx project
+        project = detect_sphinx_project(Path(source_path))
+        if not project:
+            return None
+
+        sphinx_context = SphinxContextExport(
+            project_name=project.config.project or None,
+            project_version=project.config.version or None,
+            has_myst=project.has_myst,
+            has_i18n=project.has_i18n,
+        )
+
+        # Extract glossary if requested
+        if options.get("extract_glossary", True):
+            glossary_extractor = GlossaryExtractor()
+
+            # Process source files for glossary terms
+            for doc_file in project.get_source_files()[:50]:  # Limit for performance
+                try:
+                    content = doc_file.read_text(encoding="utf-8")
+                    if doc_file.suffix == ".rst":
+                        glossary_extractor.extract_from_rst(content, doc_file)
+                    elif doc_file.suffix in [".md", ".myst"]:
+                        glossary_extractor.extract_from_myst(content, doc_file)
+
+                    # Also find term references
+                    glossary_extractor.find_term_references(content, doc_file)
+                except Exception:
+                    continue  # Skip files that can't be read
+
+            # Convert to export format
+            for term in set(glossary_extractor.terms.values()):
+                glossary_export = GlossaryTermExport(
+                    term=term.term,
+                    definition=term.definition,
+                    source_file=str(term.source_file),
+                    line_number=term.line_number,
+                    aliases=term.aliases,
+                    usage_count=sum(
+                        1
+                        for ref in glossary_extractor.references
+                        if ref.term == term.term
+                    ),
+                )
+                sphinx_context.glossary_terms.append(glossary_export)
+
+        # Extract references if requested
+        if options.get("track_references", True):
+            ref_db = ReferenceDatabase()
+
+            # Process source files for references
+            for doc_file in project.get_source_files()[:50]:  # Limit for performance
+                try:
+                    content = doc_file.read_text(encoding="utf-8")
+                    if doc_file.suffix == ".rst":
+                        ref_db.extract_labels_from_rst(content, doc_file)
+                        ref_db.extract_references_from_rst(content, doc_file)
+                    elif doc_file.suffix in [".md", ".myst"]:
+                        ref_db.extract_labels_from_myst(content, doc_file)
+                        ref_db.extract_references_from_myst(content, doc_file)
+                except Exception:
+                    continue  # Skip files that can't be read
+
+            # Convert to export format
+            for ref in ref_db.references[:100]:  # Limit for performance
+                ref_export = CrossReferenceExport(
+                    type=ref.ref_type.value
+                    if isinstance(ref.ref_type, ReferenceType)
+                    else str(ref.ref_type),
+                    from_node=ref.node_id,
+                    to_label=ref.target,
+                    resolved=ref.resolved,
+                    source_file=str(ref.source_file),
+                    line_number=ref.line_number,
+                )
+                sphinx_context.cross_references.append(ref_export)
+
+        return sphinx_context
+
+    def _create_export_metadata(
+        self, result: ComparisonResult, hierarchy: DocumentHierarchy
+    ) -> ExportMetadata:
+        """Create export metadata.
+
+        Args:
+            result: Comparison results
+            hierarchy: Document hierarchy
+
+        Returns:
+            Export metadata
+        """
+        # Calculate statistics
+        total_nodes = hierarchy.total_nodes
+        missing_nodes = sum(file.missing_nodes for file in hierarchy.files.values())
+        outdated_nodes = sum(file.outdated_nodes for file in hierarchy.files.values())
+        translated_nodes = total_nodes - missing_nodes - outdated_nodes
+
+        coverage = (translated_nodes / total_nodes * 100) if total_nodes > 0 else 0.0
+
+        statistics = ExportStatistics(
+            total_nodes=total_nodes,
+            missing=missing_nodes,
+            outdated=outdated_nodes,
+            translated=translated_nodes,
+            total_files=hierarchy.total_files,
+            coverage_percentage=coverage,
+        )
+
+        return ExportMetadata(
+            docdiff_version="0.0.1",
+            export_timestamp=datetime.now(),
+            source_lang=result.source_lang,
+            target_lang=result.target_lang,
+            statistics=statistics,
+            schema_version="1.0",
+        )
 
     def _export_csv(
         self, result: ComparisonResult, output_path: Path, options: Dict[str, Any]

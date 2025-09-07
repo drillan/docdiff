@@ -1,8 +1,6 @@
 """Unit tests for ReSTParser."""
 
-import uuid
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 
@@ -15,13 +13,6 @@ def parser():
     """Create a ReSTParser instance."""
     return ReSTParser()
 
-
-@pytest.fixture
-def mock_uuid():
-    """Mock UUID generation for consistent testing."""
-    with patch("docdiff.parsers.rest.uuid.uuid4") as mock:
-        mock.return_value = uuid.UUID("12345678-1234-5678-1234-567812345678")
-        yield mock
 
 
 class TestReSTParserCanParse:
@@ -44,13 +35,13 @@ class TestReSTParserCanParse:
 class TestReSTParserParse:
     """Test the parse method."""
 
-    def test_parse_empty_document(self, parser, mock_uuid):
+    def test_parse_empty_document(self, parser):
         """Test parsing an empty document."""
         content = ""
         nodes = parser.parse(content, Path("test.rst"))
         assert nodes == []
 
-    def test_parse_simple_paragraph(self, parser, mock_uuid):
+    def test_parse_simple_paragraph(self, parser):
         """Test parsing a simple paragraph."""
         content = "This is a simple paragraph."
         nodes = parser.parse(content, Path("test.rst"))
@@ -60,7 +51,7 @@ class TestReSTParserParse:
         assert nodes[0].content == "This is a simple paragraph."
         assert nodes[0].line_number == 1
 
-    def test_parse_multiple_paragraphs(self, parser, mock_uuid):
+    def test_parse_multiple_paragraphs(self, parser):
         """Test parsing multiple paragraphs."""
         content = """First paragraph.
 
@@ -75,7 +66,7 @@ Third paragraph."""
         assert nodes[1].content == "Second paragraph."
         assert nodes[2].content == "Third paragraph."
 
-    def test_parse_section_with_equal_underline(self, parser, mock_uuid):
+    def test_parse_section_with_equal_underline(self, parser):
         """Test parsing a section with = underline (level 1)."""
         content = """Title
 =====
@@ -90,7 +81,7 @@ Some content."""
         assert nodes[0].content == "Title\n====="
         assert nodes[1].type == NodeType.PARAGRAPH
 
-    def test_parse_section_with_dash_underline(self, parser, mock_uuid):
+    def test_parse_section_with_dash_underline(self, parser):
         """Test parsing a section with - underline (level 2)."""
         content = """Subtitle
 --------
@@ -103,7 +94,7 @@ Some content."""
         assert nodes[0].title == "Subtitle"
         assert nodes[0].level == 2
 
-    def test_parse_multiple_level_sections(self, parser, mock_uuid):
+    def test_parse_multiple_level_sections(self, parser):
         """Test parsing sections with different levels."""
         content = """Main Title
 ==========
@@ -127,7 +118,7 @@ Level 3 content."""
         assert sections[1].level == 2
         assert sections[2].level == 3
 
-    def test_parse_section_with_label(self, parser, mock_uuid):
+    def test_parse_section_with_label(self, parser):
         """Test parsing a labeled section."""
         content = """.. _my-label:
 
@@ -142,7 +133,7 @@ Content."""
         assert nodes[0].label == "my-label"
         assert nodes[0].title == "Labeled Section"
 
-    def test_parse_code_block_directive(self, parser, mock_uuid):
+    def test_parse_code_block_directive(self, parser):
         """Test parsing a code-block directive."""
         content = """.. code-block:: python
    :name: example
@@ -160,7 +151,7 @@ Content."""
         assert "def hello():" in nodes[0].content
         assert 'print("Hello, World!")' in nodes[0].content
 
-    def test_parse_figure_directive(self, parser, mock_uuid):
+    def test_parse_figure_directive(self, parser):
         """Test parsing a figure directive."""
         content = """.. figure:: /path/to/image.png
    :name: fig1
@@ -182,7 +173,7 @@ Content."""
         assert nodes[0].metadata["align"] == "center"
         assert nodes[0].content == "Figure caption text."
 
-    def test_parse_math_directive(self, parser, mock_uuid):
+    def test_parse_math_directive(self, parser):
         """Test parsing a math directive."""
         content = """.. math::
    :name: equation1
@@ -195,7 +186,7 @@ Content."""
         assert nodes[0].name == "equation1"
         assert nodes[0].content == "E = mc^2"
 
-    def test_parse_admonition_directives(self, parser, mock_uuid):
+    def test_parse_admonition_directives(self, parser):
         """Test parsing various admonition directives."""
         content = """.. note::
 
@@ -219,7 +210,7 @@ Content."""
         assert nodes[2].metadata["type"] == "tip"
         assert nodes[2].content == "This is a tip."
 
-    def test_parse_literal_block(self, parser, mock_uuid):
+    def test_parse_literal_block(self, parser):
         """Test parsing a literal block."""
         content = """Here is some code::
 
@@ -237,7 +228,7 @@ Back to normal text."""
         assert nodes[1].type == NodeType.PARAGRAPH
         assert nodes[1].content == "Back to normal text."
 
-    def test_parse_empty_literal_block(self, parser, mock_uuid):
+    def test_parse_empty_literal_block(self, parser):
         """Test parsing an empty literal block."""
         content = """Code follows::
 
@@ -248,7 +239,7 @@ Normal text."""
         assert len(nodes) == 2
         assert all(node.type == NodeType.PARAGRAPH for node in nodes)
 
-    def test_parse_complex_document(self, parser, mock_uuid):
+    def test_parse_complex_document(self, parser):
         """Test parsing a complex document with mixed elements."""
         content = """.. _intro:
 
@@ -380,7 +371,7 @@ class TestReSTParserHelpers:
 class TestReSTParserEdgeCases:
     """Test edge cases and error handling."""
 
-    def test_parse_malformed_directive(self, parser, mock_uuid):
+    def test_parse_malformed_directive(self, parser):
         """Test parsing malformed directives."""
         content = """.. invalid directive without double colon
 
@@ -394,7 +385,7 @@ Normal paragraph."""
         assert nodes[0].type == NodeType.PARAGRAPH
         assert nodes[0].content == "Normal paragraph."
 
-    def test_parse_incomplete_section(self, parser, mock_uuid):
+    def test_parse_incomplete_section(self, parser):
         """Test parsing incomplete section (title without underline)."""
         content = """Title without underline
 Some text here."""
@@ -405,7 +396,7 @@ Some text here."""
         assert nodes[0].type == NodeType.PARAGRAPH
         assert "Title without underline" in nodes[0].content
 
-    def test_parse_mixed_indentation(self, parser, mock_uuid):
+    def test_parse_mixed_indentation(self, parser):
         """Test parsing with mixed indentation."""
         content = """.. code-block:: python
 
@@ -421,7 +412,7 @@ Normal text."""
         code_blocks = [n for n in nodes if n.type == NodeType.CODE_BLOCK]
         assert len(code_blocks) == 1
 
-    def test_parse_nested_directives(self, parser, mock_uuid):
+    def test_parse_nested_directives(self, parser):
         """Test that nested directives are not supported."""
         content = """.. note::
 
@@ -437,7 +428,7 @@ Normal text."""
         assert nodes[0].type == NodeType.ADMONITION
         assert nodes[0].metadata["type"] == "note"
 
-    def test_parse_unicode_content(self, parser, mock_uuid):
+    def test_parse_unicode_content(self, parser):
         """Test parsing content with Unicode characters."""
         content = """Unicode Title 中文
 =================
@@ -450,7 +441,7 @@ Unicode content: 日本語, العربية, 🎉"""
         assert nodes[0].title == "Unicode Title 中文"
         assert "🎉" in nodes[1].content
 
-    def test_parse_windows_line_endings(self, parser, mock_uuid):
+    def test_parse_windows_line_endings(self, parser):
         """Test parsing content with Windows line endings."""
         content = "Title\r\n=====\r\n\r\nParagraph."
         nodes = parser.parse(content, Path("test.rst"))
@@ -459,7 +450,7 @@ Unicode content: 日本語, العربية, 🎉"""
         assert nodes[0].type == NodeType.SECTION
         assert nodes[1].type == NodeType.PARAGRAPH
 
-    def test_parse_directive_without_content(self, parser, mock_uuid):
+    def test_parse_directive_without_content(self, parser):
         """Test parsing directive without content."""
         content = """.. note::
 
@@ -475,7 +466,7 @@ Unicode content: 日本語, العربية, 🎉"""
         assert nodes[1].type == NodeType.ADMONITION
         assert nodes[1].content == "Warning with content."
 
-    def test_parse_code_block_without_language(self, parser, mock_uuid):
+    def test_parse_code_block_without_language(self, parser):
         """Test parsing code-block without language specification."""
         content = """.. code-block::
 

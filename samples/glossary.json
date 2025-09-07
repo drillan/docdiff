@@ -1,0 +1,141 @@
+{
+  "terms": [
+    {
+      "term": "docdiff",
+      "definition": "Document difference and translation management tool",
+      "translation": null,
+      "maintain_original": true,
+      "aliases": ["DocDiff"],
+      "context": "Product name - do not translate",
+      "category": "Product Names"
+    },
+    {
+      "term": "MyST",
+      "definition": "Markedly Structured Text - a rich markdown variant for technical documentation",
+      "translation": null,
+      "maintain_original": true,
+      "aliases": ["myst", "MyST-NB"],
+      "context": "Documentation format",
+      "category": "Technical Terms"
+    },
+    {
+      "term": "reStructuredText",
+      "definition": "Plaintext markup syntax and parser system",
+      "translation": "reStructuredText",
+      "maintain_original": true,
+      "aliases": ["RST", "reST", "rst"],
+      "context": "Documentation format",
+      "category": "Technical Terms"
+    },
+    {
+      "term": "Sphinx",
+      "definition": "Python documentation generator",
+      "translation": null,
+      "maintain_original": true,
+      "aliases": ["sphinx", "sphinx-doc"],
+      "context": "Documentation tool",
+      "category": "Tools"
+    },
+    {
+      "term": "API",
+      "definition": "Application Programming Interface",
+      "translation": "API",
+      "maintain_original": false,
+      "aliases": ["APIs", "api"],
+      "category": "Technical Terms"
+    },
+    {
+      "term": "CLI",
+      "definition": "Command Line Interface",
+      "translation": "コマンドラインインターフェース",
+      "maintain_original": false,
+      "aliases": ["cli", "command-line"],
+      "context": "User interface type",
+      "category": "Technical Terms"
+    },
+    {
+      "term": "node",
+      "definition": "A structural unit in the document tree",
+      "translation": "ノード",
+      "maintain_original": false,
+      "aliases": ["nodes"],
+      "context": "Document structure",
+      "category": "Core Concepts"
+    },
+    {
+      "term": "batch",
+      "definition": "A group of translation units processed together",
+      "translation": "バッチ",
+      "maintain_original": false,
+      "aliases": ["batches", "batching"],
+      "context": "Translation processing",
+      "category": "Core Concepts"
+    },
+    {
+      "term": "token",
+      "definition": "Basic unit of text for AI processing",
+      "translation": "トークン",
+      "maintain_original": false,
+      "aliases": ["tokens"],
+      "context": "AI/NLP processing",
+      "category": "AI Terms"
+    },
+    {
+      "term": "glossary",
+      "definition": "A list of terms with definitions and translations",
+      "translation": "用語集",
+      "maintain_original": false,
+      "aliases": ["glossaries"],
+      "category": "Core Concepts"
+    },
+    {
+      "term": "repository",
+      "definition": "A storage location for code and documentation",
+      "translation": "リポジトリ",
+      "maintain_original": false,
+      "aliases": ["repo", "repos", "repositories"],
+      "context": "Version control",
+      "category": "Development"
+    },
+    {
+      "term": "translation coverage",
+      "definition": "Percentage of content that has been translated",
+      "translation": "翻訳カバレッジ",
+      "maintain_original": false,
+      "aliases": ["coverage"],
+      "context": "Translation metrics",
+      "category": "Metrics"
+    },
+    {
+      "term": "export",
+      "definition": "Save translation tasks to a file",
+      "translation": "エクスポート",
+      "maintain_original": false,
+      "aliases": ["exporting", "exported"],
+      "category": "Operations"
+    },
+    {
+      "term": "import",
+      "definition": "Load completed translations from a file",
+      "translation": "インポート",
+      "maintain_original": false,
+      "aliases": ["importing", "imported"],
+      "category": "Operations"
+    },
+    {
+      "term": "adaptive batching",
+      "definition": "Intelligent grouping of content for optimal translation efficiency",
+      "translation": "適応的バッチング",
+      "maintain_original": false,
+      "context": "AI optimization feature",
+      "category": "AI Terms"
+    }
+  ],
+  "rules": {
+    "preserve_code_terms": true,
+    "translate_ui_elements": true,
+    "keep_product_names": true,
+    "maintain_formatting": true,
+    "preserve_references": true
+  }
+}

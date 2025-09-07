@@ -245,6 +245,24 @@ def export(
         "--include-context/--no-include-context",
         help="Include context information",
     ),
+    batch_size: int = typer.Option(
+        2000,
+        "--batch-size",
+        "-b",
+        help="Target batch size for AI translation (tokens)",
+    ),
+    context_window: int = typer.Option(
+        3,
+        "--context-window",
+        "-w",
+        help="Number of surrounding nodes for context",
+    ),
+    glossary_file: Optional[Path] = typer.Option(
+        None,
+        "--glossary",
+        "-g",
+        help="Path to glossary file for terminology consistency",
+    ),
     verbose: bool = typer.Option(
         False,
         "--verbose",
@@ -263,6 +281,9 @@ def export(
         include_missing,
         include_outdated,
         include_context,
+        batch_size,
+        context_window,
+        glossary_file,
         verbose,
     )
 

@@ -53,28 +53,71 @@ class TranslationImporter:
     def _import_json(
         self, import_path: Path, options: Dict[str, Any]
     ) -> List[Dict[str, Any]]:
-        """Import translations from JSON file."""
+        """Import translations from new hierarchical JSON format.
+
+        Only supports schema version 1.0 format.
+        Old flat format is no longer supported.
+        """
         with open(import_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        translations = []
-        for item in data.get("translations", []):
-            # Skip empty translations if specified
-            if options.get("skip_empty") and not item.get("target"):
-                continue
-
-            translations.append(
-                {
-                    "id": item["id"],
-                    "source": item["source"],
-                    "target": item.get("target", ""),
-                    "status": item.get("status", "missing"),
-                    "file": item.get("file"),
-                    "line": item.get("line"),
-                    "type": item.get("type"),
-                    "context": item.get("context", {}),
-                }
+        # Check schema version
+        schema_version = data.get("schema_version")
+        if not schema_version:
+            raise ValueError(
+                "Unsupported JSON format. Missing schema_version. "
+                "Only schema version 1.0 is supported."
             )
+
+        if schema_version != "1.0":
+            raise ValueError(
+                f"Unsupported schema version: {schema_version}. "
+                "Only schema version 1.0 is supported."
+            )
+
+        # Extract translations from hierarchical structure
+        translations = []
+        document_hierarchy = data.get("document_hierarchy", {})
+
+        # Process each file
+        for file_path, doc_file in document_hierarchy.get("files", {}).items():
+            nodes = doc_file.get("nodes", {})
+
+            for node_id, node in nodes.items():
+                # Skip if no translation needed
+                if node.get("status") == "translated" and not options.get(
+                    "include_translated", False
+                ):
+                    continue
+
+                # Skip empty translations if specified
+                if options.get("skip_empty") and not node.get("target"):
+                    continue
+
+                context_data = node.get("context", {})
+                metadata = node.get("metadata", {})
+
+                translations.append(
+                    {
+                        "id": node_id,
+                        "source": node.get("source", ""),
+                        "target": node.get("target", ""),
+                        "status": node.get("status", "missing"),
+                        "file": context_data.get("file_path", file_path),
+                        "line": context_data.get("line_number"),
+                        "type": node.get("type"),
+                        "context": {
+                            "label": metadata.get("label"),
+                            "name": metadata.get("name"),
+                            "caption": metadata.get("caption"),
+                            "parent_section": context_data.get("parent_section"),
+                            "preceding_text": context_data.get("preceding_text"),
+                            "following_text": context_data.get("following_text"),
+                        },
+                        "parent_id": node.get("parent_id"),
+                        "children_ids": node.get("children_ids", []),
+                    }
+                )
 
         return translations
 

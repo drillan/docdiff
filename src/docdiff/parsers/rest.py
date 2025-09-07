@@ -2,7 +2,6 @@
 
 import hashlib
 import re
-import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -312,7 +311,17 @@ class ReSTParser(BaseParser):
         Returns:
             DocumentNode instance
         """
-        node_id = str(uuid.uuid4())
+        # Generate deterministic ID based on content and location
+        # This ensures the same node always gets the same ID
+        id_components = [
+            str(file_path),
+            str(line_number),
+            type.value,
+            content[:100],  # Use first 100 chars to avoid huge IDs
+        ]
+        id_string = "|".join(id_components)
+        node_id = hashlib.sha256(id_string.encode()).hexdigest()[:16]
+
         content_hash = hashlib.sha256(content.encode()).hexdigest()
 
         return DocumentNode(

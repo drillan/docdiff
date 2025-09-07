@@ -1,6 +1,7 @@
 """Export command for translation tasks."""
 
 from pathlib import Path
+from typing import Optional
 
 import typer
 from rich.console import Console
@@ -24,6 +25,9 @@ def export_command(
     include_missing: bool = True,
     include_outdated: bool = False,
     include_context: bool = False,
+    batch_size: int = 2000,
+    context_window: int = 3,
+    glossary_file: Optional[Path] = None,
     verbose: bool = False,
 ) -> None:
     """Export translation tasks to various formats.
@@ -38,6 +42,9 @@ def export_command(
         include_missing: Include missing translations
         include_outdated: Include outdated translations
         include_context: Include context information
+        batch_size: Target batch size for AI translation (tokens)
+        context_window: Number of surrounding nodes for context
+        glossary_file: Path to glossary file for terminology consistency
         verbose: Show detailed output
     """
     # Validate format
@@ -128,6 +135,10 @@ def export_command(
             "include_missing": include_missing,
             "include_outdated": include_outdated,
             "include_context": include_context,
+            "batch_size": batch_size,
+            "context_window": context_window,
+            "glossary_file": glossary_file,
+            "verbose": verbose,
         }
 
         output_path = exporter.export(
@@ -177,3 +188,7 @@ def export_command(
             f"  Include outdated: {include_outdated} ({outdated_count} items)"
         )
         console.print(f"  Include context: {include_context}")
+        console.print(f"  Batch size: {batch_size} tokens")
+        console.print(f"  Context window: {context_window} nodes")
+        if glossary_file:
+            console.print(f"  Glossary file: {glossary_file}")

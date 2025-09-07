@@ -1,0 +1,125 @@
+# docdiff AI Translation Configuration
+# This file configures AI-powered translation optimization features
+
+# AI Translation Settings
+ai_translation:
+  # Model Configuration
+  model:
+    provider: openai          # Options: openai, anthropic, azure, google
+    name: gpt-4              # Model name (gpt-4, claude-3, gemini-pro, etc.)
+    temperature: 0.3         # Lower = more consistent (0.0-1.0)
+    max_tokens: 4000         # Maximum tokens per response
+    
+  # Batching Configuration
+  batching:
+    strategy: adaptive       # Options: adaptive, semantic, size, hybrid
+    target_size: 1500       # Target tokens per batch (optimal)
+    min_size: 500           # Minimum tokens per batch
+    max_size: 2000          # Maximum tokens per batch
+    preserve_sections: true  # Keep section boundaries intact
+    merge_small_nodes: true  # Combine small nodes for efficiency
+    
+  # Context Management
+  context:
+    enabled: true           # Add context to improve translation quality
+    window_size: 3          # Number of surrounding nodes for context
+    include_summaries: true # Add content summaries in context
+    max_summary_length: 100 # Maximum characters for summaries
+    include_hierarchy: true # Include document structure information
+    
+  # Glossary Settings
+  glossary:
+    enabled: true           # Use glossary for terminology consistency
+    file: glossary.json     # Path to glossary file
+    enforce_terms: true     # Strictly enforce glossary terms
+    auto_detect: true       # Automatically detect new terms
+    
+  # Quality Assurance
+  quality:
+    validate_references: true    # Check cross-references are preserved
+    check_terminology: true      # Verify glossary compliance
+    preserve_formatting: true     # Maintain markdown/RST formatting
+    measure_metrics: true        # Calculate quality scores
+    min_quality_score: 0.8      # Minimum acceptable quality (0-1)
+    
+  # Performance Optimization
+  optimization:
+    parallel_batches: 5         # Number of concurrent API calls
+    cache_translations: true    # Cache for reuse
+    retry_on_failure: true      # Retry failed translations
+    max_retries: 3             # Maximum retry attempts
+    retry_delay: 2             # Seconds between retries
+    
+  # Cost Management
+  cost:
+    track_usage: true          # Monitor token usage
+    daily_limit: 100000        # Daily token limit
+    batch_limit: 5000          # Per-batch token limit
+    alert_threshold: 0.8       # Alert at 80% of limits
+    
+# Export Settings
+export:
+  # Default export format
+  default_format: json         # Options: json, csv, xlsx, xliff
+  
+  # JSON export options
+  json:
+    pretty_print: true         # Format with indentation
+    include_metadata: true     # Include file metadata
+    include_stats: true        # Include statistics
+    
+  # CSV/Excel export options
+  spreadsheet:
+    include_headers: true      # Add column headers
+    include_context: false     # Include context columns
+    max_cell_length: 32000     # Maximum characters per cell
+    
+# Import Settings
+import:
+  # Validation
+  validate_structure: true     # Check document structure matches
+  validate_references: true    # Verify references are valid
+  backup_before_import: true   # Create backup before importing
+  
+  # Conflict Resolution
+  on_conflict: ask            # Options: ask, skip, overwrite, backup
+  preserve_metadata: true     # Keep existing metadata
+  
+# Logging and Reporting
+logging:
+  level: info                 # Options: debug, info, warning, error
+  file: .docdiff/logs/ai.log # Log file location
+  max_size: 10485760         # Max log size in bytes (10MB)
+  rotate_count: 5            # Number of rotated logs to keep
+  
+reporting:
+  generate_html: true        # Create HTML reports
+  generate_csv: true         # Create CSV summaries
+  include_charts: true       # Add visualization charts
+  output_dir: .docdiff/reports/
+  
+# Cache Settings
+cache:
+  enabled: true              # Enable caching
+  directory: .docdiff/cache/ # Cache directory
+  ttl: 86400                # Time to live in seconds (24 hours)
+  max_size: 104857600       # Maximum cache size (100MB)
+  
+# Advanced Settings
+advanced:
+  # Chunking strategy for very large documents
+  chunking:
+    enabled: false          # Enable for documents > 100k tokens
+    chunk_size: 50000       # Tokens per chunk
+    overlap: 500           # Overlapping tokens between chunks
+    
+  # Custom prompts (advanced users only)
+  prompts:
+    system_prompt: null    # Override default system prompt
+    user_prompt: null      # Override default user prompt
+    
+  # Experimental features
+  experimental:
+    semantic_clustering: false  # Group by semantic similarity
+    auto_glossary: false       # Build glossary automatically
+    differential_translation: false # Translate only changes
