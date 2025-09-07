@@ -218,3 +218,9 @@ comparison*.json
 
 # Keep configuration
 !.docdiff/config.yml
+
+# Generated files
+README-translation-status.md
+README-translation-tasks.csv
+*-translation-status.md
+*-translation-tasks.csv
