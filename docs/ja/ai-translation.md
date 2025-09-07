@@ -162,7 +162,7 @@ AIモデルに最適なバッチサイズを選択：
 
 ```{code-block} yaml
 :name: ai-code-glossary-yaml
-:caption: glossary.yml例
+:caption: glossary.ymlの例
 
 # 一貫性を保つ技術用語
 terms:
@@ -256,7 +256,7 @@ for batch in data["translation_batches"]:
 
 ```{code-block} text
 :name: ai-code-optimization-report
-:caption: サンプル最適化レポート
+:caption: 最適化レポートのサンプル
 
 適応バッチ最適化レポート
 ===================================

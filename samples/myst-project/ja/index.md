@@ -76,21 +76,20 @@ Our system follows a modular architecture:
 
 ### 最小要件
 
-```{eval-rst}
-.. list-table:: システム要件
-   :widths: 30 70
-   :header-rows: 1
+```{list-table} システム要件
+:widths: 30 70
+:header-rows: 1
 
-   * - コンポーネント
-     - 要件
-   * - Python
-     - 3.8以上
-   * - メモリ
-     - 最小4GB RAM
-   * - ストレージ
-     - 100MBの空き容量
-   * - OS
-     - Linux、macOS、またはWindows
+* - コンポーネント
+  - 要件
+* - Python
+  - 3.8以上
+* - メモリ
+  - 最小4GB RAM
+* - ストレージ
+  - 100MBの空き容量
+* - OS
+  - Linux、macOS、またはWindows
 ```
 
 (index-installation)=

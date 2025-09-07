@@ -10,7 +10,7 @@ docdiffコマンドラインインターフェースは、文書翻訳の分析�
 
 ```{code-block} bash
 :name: cli-code-installation
-:caption: Installation Commands
+:caption: インストールコマンド
 :linenos:
 
 uv sync
@@ -27,16 +27,16 @@ uv pip install -e .
 
 ```{code-block} bash
 :name: cli-code-compare-usage
-:caption: Compare Command Usage
+:caption: compareコマンドの使用法
 
 docdiff compare <source-dir> <target-dir> [OPTIONS]
 ```
 
-**Arguments:**
+**引数:**
 - `source-dir`: ソースドキュメントのディレクトリ（例: docs/en）
 - `target-dir`: ターゲットドキュメントのディレクトリ（例: docs/ja）
 
-Options:
+**オプション:**
 - `--source-lang, -s`: ソース言語コード（デフォルト: en）
 - `--target-lang, -t`: ターゲット言語コード（デフォルト: ja）
 - `--output, -o`: レポートの出力先パス（.json および .md 拡張子に対応）
@@ -49,35 +49,35 @@ Options:
   - `stats`: 詳細統計情報の表示
 - `--verbose, -v`: 詳細な出力を表示
 
-Example:
+**使用例:**
 ```{code-block} bash
 :name: cli-code-compare-examples
-:caption: Compare Command Examples
+:caption: compareコマンドの例
 :linenos:
 
-# Basic comparison with summary view
+# 概要ビューでの基本比較
 docdiff compare docs/en docs/ja
 
-# Generate Markdown report (style auto-detected from filename)
-docdiff compare docs/en docs/ja --output report.md          # detailed style
-docdiff compare docs/en docs/ja --output report.github.md   # GitHub style
-docdiff compare docs/en docs/ja --output report.compact.md  # compact style
+# Markdownレポートを生成（ファイル名からスタイルを自動検出）
+docdiff compare docs/en docs/ja --output report.md          # 詳細スタイル
+docdiff compare docs/en docs/ja --output report.github.md   # GitHubスタイル
+docdiff compare docs/en docs/ja --output report.compact.md  # コンパクトスタイル
 
-# View metadata-based grouping
+# メタデータベースのグループ表示
 docdiff compare docs/en docs/ja --view metadata
 
-# Generate HTML report
+# HTMLレポートを生成
 docdiff compare docs/en docs/ja --html
 ```
 
-出力形式:
+**出力形式:**
 
-Markdownレポートスタイル:
+**Markdownレポートスタイル:**
 - 詳細表示（デフォルト）: 全セクションを含む包括的なレポート
 - GitHubスタイル: GitHub風のMarkdown形式（折りたたみ可能なセクションとMermaidダイアグラム付き）
 - 簡易表示: 翻訳不足箇所に焦点を当てた最小限のレポート
 
-ターミナル表示モード:
+**ターミナル表示モード:**
 - 概要表示: 全体のカバー率統計と構造の差異を表示
 - ツリー表示: 文書階層構造と翻訳状況を示すインジケーター
 - メタデータ表示: ラベルとname属性でグループ化し、カバー率バーを表示
@@ -91,28 +91,28 @@ Markdownレポートスタイル:
 
 ```{code-block} bash
 :name: cli-code-parse-usage
-:caption: Parse Command Usage
+:caption: parseコマンドの使用法
 
 docdiff parse <project-dir> [OPTIONS]
 ```
 
-**Arguments:**
+**引数:**
 - `project-dir`: ドキュメントディレクトリへのパス
 
-**Options:**
+**オプション:**
 - `--cache-dir`: デフォルトのキャッシュディレクトリを上書きする（デフォルト: .docdiff/cache）
 - `--verbose, -v`: 詳細な解析情報を表示する
 
-Example:
+**使用例:**
 ```{code-block} bash
 :name: cli-code-parse-examples
-:caption: Parse Command Examples
+:caption: parseコマンドの例
 :linenos:
 
-# Parse documentation
+# ドキュメントを解析
 docdiff parse docs/en
 
-# Parse with verbose output
+# 詳細出力付きで解析
 docdiff parse docs/ja --verbose
 ```
 
@@ -123,30 +123,30 @@ docdiff parse docs/ja --verbose
 
 ```{code-block} bash
 :name: cli-code-status-usage
-:caption: Status Command Usage
+:caption: statusコマンドの使用法
 
 docdiff status <source-dir> <target-dir> [OPTIONS]
 ```
 
-**Arguments:**
+**引数:**
 - `source-dir`: ソースドキュメントのディレクトリ
 - `target-dir`: ターゲットドキュメントのディレクトリ
 
-**Options:**
+**オプション:**
 - `--source-lang, -s`: ソース言語コード（デフォルト: en）
 - `--target-lang, -t`: ターゲット言語コード（デフォルト: ja）
 - `--format`: 出力形式（`summary`, `detailed`）
 
-Example:
+**使用例:**
 ```{code-block} bash
 :name: cli-code-status-examples
-:caption: Status Command Examples
+:caption: statusコマンドの例
 :linenos:
 
-# Quick status check
+# クイックステータスチェック
 docdiff status docs/en docs/ja
 
-# Detailed status
+# 詳細ステータス
 docdiff status docs/en docs/ja --format detailed
 ```
 
@@ -157,16 +157,16 @@ docdiff status docs/en docs/ja --format detailed
 
 ```{code-block} bash
 :name: cli-code-export-usage
-:caption: Export Command Usage
+:caption: exportコマンドの使用法
 
 docdiff export <source-dir> <target-dir> [OPTIONS]
 ```
 
-**Arguments:**
+**引数:**
 - `source-dir`: ソースドキュメントのディレクトリ
 - `target-dir`: ターゲットドキュメントのディレクトリ
 
-**Options:**
+**オプション:**
 - `--format, -f`: エクスポート形式：
   - `json`: AI最適化された階層JSON形式（デフォルト）
   - `csv`: CSVスプレッドシート形式
@@ -183,10 +183,10 @@ docdiff export <source-dir> <target-dir> [OPTIONS]
 - `--glossary, -g`: 用語一貫性のための用語集ファイルパス
 - `--verbose, -v`: 最適化レポートを含む詳細出力を表示
 
-**Example:**
+**使用例:**
 ```{code-block} bash
 :name: cli-code-export-examples
-:caption: Export Command Examples
+:caption: exportコマンドの例
 :linenos:
 
 # AI翻訳に最適化されたエクスポート
@@ -215,7 +215,7 @@ docdiff export docs/en docs/ja review.json --include-outdated
 **階層JSON形式（AI最適化）:**
 ```{code-block} json
 :name: cli-code-export-json-format
-:caption: Hierarchical JSON Export Format
+:caption: 階層JSON エクスポート形式
 
 {
   "schema_version": "1.0",
@@ -248,7 +248,7 @@ docdiff export docs/en docs/ja review.json --include-outdated
 **最適化レポート（--verboseオプション使用時）:**
 ```{code-block} text
 :name: cli-code-export-optimization-report
-:caption: Batch Optimization Report
+:caption: バッチ最適化レポート
 
 適応バッチ最適化レポート
 ===================================
@@ -273,7 +273,7 @@ docdiff export docs/en docs/ja review.json --include-outdated
 **CSV形式:**
 ```{code-block} text
 :name: cli-code-export-csv-format
-:caption: CSV Export Format
+:caption: CSVエクスポート形式
 
 ID,File,Line,Type,Status,Similarity,Source,Target,Label,Name,Notes
 7f3a2b,index.md,7,paragraph,missing,0.0,"docdiff is a powerful...",,,,,
@@ -283,7 +283,7 @@ ID,File,Line,Type,Status,Similarity,Source,Target,Label,Name,Notes
 XLIFF Format:
 ```{code-block} xml
 :name: cli-code-export-xliff-format
-:caption: XLIFF 2.1 Export Format
+:caption: XLIFF 2.1エクスポート形式
 
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="2.1" srcLang="en" trgLang="ja">
@@ -305,16 +305,16 @@ XLIFF Format:
 
 ```{code-block} bash
 :name: cli-code-import-usage
-:caption: Import Command Usage
+:caption: importコマンドの使用法
 
 docdiff import <import-file> <target-dir> [OPTIONS]
 ```
 
-**Arguments:**
+**引数:**
 - `import-file`: インポートファイルのパス（JSON、CSV、XLSX、またはXLIFF）
 - `target-dir`: ターゲットドキュメントディレクトリ
 
-**Options:**
+**オプション:**
 - `--format, -f`: インポート形式（指定されない場合は自動検出）
 - `--target-lang, -t`: ターゲット言語コード（デフォルト: ja）
 - `--create-missing`: 未翻訳ファイル用の新規ファイル作成（デフォルト: true）
@@ -322,10 +322,10 @@ docdiff import <import-file> <target-dir> [OPTIONS]
 - `--dry-run`: 実際に適用せずに変更をプレビュー
 - `--verbose, -v`: 詳細な出力を表示
 
-**Example:**
+**使用例:**
 ```{code-block} bash
 :name: cli-code-import-examples
-:caption: Import Command Examples
+:caption: importコマンドの例
 :linenos:
 
 # AI翻訳済みJSONのインポート
@@ -351,22 +351,22 @@ docdiff import translation.json docs/ja --verbose
 
 ```{code-block} bash
 :name: cli-code-simple-compare-usage
-:caption: Simple Compare Command Usage
+:caption: simple-compareコマンドの使用法
 
 docdiff simple-compare <source-dir> <target-dir> [OPTIONS]
 ```
 
-**Arguments:**
+**引数:**
 - `source-dir`: ソースドキュメントのディレクトリ
 - `target-dir`: ターゲットドキュメントのディレクトリ
 
-**Options:**
+**オプション:**
 - `--verbose, -v`: 詳細比較を表示
 
-**Example:**
+**使用例:**
 ```{code-block} bash
 :name: cli-code-simple-compare-examples
-:caption: Simple Compare Command Examples
+:caption: simple-compareコマンドの例
 :linenos:
 
 # 簡単な構造比較
@@ -377,13 +377,13 @@ docdiff simple-compare docs/en docs/ja --verbose
 ```
 
 (cli-configuration)=
-## Configuration
+## 設定
 
 docdiffはプロジェクトルートディレクトリに`.docdiff/`フォルダを使用してキャッシュとレポートを管理します:
 
 ```{code-block} text
 :name: cli-code-cache-structure
-:caption: Cache Directory Structure
+:caption: キャッシュディレクトリ構造
 
 .docdiff/
 ├── cache/           # 解析済みドキュメントキャッシュ
@@ -411,7 +411,7 @@ docdiffはプロジェクトルートディレクトリに`.docdiff/`フォル�
 
 ```{code-block} bash
 :name: cli-code-workflow-initial
-:caption: Initial Translation Setup
+:caption: 初期翻訳設定
 :linenos:
 
 # 1. ソースとターゲットドキュメントの比較
@@ -432,7 +432,7 @@ docdiff import translations-completed.csv --source-dir docs/en --target-dir docs
 
 ```{code-block} bash
 :name: cli-code-workflow-continuous
-:caption: Continuous Translation Workflow
+:caption: 継続的翻訳ワークフロー
 :linenos:
 
 # 日常ワークフロー
@@ -454,7 +454,7 @@ docdiff compare docs/en docs/ja --view metadata
 
 ```{code-block} bash
 :name: cli-code-workflow-team
-:caption: Team Translation Workflow
+:caption: チーム翻訳ワークフロー
 :linenos:
 
 # プロジェクトマネージャー: タスクのエクスポート
@@ -491,8 +491,8 @@ docdiff compare docs/en docs/ja --output status-report.md
 (cli-tips-best-practices)=
 ## 活用のコツとベストプラクティス
 
-1. 定期的な解析処理: ドキュメント構造の変更を検知するため、定期的にドキュメントを再解析しましょう
-2. バージョン管理: `.docdiff.yml`ファイルをバージョン管理システムに含め、`.docdiff/`ディレクトリは除外設定してください
-3. 段階的な更新処理: `--filter outdated`オプションを使用して、変更のあったコンテンツのみを対象に処理を行います
+1. **定期的な解析**: ドキュメント構造の変更を検知するため、定期的にドキュメントを再解析しましょう
+2. **バージョン管理**: `.docdiff.yml`ファイルをバージョン管理に含め、`.docdiff/`ディレクトリは除外してください
+3. **段階的更新**: `--filter outdated`を使用して変更されたコンテンツにフォーカスします
 4. 検証作業: メジャーリリース前には必ず検証を実行し、参照情報の整合性を確認してください
 5. 一括処理: 個別のコマンド実行ではなく、設定ファイル内で複数の対象言語をまとめて処理することを推奨します

@@ -1,6 +1,6 @@
 (docdiff-docs)=
 
-# docdiff Documentation
+# docdiff ドキュメント
 
 (docdiff-overview)=
 
@@ -30,17 +30,17 @@ docdiff は、MyST および reStructuredText 形式のドキュメントに特�
 
 ```{code-block} bash
 :name: docdiff-code-quick-start
-:caption: Quick Start Commands
+:caption: クイックスタートコマンド
 :linenos:
 
-# Install docdiff
+# docdiffのインストール
 uv sync
 uv pip install -e .
 
-# Compare documentation between languages
+# 言語間でドキュメントを比較
 docdiff compare docs/en docs/ja
 
-# Generate detailed Markdown report
+# 詳細なMarkdownレポートを生成
 docdiff compare docs/en docs/ja --output report.md
 
 # AI翻訳向けエクスポート（最適化バッチ処理）
@@ -57,10 +57,10 @@ docdiff import translation_complete.json docs/ja
 
 (docdiff-documentation-contents)=
 
-## Documentation Contents
+## ドキュメントの内容
 
 ```{toctree}
-:caption: 'User Documentation:'
+:caption: 'ユーザードキュメント:'
 :maxdepth: 2
 
 user-guide
@@ -71,7 +71,7 @@ architecture
 ```
 
 ```{toctree}
-:caption: 'Developer Documentation:'
+:caption: '開発者ドキュメント:'
 :maxdepth: 2
 
 developer-guide
