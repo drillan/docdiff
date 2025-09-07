@@ -32,7 +32,7 @@ uv pip install -e .
 docdiff compare <source-dir> <target-dir> [OPTIONS]
 ```
 
-Arguments:
+**Arguments:**
 - `source-dir`: ソースドキュメントのディレクトリ（例: docs/en）
 - `target-dir`: ターゲットドキュメントのディレクトリ（例: docs/ja）
 
@@ -96,10 +96,10 @@ Markdownレポートスタイル:
 docdiff parse <project-dir> [OPTIONS]
 ```
 
-Arguments:
+**Arguments:**
 - `project-dir`: ドキュメントディレクトリへのパス
 
-Options:
+**Options:**
 - `--cache-dir`: デフォルトのキャッシュディレクトリを上書きする（デフォルト: .docdiff/cache）
 - `--verbose, -v`: 詳細な解析情報を表示する
 
@@ -128,11 +128,11 @@ docdiff parse docs/ja --verbose
 docdiff status <source-dir> <target-dir> [OPTIONS]
 ```
 
-Arguments:
+**Arguments:**
 - `source-dir`: ソースドキュメントのディレクトリ
-- `target-dir`: 出力ドキュメントのディレクトリ
+- `target-dir`: ターゲットドキュメントのディレクトリ
 
-Options:
+**Options:**
 - `--source-lang, -s`: ソース言語コード（デフォルト: en）
 - `--target-lang, -t`: ターゲット言語コード（デフォルト: ja）
 - `--format`: 出力形式（`summary`, `detailed`）
@@ -162,44 +162,115 @@ docdiff status docs/en docs/ja --format detailed
 docdiff export <source-dir> <target-dir> [OPTIONS]
 ```
 
-Arguments:
+**Arguments:**
 - `source-dir`: ソースドキュメントのディレクトリ
-- `target-dir`: 出力ドキュメントのディレクトリ
+- `target-dir`: ターゲットドキュメントのディレクトリ
 
-Options:
+**Options:**
 - `--format, -f`: エクスポート形式：
-  - `json`：JSON形式（デフォルト）
-  - `csv`：CSVスプレッドシート形式
-  - `xlsx`：Excelワークブック形式
-  - `xliff`：XLIFF 2.1翻訳形式
+  - `json`: AI最適化された階層JSON形式（デフォルト）
+  - `csv`: CSVスプレッドシート形式
+  - `xlsx`: Excelワークブック形式
+  - `xliff`: XLIFF 2.1翻訳形式
 - `--output, -o`: 出力ファイルパス（必須）
-- `--source-lang, -s`: ソース言語コード（デフォルト：en）
-- `--target-lang, -t`: ターゲット言語コード（デフォルト：ja）
-- `--include-translated`: 既に翻訳済みのコンテンツを含める
-- `--metadata-only`: コンテンツは含めずメタデータのみをエクスポート
+- `--source-lang, -s`: ソース言語コード（デフォルト: en）
+- `--target-lang, -t`: ターゲット言語コード（デフォルト: ja）
+- `--include-missing`: 未翻訳部分を含める（デフォルト: true）
+- `--include-outdated`: 古くなった翻訳を含める（デフォルト: false）
+- `--include-context`: AI翻訳向上のため周辺コンテキストを含める（デフォルト: false）
+- `--batch-size, -b`: AI翻訳用のバッチサイズをトークン数で指定（デフォルト: 2000、範囲: 500-2000）
+- `--context-window, -w`: コンテキスト用の周辺ノード数（デフォルト: 3）
+- `--glossary, -g`: 用語一貫性のための用語集ファイルパス
+- `--verbose, -v`: 最適化レポートを含む詳細出力を表示
 
-Example:
+**Example:**
 ```{code-block} bash
 :name: cli-code-export-examples
 :caption: Export Command Examples
 :linenos:
 
-# Export to CSV for spreadsheet translation
-docdiff export docs/en docs/ja --format csv --output tasks.csv
+# AI翻訳に最適化されたエクスポート
+docdiff export docs/en docs/ja translation.json \
+  --include-context \
+  --batch-size 1500 \
+  --context-window 5 \
+  --glossary glossary.yml \
+  --verbose
 
-# Export to XLIFF for CAT tools
-docdiff export docs/en docs/ja --format xliff --output translation.xlf
+# スプレッドシート翻訳用のCSVエクスポート
+docdiff export docs/en docs/ja tasks.csv --format csv
 
-# Export to Excel with multiple sheets
-docdiff export docs/en docs/ja --format xlsx --output tasks.xlsx
+# CATツール用のXLIFFエクスポート
+docdiff export docs/en docs/ja translation.xlf --format xliff
 
-# Include already translated content for review
-docdiff export docs/en docs/ja --format json --output all.json --include-translated
+# 複数シート付きExcelエクスポート
+docdiff export docs/en docs/ja tasks.xlsx --format xlsx
+
+# レビュー用に古くなった翻訳を含める
+docdiff export docs/en docs/ja review.json --include-outdated
 ```
 
-Output Formats:
+**出力形式:**
 
-CSV Format:
+**階層JSON形式（AI最適化）:**
+```{code-block} json
+:name: cli-code-export-json-format
+:caption: Hierarchical JSON Export Format
+
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "docdiff_version": "0.1.0",
+    "export_timestamp": "2025-09-07T15:45:01",
+    "source_lang": "en",
+    "target_lang": "ja",
+    "statistics": {
+      "total_nodes": 497,
+      "total_batches": 40,
+      "batch_efficiency": "81%",
+      "api_calls_saved": 457
+    }
+  },
+  "translation_batches": [
+    {
+      "batch_id": 1,
+      "estimated_tokens": 1773,
+      "file_group": "docs/en/index.md",
+      "section_range": "## Overview to ### Features",
+      "node_ids": ["id1", "id2", "id3"]
+    }
+  ],
+  "document_hierarchy": {},
+  "sphinx_context": {}
+}
+```
+
+**最適化レポート（--verboseオプション使用時）:**
+```{code-block} text
+:name: cli-code-export-optimization-report
+:caption: Batch Optimization Report
+
+適応バッチ最適化レポート
+===================================
+総ノード数:         497
+総バッチ数:         40
+バッチ効率:         81.0%
+
+トークン統計:
+  平均:             1532 tokens/batch
+  最小:             502 tokens
+  最大:             1998 tokens
+  目標:             1500-2000 tokens
+
+最適化結果:
+  API呼び出し削減:   457 (92.0% 削減)
+  トークンオーバーヘッド: 8.0% (優秀)
+  コスト削減:        ~70%
+  
+ステータス: ✅ 最適
+```
+
+**CSV形式:**
 ```{code-block} text
 :name: cli-code-export-csv-format
 :caption: CSV Export Format
@@ -230,46 +301,53 @@ XLIFF Format:
 (cli-command-import)=
 ### `docdiff import`
 
-エクスポートされたファイルから翻訳をインポートします。
+完了された翻訳をドキュメントに逆インポートします。
 
 ```{code-block} bash
 :name: cli-code-import-usage
 :caption: Import Command Usage
 
-docdiff import <input-file> [OPTIONS]
+docdiff import <import-file> <target-dir> [OPTIONS]
 ```
 
-Arguments:
-- `input-file`: Path to the file containing translations (CSV, JSON, XLSX, or XLIFF)
+**Arguments:**
+- `import-file`: インポートファイルのパス（JSON、CSV、XLSX、またはXLIFF）
+- `target-dir`: ターゲットドキュメントディレクトリ
 
-Options:
-- `--source-dir`: Source documentation directory (for validation)
-- `--target-dir`: Target documentation directory (where to write translations)
-- `--source-lang, -s`: Source language code (default: en)
-- `--target-lang, -t`: Target language code (default: ja)
-- `--dry-run`: Preview changes without writing files
-- `--verbose, -v`: Show detailed import progress
+**Options:**
+- `--format, -f`: インポート形式（指定されない場合は自動検出）
+- `--target-lang, -t`: ターゲット言語コード（デフォルト: ja）
+- `--create-missing`: 未翻訳ファイル用の新規ファイル作成（デフォルト: true）
+- `--overwrite`: 既存翻訳の上書き（デフォルト: false）
+- `--dry-run`: 実際に適用せずに変更をプレビュー
+- `--verbose, -v`: 詳細な出力を表示
 
-Example:
+**Example:**
 ```{code-block} bash
 :name: cli-code-import-examples
 :caption: Import Command Examples
 :linenos:
 
-# Import translations from CSV
-docdiff import translated.csv --source-dir docs/en --target-dir docs/ja
+# AI翻訳済みJSONのインポート
+docdiff import translation_complete.json docs/ja
 
-# Dry run to preview changes
-docdiff import translated.xlsx --source-dir docs/en --target-dir docs/ja --dry-run
+# 変更をプレビューするためのドライラン
+docdiff import translation.json docs/ja --dry-run
 
-# Import from XLIFF with verbose output
-docdiff import translation.xlf --target-dir docs/ja --verbose
+# 上書きオプション付きCSVインポート
+docdiff import tasks_complete.csv docs/ja --overwrite
+
+# CATツールからのXLIFFインポート
+docdiff import translation.xlf docs/ja --format xliff
+
+# 詳細出力付きインポート
+docdiff import translation.json docs/ja --verbose
 ```
 
 (cli-command-simple-compare)=
 ### `docdiff simple-compare`
 
-ディレクトリ間の基本構造の比較。
+ディレクトリ間の基本的な構造比較を実行します。
 
 ```{code-block} bash
 :name: cli-code-simple-compare-usage
@@ -278,23 +356,23 @@ docdiff import translation.xlf --target-dir docs/ja --verbose
 docdiff simple-compare <source-dir> <target-dir> [OPTIONS]
 ```
 
-Arguments:
+**Arguments:**
 - `source-dir`: ソースドキュメントのディレクトリ
-- `target-dir`: 出力ドキュメントのディレクトリ
+- `target-dir`: ターゲットドキュメントのディレクトリ
 
-Options:
-- `--verbose, -v`: Show detailed comparison
+**Options:**
+- `--verbose, -v`: 詳細比較を表示
 
-Example:
+**Example:**
 ```{code-block} bash
 :name: cli-code-simple-compare-examples
 :caption: Simple Compare Command Examples
 :linenos:
 
-# Quick structure comparison
+# 簡単な構造比較
 docdiff simple-compare docs/en docs/ja
 
-# Detailed comparison
+# 詳細比較
 docdiff simple-compare docs/en docs/ja --verbose
 ```
 
@@ -308,15 +386,15 @@ docdiffはプロジェクトルートディレクトリに`.docdiff/`フォル�
 :caption: Cache Directory Structure
 
 .docdiff/
-├── cache/           # Parsed document cache
-│   ├── nodes.db     # Document structure database
-│   └── mappings.db  # Translation mappings
-└── reports/         # Generated reports
+├── cache/           # 解析済みドキュメントキャッシュ
+│   ├── nodes.db     # ドキュメント構造データベース
+│   └── mappings.db  # 翻訳マッピング
+└── reports/         # 生成されたレポート
     ├── comparison_en_ja.html
-    └── *.md         # Markdown reports
+    └── *.md         # Markdownレポート
 ```
 
-Note: Add `.docdiff/` to your `.gitignore` file to exclude cache from version control.
+**注意:** バージョン管理からキャッシュを除外するため、`.docdiff/`を`.gitignore`ファイルに追加してください。
 
 (cli-environment-variables)=
 ## 環境変数
@@ -336,16 +414,16 @@ Note: Add `.docdiff/` to your `.gitignore` file to exclude cache from version co
 :caption: Initial Translation Setup
 :linenos:
 
-# 1. Compare source and target documentation
+# 1. ソースとターゲットドキュメントの比較
 docdiff compare docs/en docs/ja
 
-# 2. Generate detailed report for review
+# 2. レビュー用の詳細レポート生成
 docdiff compare docs/en docs/ja --output initial-status.md
 
-# 3. Export missing translations to CSV
+# 3. 未翻訳部分をCSVにエクスポート
 docdiff export docs/en docs/ja --format csv --output translations-needed.csv
 
-# 4. After translation, import the completed CSV
+# 4. 翻訳完了後、CSVをインポート
 docdiff import translations-completed.csv --source-dir docs/en --target-dir docs/ja
 ```
 
@@ -357,17 +435,17 @@ docdiff import translations-completed.csv --source-dir docs/en --target-dir docs
 :caption: Continuous Translation Workflow
 :linenos:
 
-# Daily workflow
-# 1. Check current translation coverage
+# 日常ワークフロー
+# 1. 現在の翻訳カバレージをチェック
 docdiff compare docs/en docs/ja --view summary
 
-# 2. Generate GitHub-style report for PR
+# 2. PR用のGitHubスタイルレポート生成
 docdiff compare docs/en docs/ja --output report.github.md
 
-# 3. Export only missing translations
+# 3. 未翻訳部分のみをエクスポート
 docdiff export docs/en docs/ja --format xlsx --output weekly-tasks.xlsx
 
-# 4. View metadata-based grouping for prioritization
+# 4. 優先度付けのためのメタデータベースグルーピング表示
 docdiff compare docs/en docs/ja --view metadata
 ```
 
@@ -379,36 +457,36 @@ docdiff compare docs/en docs/ja --view metadata
 :caption: Team Translation Workflow
 :linenos:
 
-# Project manager: Export tasks
+# プロジェクトマネージャー: タスクのエクスポート
 docdiff export docs/en docs/ja --format xlsx --output team-tasks.xlsx
 
-# Translator: Work on Excel file
-# ... translation work ...
+# 翻訳者: Excelファイルで作業
+# ... 翻訳作業 ...
 
-# Project manager: Import completed translations
+# プロジェクトマネージャー: 完了した翻訳のインポート
 docdiff import team-tasks-completed.xlsx \
   --source-dir docs/en \
   --target-dir docs/ja \
-  --dry-run  # Preview first
+  --dry-run  # まずプレビュー
 
-# If preview looks good, import for real
+# プレビューが良ければ、実際にインポート
 docdiff import team-tasks-completed.xlsx \
   --source-dir docs/en \
   --target-dir docs/ja
 
-# Generate report for stakeholders
+# ステークホルダー向けレポート生成
 docdiff compare docs/en docs/ja --output status-report.md
 ```
 
 (cli-exit-codes)=
-## Exit Codes
+## 終了コード
 
-- `0`: Success
-- `1`: General error
-- `2`: Parse error
-- `3`: Database error
-- `4`: Validation error
-- `5`: Configuration error
+- `0`: 成功
+- `1`: 一般エラー
+- `2`: 解析エラー
+- `3`: データベースエラー
+- `4`: 検証エラー
+- `5`: 設定エラー
 
 (cli-tips-best-practices)=
 ## 活用のコツとベストプラクティス

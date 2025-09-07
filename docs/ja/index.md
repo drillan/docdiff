@@ -12,14 +12,17 @@ docdiff は、MyST および reStructuredText 形式のドキュメントに特�
 
 ## 主な機能
 
-- インテリジェントな構造解析: 機械的なテキスト分割ではなく、文書を論理的な構造単位（セクション、コードブロック、表、図など）に解析
-- 高度な比較エンジン: 複数回のマッチング処理を行うアルゴリズムを採用し、完全一致・あいまい一致・欠落ノードの検出が可能
-- 豊富な可視化機能: ツリービュー、メタデータグループ化、左右並列比較、統計表示など、複数の表示モードを搭載
-- 柔軟なエクスポート/インポート: JSON、CSV、XLSX、XLIFF 2.1、Markdown など多様な形式に対応し、スムーズな翻訳ワークフローを実現
-- メタデータ対応処理: ラベル、名称、キャプションなどの構造メタデータを保存・追跡可能
-- Git 連携対応レポート: 詳細表示・GitHub スタイル・コンパクト表示など複数スタイルに対応した Markdown 出力でバージョン管理と連携
-- 段階的更新処理: ハッシュ値に基づくコンテンツ検出により、文書変更を効率的に処理
-- キャッシュ管理: `.docdiff/`ディレクトリにプロジェクトキャッシュを一元管理し、持続性とパフォーマンスを向上
+- **インテリジェントな構造解析**: 機械的なテキスト分割ではなく、文書を論理的な構造単位（セクション、コードブロック、表、図など）に解析
+- **AI 翻訳最適化**: 適応的バッチ最適化により81%の効率性を実現し、API呼び出しを69%削減
+- **高度な比較エンジン**: 複数回のマッチング処理を行うアルゴリズムを採用し、完全一致・あいまい一致・欠落ノードの検出が可能
+- **Sphinx統合機能**: 自動用語集抽出と相互参照追跡により、一貫性のある翻訳を実現
+- **豊富な可視化機能**: ツリービュー、メタデータグループ化、左右並列比較、統計表示など、複数の表示モードを搭載
+- **柔軟なエクスポート/インポート**: 階層化JSON（スキーマv1.0）、CSV、XLSX、XLIFF 2.1対応でシームレスなワークフローを実現
+- **文脈対応翻訳**: 文書階層を保持し、周辺コンテキストを含めてより良いAI翻訳を実現
+- **メタデータ対応処理**: ラベル、名称、キャプション、その他の構造メタデータを保持・追跡
+- **Git連携対応レポート**: 詳細表示・GitHub風・コンパクト表示など複数スタイルのMarkdown出力でバージョン管理と統合
+- **段階的更新処理**: ハッシュ値に基づくコンテンツ検出により、文書変更を効率的に処理
+- **パフォーマンス最適化**: インテリジェントなトークン推定とバッチ処理により、14,000以上のノード/秒で処理
 
 (docdiff-quick-start)=
 
@@ -40,11 +43,16 @@ docdiff compare docs/en docs/ja
 # Generate detailed Markdown report
 docdiff compare docs/en docs/ja --output report.md
 
-# Export translation tasks to CSV
-docdiff export docs/en docs/ja --format csv --output tasks.csv
+# AI翻訳向けエクスポート（最適化バッチ処理）
+docdiff export docs/en docs/ja translation.json \
+  --include-context --batch-size 1500 \
+  --glossary glossary.yml
 
-# Import completed translations
-docdiff import tasks_completed.csv --source-dir docs/en --target-dir docs/ja
+# 翻訳タスクをCSVにエクスポート
+docdiff export docs/en docs/ja tasks.csv --format csv
+
+# 完了した翻訳をインポート
+docdiff import translation_complete.json docs/ja
 ```
 
 (docdiff-documentation-contents)=
@@ -57,6 +65,8 @@ docdiff import tasks_completed.csv --source-dir docs/en --target-dir docs/ja
 
 user-guide
 cli-reference
+ai-translation
+sphinx-integration
 architecture
 ```
 
@@ -85,17 +95,22 @@ api-reference
 
 docdiff は現在も活発にメンテナンスが行われており、以下の機能が利用可能です：
 
-- ✅ 文書構造解析：メタデータを保持した高度な MyST/reStructuredText パーシング機能
-- ✅ 翻訳範囲分析：ファジーマッチングに対応した包括的な比較エンジン
-- ✅ 複数の出力形式：JSON、CSV、XLSX、XLIFF 2.1、および Markdown 形式のレポート
-- ✅ 豊富な可視化機能：ターミナルベースおよびファイルベースのレポート出力、複数の表示モードに対応
-- ✅ 翻訳ワークフロー：翻訳管理のための完全なエクスポート/インポートサイクル機能
+- **✅ 文書構造解析**: メタデータを保持した高度なMyST/reStructuredTextパーシング機能
+- **✅ AI翻訳最適化**: 適応的バッチ処理により81%の効率性を実現し、API呼び出しを69%削減
+- **✅ Sphinx統合**: 自動用語集抽出と相互参照追跡機能
+- **✅ 翻訳範囲分析**: ファジーマッチングに対応した包括的な比較エンジン
+- **✅ 複数のエクスポート形式**: 階層化JSON（v1.0）、CSV、XLSX、XLIFF 2.1、Markdownレポート
+- **✅ 文脈対応エクスポート**: 設定可能なコンテキストウィンドウで文書階層を保持
+- **✅ 豊富な可視化機能**: ターミナルベースおよびファイルベースのレポート出力、複数の表示モード
+- **✅ 翻訳ワークフロー**: 翻訳管理のための完全なエクスポート/インポートサイクル
+- **✅ パフォーマンス最適化**: 最小限のメモリ使用量で14,000以上のノード/秒を処理
 
 ### 今後の機能追加予定
 
-- 機械翻訳連携機能：AI を活用した翻訳サービスとの連携
-- Web インターフェース：技術知識のないユーザー向けのブラウザベース UI
-- 翻訳メモリ機能：過去に翻訳した内容を再利用する機能
+- **並列バッチ処理**: 高速翻訳のための同時API呼び出し機能
+- **Webインターフェース**: 技術知識のないユーザー向けのブラウザベースUI
+- **翻訳メモリ**: 以前に翻訳されたコンテンツの再利用機能
+- **POT/PO形式サポート**: 完全なSphinx i18n統合
 
 (docdiff-getting-help)=
 
@@ -107,6 +122,6 @@ docdiff は現在も活発にメンテナンスが行われており、以下の
 
 (docdiff-license)=
 
-## License
+## ライセンス
 
-docdiff is open source software licensed under the MIT License.
+docdiff は MIT ライセンスのもとで公開されているオープンソースソフトウェアです。
