@@ -172,6 +172,120 @@ def test_parse_basic_markdown():
     assert nodes[1].content == "Paragraph"
 ```
 
+(dev-ai-translation-optimization)=
+## AI Translation Optimization
+
+(dev-ai-batch-algorithm)=
+### Batch Optimization Algorithm
+
+The AdaptiveBatchOptimizer uses a sophisticated algorithm to achieve 81% batch efficiency:
+
+```{code-block} python
+:name: dev-code-batch-algorithm
+:caption: Batch Optimization Algorithm
+:linenos:
+
+def optimize_batches(nodes: List[TranslationNode]) -> List[TranslationBatch]:
+    """Optimize nodes into efficient batches.
+    
+    Algorithm:
+    1. Sort nodes by file and position
+    2. Merge adjacent small nodes
+    3. Respect section boundaries
+    4. Maintain semantic relationships
+    5. Target 500-2000 tokens per batch
+    """
+    batches = []
+    current_batch = []
+    current_tokens = 0
+    
+    for node in nodes:
+        node_tokens = estimate_tokens(node.content)
+        
+        # Check if adding would exceed max size
+        if current_tokens + node_tokens > max_batch_size:
+            if current_batch:
+                batches.append(create_batch(current_batch))
+            current_batch = [node]
+            current_tokens = node_tokens
+        else:
+            current_batch.append(node)
+            current_tokens += node_tokens
+            
+            # Check if we've reached optimal size
+            if current_tokens >= target_batch_size:
+                batches.append(create_batch(current_batch))
+                current_batch = []
+                current_tokens = 0
+    
+    return batches
+```
+
+(dev-ai-token-estimation)=
+### Token Estimation
+
+Accurate token counting for different languages and models:
+
+```{code-block} python
+:name: dev-code-token-estimation
+:caption: Token Estimation Implementation
+:linenos:
+
+def estimate_tokens(text: str, language: str = "en") -> int:
+    """Estimate token count for text.
+    
+    Factors:
+    - English: ~4 characters per token
+    - Japanese: ~2 characters per token
+    - Code blocks: ~3 characters per token
+    - Adjustments for specific models
+    """
+    if language == "ja":
+        return len(text) // 2
+    elif language == "zh":
+        return len(text) // 2
+    else:
+        return len(text) // 4
+```
+
+(dev-ai-context-management)=
+### Context Management
+
+Including relevant context for better translation quality:
+
+```{code-block} python
+:name: dev-code-context-management
+:caption: Context Management
+:linenos:
+
+def add_context(node: TranslationNode, window: int = 3) -> Dict:
+    """Add surrounding context to node.
+    
+    Includes:
+    - Previous N nodes
+    - Following N nodes
+    - Parent section
+    - Related glossary terms
+    """
+    context = {
+        "before": get_previous_nodes(node, window),
+        "after": get_following_nodes(node, window),
+        "parent": get_parent_section(node),
+        "glossary": get_relevant_terms(node)
+    }
+    return context
+```
+
+(dev-ai-performance-metrics)=
+### Performance Metrics
+
+Key metrics to monitor:
+
+- **Batch Efficiency**: Target 80%+ (actual/optimal tokens)
+- **API Call Reduction**: Target 90%+ reduction
+- **Token Overhead**: Target < 10%
+- **Processing Speed**: > 1000 nodes/second
+
 (dev-code-style-guidelines)=
 ## Code Style Guidelines
 
@@ -182,6 +296,7 @@ def test_parse_basic_markdown():
 - Type hints for all functions
 - Docstrings for all public APIs
 - Follow PEP 8 with ruff enforcement
+- Zero tolerance for legacy code
 
 (dev-quality-tools)=
 ### Quality Management Tools

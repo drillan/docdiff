@@ -93,6 +93,200 @@ class TranslationStatus(str, Enum):
     OUTDATED = "outdated"      # Source content changed
 ```
 
+(api-ai-modules)=
+## AI Translation Modules
+
+(api-adaptive-batch-optimizer)=
+### AdaptiveBatchOptimizer
+
+Intelligent batch optimization for AI translation:
+
+```{code-block} python
+:name: api-code-adaptive-batch-optimizer
+:caption: AdaptiveBatchOptimizer Class
+:linenos:
+
+class AdaptiveBatchOptimizer:
+    def __init__(
+        self,
+        target_batch_size: int = 1500,
+        min_batch_size: int = 500,
+        max_batch_size: int = 2000,
+        source_lang: str = "en",
+        preserve_hierarchy: bool = True,
+        enable_context: bool = True,
+        context_window: int = 3,
+    ):
+        """Initialize adaptive batch optimizer.
+        
+        Args:
+            target_batch_size: Target tokens per batch
+            min_batch_size: Minimum batch size
+            max_batch_size: Maximum batch size
+            source_lang: Source language code
+            preserve_hierarchy: Maintain document structure
+            enable_context: Include surrounding context
+            context_window: Number of context nodes
+        """
+    
+    def optimize_batches(
+        self, nodes: List[TranslationNode]
+    ) -> List[TranslationBatch]:
+        """Optimize nodes into efficient batches."""
+```
+
+(api-token-estimator)=
+### TokenEstimator
+
+Token counting and estimation for various AI models:
+
+```{code-block} python
+:name: api-code-token-estimator
+:caption: TokenEstimator Class
+:linenos:
+
+class TokenEstimator:
+    def estimate_tokens(
+        self,
+        text: str,
+        model: str = "gpt-4",
+        language: str = "en"
+    ) -> int:
+        """Estimate token count for text.
+        
+        Args:
+            text: Input text
+            model: AI model name
+            language: Language code
+            
+        Returns:
+            Estimated token count
+        """
+```
+
+(api-context-manager)=
+### ContextManager
+
+Manages translation context for better quality:
+
+```{code-block} python
+:name: api-code-context-manager
+:caption: ContextManager Class
+:linenos:
+
+class ContextManager:
+    def get_context(
+        self,
+        node_id: str,
+        window_size: int = 3,
+        include_hierarchy: bool = True
+    ) -> Dict[str, Any]:
+        """Get surrounding context for a node.
+        
+        Args:
+            node_id: Target node ID
+            window_size: Context window size
+            include_hierarchy: Include parent/child context
+            
+        Returns:
+            Context dictionary with surrounding nodes
+        """
+```
+
+(api-sphinx-modules)=
+## Sphinx Integration Modules
+
+(api-glossary-extractor)=
+### GlossaryExtractor
+
+Extracts glossary terms from Sphinx documentation:
+
+```{code-block} python
+:name: api-code-glossary-extractor
+:caption: GlossaryExtractor Class
+:linenos:
+
+class GlossaryExtractor:
+    def extract_glossary(
+        self,
+        doc_path: Path,
+        output_format: str = "yaml"
+    ) -> Dict[str, Any]:
+        """Extract glossary from Sphinx docs.
+        
+        Args:
+            doc_path: Documentation directory
+            output_format: Output format (yaml/json/csv)
+            
+        Returns:
+            Glossary dictionary
+        """
+```
+
+(api-reference-tracker)=
+### ReferenceTracker
+
+Tracks cross-references in Sphinx documentation:
+
+```{code-block} python
+:name: api-code-reference-tracker
+:caption: ReferenceTracker Class
+:linenos:
+
+class ReferenceTracker:
+    def track_references(
+        self,
+        nodes: List[DocumentNode]
+    ) -> Dict[str, List[str]]:
+        """Track all cross-references.
+        
+        Args:
+            nodes: Document nodes to analyze
+            
+        Returns:
+            Reference map (source -> targets)
+        """
+```
+
+(api-export-schema)=
+## Export Schema Models
+
+(api-translation-batch)=
+### TranslationBatch
+
+Optimized batch for AI translation:
+
+```{code-block} python
+:name: api-code-translation-batch
+:caption: TranslationBatch Model
+:linenos:
+
+class TranslationBatch(BaseModel):
+    batch_id: int
+    estimated_tokens: int
+    file_group: str
+    section_range: str
+    node_ids: List[str]
+    context: Optional[Dict[str, Any]]
+```
+
+(api-document-hierarchy)=
+### DocumentHierarchy
+
+Maintains document structure relationships:
+
+```{code-block} python
+:name: api-code-document-hierarchy
+:caption: DocumentHierarchy Model
+:linenos:
+
+class DocumentHierarchy(BaseModel):
+    root_nodes: List[str]
+    parent_map: Dict[str, str]
+    children_map: Dict[str, List[str]]
+    depth_map: Dict[str, int]
+```
+
 (api-database-schema)=
 ## Database Schema
 

@@ -168,15 +168,20 @@ docdiff export <source-dir> <target-dir> [OPTIONS]
 
 **Options:**
 - `--format, -f`: Export format:
-  - `json`: JSON format (default)
+  - `json`: Hierarchical JSON with AI optimization (default)
   - `csv`: CSV spreadsheet format
   - `xlsx`: Excel workbook format
   - `xliff`: XLIFF 2.1 translation format
 - `--output, -o`: Output file path (required)
 - `--source-lang, -s`: Source language code (default: en)
 - `--target-lang, -t`: Target language code (default: ja)
-- `--include-translated`: Include already translated content
-- `--metadata-only`: Export only metadata without content
+- `--include-missing`: Include missing translations (default: true)
+- `--include-outdated`: Include outdated translations (default: false)
+- `--include-context`: Include surrounding context for better AI translation (default: false)
+- `--batch-size, -b`: Target batch size for AI translation in tokens (default: 2000, range: 500-2000)
+- `--context-window, -w`: Number of surrounding nodes for context (default: 3)
+- `--glossary, -g`: Path to glossary file for terminology consistency
+- `--verbose, -v`: Show detailed output including optimization report
 
 **Example:**
 ```{code-block} bash
@@ -184,20 +189,86 @@ docdiff export <source-dir> <target-dir> [OPTIONS]
 :caption: Export Command Examples
 :linenos:
 
+# Export optimized for AI translation
+docdiff export docs/en docs/ja translation.json \
+  --include-context \
+  --batch-size 1500 \
+  --context-window 5 \
+  --glossary glossary.yml \
+  --verbose
+
 # Export to CSV for spreadsheet translation
-docdiff export docs/en docs/ja --format csv --output tasks.csv
+docdiff export docs/en docs/ja tasks.csv --format csv
 
 # Export to XLIFF for CAT tools
-docdiff export docs/en docs/ja --format xliff --output translation.xlf
+docdiff export docs/en docs/ja translation.xlf --format xliff
 
 # Export to Excel with multiple sheets
-docdiff export docs/en docs/ja --format xlsx --output tasks.xlsx
+docdiff export docs/en docs/ja tasks.xlsx --format xlsx
 
-# Include already translated content for review
-docdiff export docs/en docs/ja --format json --output all.json --include-translated
+# Include outdated translations for review
+docdiff export docs/en docs/ja review.json --include-outdated
 ```
 
 **Output Formats:**
+
+**Hierarchical JSON Format (AI-Optimized):**
+```{code-block} json
+:name: cli-code-export-json-format
+:caption: Hierarchical JSON Export Format
+
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "docdiff_version": "0.1.0",
+    "export_timestamp": "2025-09-07T15:45:01",
+    "source_lang": "en",
+    "target_lang": "ja",
+    "statistics": {
+      "total_nodes": 497,
+      "total_batches": 40,
+      "batch_efficiency": "81%",
+      "api_calls_saved": 457
+    }
+  },
+  "translation_batches": [
+    {
+      "batch_id": 1,
+      "estimated_tokens": 1773,
+      "file_group": "docs/en/index.md",
+      "section_range": "## Overview to ### Features",
+      "node_ids": ["id1", "id2", "id3"]
+    }
+  ],
+  "document_hierarchy": {},
+  "sphinx_context": {}
+}
+```
+
+**Optimization Report (with --verbose):**
+```{code-block} text
+:name: cli-code-export-optimization-report
+:caption: Batch Optimization Report
+
+Adaptive Batch Optimization Report
+===================================
+Total Nodes:         497
+Total Batches:       40
+Batch Efficiency:    81.0%
+
+Token Statistics:
+  Average:           1532 tokens/batch
+  Min:               502 tokens
+  Max:               1998 tokens
+  Target:            1500-2000 tokens
+
+Optimization Results:
+  API Calls Saved:   457 (92.0% reduction)
+  Token Overhead:    8.0% (excellent)
+  Cost Reduction:    ~70%
+  
+Status: ✅ Optimal
+```
 
 **CSV Format:**
 ```{code-block} text
@@ -230,25 +301,26 @@ ID,File,Line,Type,Status,Similarity,Source,Target,Label,Name,Notes
 (cli-command-import)=
 ### `docdiff import`
 
-Import translations from exported files.
+Import completed translations back into documentation.
 
 ```{code-block} bash
 :name: cli-code-import-usage
 :caption: Import Command Usage
 
-docdiff import <input-file> [OPTIONS]
+docdiff import <import-file> <target-dir> [OPTIONS]
 ```
 
 **Arguments:**
-- `input-file`: Path to the file containing translations (CSV, JSON, XLSX, or XLIFF)
+- `import-file`: Path to the import file (JSON, CSV, XLSX, or XLIFF)
+- `target-dir`: Target documentation directory
 
 **Options:**
-- `--source-dir`: Source documentation directory (for validation)
-- `--target-dir`: Target documentation directory (where to write translations)
-- `--source-lang, -s`: Source language code (default: en)
+- `--format, -f`: Import format (auto-detected if not specified)
 - `--target-lang, -t`: Target language code (default: ja)
-- `--dry-run`: Preview changes without writing files
-- `--verbose, -v`: Show detailed import progress
+- `--create-missing`: Create new files for missing translations (default: true)
+- `--overwrite`: Overwrite existing translations (default: false)
+- `--dry-run`: Preview changes without applying them
+- `--verbose, -v`: Show detailed output
 
 **Example:**
 ```{code-block} bash
@@ -256,14 +328,20 @@ docdiff import <input-file> [OPTIONS]
 :caption: Import Command Examples
 :linenos:
 
-# Import translations from CSV
-docdiff import translated.csv --source-dir docs/en --target-dir docs/ja
+# Import AI-translated JSON
+docdiff import translation_complete.json docs/ja
 
-# Dry run to preview changes
-docdiff import translated.xlsx --source-dir docs/en --target-dir docs/ja --dry-run
+# Import with dry-run to preview changes
+docdiff import translation.json docs/ja --dry-run
 
-# Import from XLIFF with verbose output
-docdiff import translation.xlf --target-dir docs/ja --verbose
+# Import CSV with overwrite
+docdiff import tasks_complete.csv docs/ja --overwrite
+
+# Import XLIFF from CAT tool
+docdiff import translation.xlf docs/ja --format xliff
+
+# Import with verbose output
+docdiff import translation.json docs/ja --verbose
 ```
 
 (cli-command-simple-compare)=
