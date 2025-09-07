@@ -12,6 +12,7 @@ from docdiff.cache import CacheManager
 from docdiff.parsers import MySTParser, ReSTParser
 from docdiff.compare import ComparisonEngine, MetadataView
 from docdiff.compare.reporters import MarkdownReporter
+from docdiff.utils.path_utils import get_display_path, safe_relative_to
 
 
 console = Console()
@@ -70,7 +71,7 @@ def compare_command(
 
         for doc_file in doc_files:
             if verbose:
-                console.print(f"  Parsing: {doc_file.relative_to(source_dir)}")
+                console.print(f"  Parsing: {get_display_path(doc_file, source_dir)}")
 
             # Choose parser based on file extension
             parser: Union[MySTParser, ReSTParser]
@@ -103,7 +104,7 @@ def compare_command(
 
         for doc_file in doc_files:
             if verbose:
-                console.print(f"  Parsing: {doc_file.relative_to(target_dir)}")
+                console.print(f"  Parsing: {get_display_path(doc_file, target_dir)}")
 
             # Choose parser based on file extension
             if doc_file.suffix == ".md":
@@ -199,7 +200,7 @@ def compare_command(
                 node.content[:50] + "..." if len(node.content) > 50 else node.content
             )
             missing_table.add_row(
-                str(node.file_path.relative_to(source_dir)),
+                str(safe_relative_to(node.file_path, source_dir)),
                 str(node.line_number),
                 node.type.value,
                 content_preview,

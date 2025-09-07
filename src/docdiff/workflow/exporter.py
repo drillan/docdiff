@@ -72,9 +72,9 @@ class TranslationExporter:
 
         # Extract Sphinx context if available
         sphinx_context = self._extract_sphinx_context_v2(result, options)
-        glossary_terms = []
+        _ = []
         if sphinx_context and sphinx_context.glossary_terms:
-            glossary_terms = [term.term for term in sphinx_context.glossary_terms]
+            _ = [term.term for term in sphinx_context.glossary_terms]
 
         # Create optimized batches using adaptive optimizer
         batch_size = options.get("batch_size", 2000)

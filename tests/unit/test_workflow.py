@@ -351,6 +351,7 @@ class TestTranslationImporter:
         """Test JSON import."""
         # Create test JSON file
         test_data = {
+            "schema_version": "1.0",
             "metadata": {"source_lang": "en", "target_lang": "ja"},
             "translations": [
                 {
@@ -505,6 +506,8 @@ class TestTranslationImporter:
     def test_skip_empty_translations(self, tmp_path):
         """Test skipping empty translations during import."""
         test_data = {
+            "schema_version": "1.0",
+            "metadata": {"source_lang": "en", "target_lang": "ja"},
             "translations": [
                 {
                     "id": "src_1",

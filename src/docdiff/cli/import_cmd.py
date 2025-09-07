@@ -11,6 +11,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from docdiff.workflow import TranslationImporter
 from docdiff.parsers import MySTParser
 from docdiff.models import DocumentNode
+from docdiff.utils.path_utils import get_display_path
 
 
 console = Console()
@@ -93,7 +94,7 @@ def import_command(
 
         for md_file in target_dir.rglob("*.md"):
             if verbose:
-                console.print(f"  Loading: {md_file.relative_to(target_dir)}")
+                console.print(f"  Loading: {get_display_path(md_file, target_dir)}")
             with open(md_file, "r", encoding="utf-8") as f:
                 content = f.read()
             nodes = parser.parse(content, md_file)
@@ -168,7 +169,7 @@ def import_command(
         written_files = []
         for file_path, nodes in files_to_write.items():
             if verbose:
-                console.print(f"  Writing: {file_path.relative_to(target_dir)}")
+                console.print(f"  Writing: {get_display_path(file_path, target_dir)}")
 
             # Sort nodes by line number
             nodes.sort(key=lambda n: n.line_number)
@@ -192,7 +193,7 @@ def import_command(
         if verbose:
             console.print("\n[dim]Modified files:[/dim]")
             for file_path in written_files:
-                console.print(f"  • {file_path.relative_to(target_dir)}")
+                console.print(f"  • {get_display_path(file_path, target_dir)}")
 
     elif dry_run:
         console.print("\n[yellow]No changes applied (dry run mode)[/yellow]")

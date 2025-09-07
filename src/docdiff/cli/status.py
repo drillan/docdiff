@@ -13,6 +13,7 @@ from docdiff.database import (
     TranslationRepository,
 )
 from docdiff.models import NodeType, TranslationStatus
+from docdiff.utils.path_utils import safe_relative_to
 
 console = Console()
 
@@ -84,7 +85,7 @@ def status_command(
         if node_count == 0:
             continue
 
-        row = [str(file_path.relative_to(project_dir)), str(node_count)]
+        row = [str(safe_relative_to(file_path, project_dir)), str(node_count)]
 
         if target_lang:
             pending = 0

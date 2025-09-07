@@ -9,6 +9,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from docdiff.database import DatabaseConnection, NodeRepository, create_tables
 from docdiff.parsers import MySTParser, ReSTParser
 from docdiff.cache import CacheManager
+from docdiff.utils.path_utils import get_display_path
 
 console = Console()
 
@@ -66,7 +67,7 @@ def parse_command(
         # Parse Markdown files
         for md_file in md_files:
             if verbose:
-                console.print(f"  Parsing: {md_file.relative_to(project_dir)}")
+                console.print(f"  Parsing: {get_display_path(md_file, project_dir)}")
 
             try:
                 content = md_file.read_text(encoding="utf-8")
@@ -84,7 +85,7 @@ def parse_command(
         # Parse RST files
         for rst_file in rst_files:
             if verbose:
-                console.print(f"  Parsing: {rst_file.relative_to(project_dir)}")
+                console.print(f"  Parsing: {get_display_path(rst_file, project_dir)}")
 
             try:
                 content = rst_file.read_text(encoding="utf-8")

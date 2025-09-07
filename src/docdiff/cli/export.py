@@ -10,6 +10,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from docdiff.parsers import MySTParser
 from docdiff.compare import ComparisonEngine
 from docdiff.workflow import TranslationExporter
+from docdiff.utils.path_utils import get_display_path
 
 
 console = Console()
@@ -87,7 +88,7 @@ def export_command(
 
         for md_file in source_dir.rglob("*.md"):
             if verbose:
-                console.print(f"  Parsing: {md_file.relative_to(source_dir)}")
+                console.print(f"  Parsing: {get_display_path(md_file, source_dir)}")
             with open(md_file, "r", encoding="utf-8") as f:
                 content = f.read()
             nodes = parser.parse(content, md_file)
@@ -107,7 +108,7 @@ def export_command(
 
         for md_file in target_dir.rglob("*.md"):
             if verbose:
-                console.print(f"  Parsing: {md_file.relative_to(target_dir)}")
+                console.print(f"  Parsing: {get_display_path(md_file, target_dir)}")
             with open(md_file, "r", encoding="utf-8") as f:
                 content = f.read()
             nodes = parser.parse(content, md_file)
