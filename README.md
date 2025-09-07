@@ -1,3 +1,4 @@
+(readme-title)=
 # 🔍 docdiff
 
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
@@ -8,13 +9,16 @@
 
 docdiff analyzes document structure to track translation progress, identify missing translations, and manage multilingual documentation efficiently.
 
+(readme-key-features)=
 ## ✨ Key Features
 
+(readme-translation-coverage)=
 ### 📊 Translation Coverage Analysis
 Real-time translation coverage tracking with detailed metrics showing exactly which content needs translation.
 
 [→ View Sample Report](samples/reports/report-detailed.md)
 
+(readme-view-modes)=
 ### 🔄 Multiple View Modes
 Choose from various visualization modes to understand your translation status:
 - **Summary View**: Quick overview of translation coverage
@@ -25,6 +29,7 @@ Choose from various visualization modes to understand your translation status:
 
 [→ See View Examples](samples/views/)
 
+(readme-export-formats)=
 ### 📤 Flexible Export Formats
 Export translation tasks in multiple formats for seamless integration with your workflow:
 - **CSV**: For spreadsheet tools (Excel, Google Sheets)
@@ -34,14 +39,17 @@ Export translation tasks in multiple formats for seamless integration with your 
 
 [→ Browse Export Samples](samples/exports/)
 
+(readme-content-matching)=
 ### 🎯 Smart Content Matching
 - Label-based structural mapping
 - Fuzzy content matching
 - Metadata preservation
 - Language-aware comparison
 
+(readme-quick-start)=
 ## 🚀 Quick Start
 
+(readme-installation)=
 ### Installation
 
 ```bash
@@ -57,6 +65,7 @@ uv pip install -e .
 docdiff --version
 ```
 
+(readme-basic-usage)=
 ### Basic Usage
 
 ```bash
@@ -73,8 +82,10 @@ docdiff export docs/en docs/ja tasks.csv --format csv
 docdiff import tasks.csv --source-dir docs/en --target-dir docs/ja
 ```
 
+(readme-output-examples)=
 ## 📸 Output Examples
 
+(readme-coverage-summary)=
 ### Translation Coverage Summary
 ```
 Translation Coverage Summary
@@ -89,19 +100,23 @@ Translation Coverage Summary
 ```
 [→ Full Summary](samples/views/summary.txt)
 
+(readme-side-by-side)=
 ### Side-by-Side Comparison
 View source and target content in parallel for easy review and validation.
 
 [→ View Comparison](samples/views/side-by-side.txt)
 
+(readme-markdown-reports)=
 ### Markdown Reports
 Generate comprehensive reports in multiple styles:
 - **[Detailed Report](samples/reports/report-detailed.md)** - Complete analysis with all sections
 - **[GitHub Style](samples/reports/report-github.md)** - Collapsible sections and task lists
 - **[Compact Report](samples/reports/report-compact.md)** - Essential information only
 
+(readme-advanced-features)=
 ## 🔧 Advanced Features
 
+(readme-metadata-processing)=
 ### Metadata-Aware Processing
 docdiff understands document structure beyond plain text:
 - Preserves labels (`(section-name)=`)
@@ -109,6 +124,7 @@ docdiff understands document structure beyond plain text:
 - Maintains cross-references
 - Respects MyST/reStructuredText directives
 
+(readme-intelligent-comparison)=
 ### Intelligent Comparison
 The comparison engine uses multi-pass matching:
 1. **Structural matching** by labels and names
@@ -116,12 +132,14 @@ The comparison engine uses multi-pass matching:
 3. **Fuzzy matching** for similar content
 4. **Position-based** fallback for unmarked content
 
+(readme-cache-management)=
 ### Cache Management
 Efficient caching system in `.docdiff/` directory:
 - Parsed document structures
 - Comparison results
 - Generated reports
 
+(readme-documentation)=
 ## 📚 Documentation
 
 - **[User Guide](docs/en/user-guide.md)** - Detailed usage instructions
@@ -130,24 +148,29 @@ Efficient caching system in `.docdiff/` directory:
 - **[API Reference](docs/en/api-reference.md)** - Programming interface
 - **[Developer Guide](docs/en/developer-guide.md)** - Contributing and development
 
+(readme-use-cases)=
 ## 🎯 Use Cases
 
+(readme-technical-docs)=
 ### Technical Documentation
 - API documentation
 - Software manuals
 - Developer guides
 - README files
 
+(readme-academic-writing)=
 ### Academic Writing
 - Research papers
 - Thesis documents
 - Course materials
 
+(readme-corporate-docs)=
 ### Corporate Documentation
 - Product manuals
 - Training materials
 - Policy documents
 
+(readme-roadmap)=
 ## 🗺️ Roadmap
 
 - [ ] Machine translation integration
@@ -157,6 +180,7 @@ Efficient caching system in `.docdiff/` directory:
 - [ ] Git hooks integration
 - [ ] CI/CD pipeline support
 
+(readme-contributing)=
 ## 🤝 Contributing
 
 Contributions are welcome! Please read our [Developer Guide](docs/en/developer-guide.md) for details on:
@@ -165,10 +189,12 @@ Contributions are welcome! Please read our [Developer Guide](docs/en/developer-g
 - Testing requirements
 - Pull request process
 
+(readme-license)=
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+(readme-acknowledgments)=
 ## 🙏 Acknowledgments
 
 - Built with [Typer](https://typer.tiangolo.com/) for CLI
