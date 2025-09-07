@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 from datetime import datetime
 import yaml
+from docdiff.utils.path_utils import safe_relative_to
 
 
 class CacheManager:
@@ -146,7 +147,7 @@ class CacheManager:
         # docs/en -> docs_en.db
         # docs/ja -> docs_ja.db
         rel_path = (
-            parse_dir.relative_to(self.project_root)
+            safe_relative_to(parse_dir, self.project_root)
             if parse_dir.is_absolute()
             else parse_dir
         )

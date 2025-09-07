@@ -1,6 +1,6 @@
 """Report generators for comparison results."""
 
-from typing import List, Dict
+from typing import List, Dict, Optional
 from datetime import datetime
 from collections import defaultdict
 
@@ -10,13 +10,46 @@ from docdiff.compare.models import ComparisonResult, NodeMapping
 class MarkdownReporter:
     """Generate Markdown reports from comparison results."""
 
-    def __init__(self, style: str = "detailed"):
-        """Initialize reporter with style.
+    # Default limits for different display modes
+    DEFAULT_LIMITS = {
+        "labels": 20,
+        "names": 10,
+        "sidebyside": 20,
+        "files": 5,
+        "items_per_file": 5,
+    }
+
+    VERBOSE_LIMITS = {
+        "labels": 100,
+        "names": 50,
+        "sidebyside": 100,
+        "files": 20,
+        "items_per_file": 20,
+    }
+
+    def __init__(self, style: str = "detailed", limit_mode: str = "default"):
+        """Initialize reporter with style and limit mode.
 
         Args:
             style: Report style (detailed/compact/github)
+            limit_mode: Limit mode (default/verbose/none)
+                - default: Use default limits
+                - verbose: Use expanded limits
+                - none: No limits (show all)
         """
         self.style = style
+        self.limit_mode = limit_mode
+
+        # Set limits based on mode
+        self.limits: Dict[str, Optional[int]]
+        if limit_mode == "none":
+            self.limits = {k: None for k in self.DEFAULT_LIMITS}
+        elif limit_mode == "verbose":
+            # Cast to Dict[str, Optional[int]] as VERBOSE_LIMITS has all int values
+            self.limits = {k: v for k, v in self.VERBOSE_LIMITS.items()}
+        else:
+            # Cast to Dict[str, Optional[int]] as DEFAULT_LIMITS has all int values
+            self.limits = {k: v for k, v in self.DEFAULT_LIMITS.items()}
 
     def generate(self, result: ComparisonResult, include_badges: bool = False) -> str:
         """Generate markdown report.
@@ -127,15 +160,21 @@ class MarkdownReporter:
         lines.append("")
 
         # Top missing items
-        missing_mappings = [m for m in result.mappings if m.mapping_type == "missing"][
-            :5
-        ]
-        if missing_mappings:
+        items_limit = (
+            self.limits["items_per_file"] if self.limits["items_per_file"] else 5
+        )
+        missing_mappings = [m for m in result.mappings if m.mapping_type == "missing"]
+
+        if items_limit is None:
+            items_to_show = missing_mappings
+        else:
+            items_to_show = missing_mappings[:items_limit]
+
+        if items_to_show:
             lines.append("### Top Missing:")
-            for m in missing_mappings:
-                lines.append(
-                    f"- [ ] `{m.source_node.label or m.source_node.name or 'node'}`: {m.source_node.content[:50]}..."
-                )
+            for m in items_to_show:
+                identifier = self._get_node_identifier(m.source_node)
+                lines.append(f"- [ ] {identifier} (Line {m.source_node.line_number})")
 
         return "\n".join(lines)
 
@@ -192,8 +231,21 @@ class MarkdownReporter:
         lines.append("## 📝 Translation Tasks")
         lines.append("")
         missing_by_label = self._group_missing_by_metadata(result)
-        for label, mappings in list(missing_by_label.items())[:10]:
+
+        # Apply limit for GitHub task list
+        task_limit = self.limits["names"]  # Reuse names limit for consistency
+        items_to_show = (
+            list(missing_by_label.items())
+            if task_limit is None
+            else list(missing_by_label.items())[:task_limit]
+        )
+
+        for label, mappings in items_to_show:
             lines.append(f"- [ ] **{label}** ({len(mappings)} items)")
+
+        if task_limit and len(missing_by_label) > task_limit:
+            remaining = len(missing_by_label) - task_limit
+            lines.append(f"- [ ] ... and {remaining} more tasks")
 
         return "\n".join(lines)
 
@@ -213,13 +265,23 @@ class MarkdownReporter:
                 label_stats.items(), key=lambda x: x[1][2], reverse=True
             )
 
-            for label, (translated, total, coverage) in sorted_stats[:20]:
+            # Apply limit for labels
+            label_limit = self.limits["labels"]
+            items_to_show = (
+                sorted_stats if label_limit is None else sorted_stats[:label_limit]
+            )
+
+            for label, (translated, total, coverage) in items_to_show:
                 emoji = self._get_coverage_emoji(coverage)
                 progress = self._get_progress_bar(coverage, width=16)
                 lines.append(f"- {emoji} **{label}** ({coverage:.0f}%) {progress}")
 
-            if len(sorted_stats) > 20:
-                lines.append(f"- ... and {len(sorted_stats) - 20} more")
+            if label_limit and len(sorted_stats) > label_limit:
+                remaining = len(sorted_stats) - label_limit
+                help_text = (
+                    " (use --full to show all)" if self.limit_mode != "none" else ""
+                )
+                lines.append(f"- ... and {remaining} more{help_text}")
             lines.append("")
 
         # Group by names
@@ -233,14 +295,24 @@ class MarkdownReporter:
                 name_stats.items(), key=lambda x: x[1][2], reverse=True
             )
 
-            for name, (translated, total, coverage) in sorted_stats[:10]:
+            # Apply limit for names
+            name_limit = self.limits["names"]
+            items_to_show = (
+                sorted_stats if name_limit is None else sorted_stats[:name_limit]
+            )
+
+            for name, (translated, total, coverage) in items_to_show:
                 emoji = self._get_coverage_emoji(coverage)
                 lines.append(
                     f"- {emoji} `@{name}` - {translated}/{total} ({coverage:.0f}%)"
                 )
 
-            if len(sorted_stats) > 10:
-                lines.append(f"- ... and {len(sorted_stats) - 10} more")
+            if name_limit and len(sorted_stats) > name_limit:
+                remaining = len(sorted_stats) - name_limit
+                help_text = (
+                    " (use --full to show all)" if self.limit_mode != "none" else ""
+                )
+                lines.append(f"- ... and {remaining} more{help_text}")
             lines.append("")
 
         return lines
@@ -248,43 +320,41 @@ class MarkdownReporter:
     def _generate_sidebyside_section(self, result: ComparisonResult) -> List[str]:
         """Generate side-by-side comparison section."""
         lines = ["## Side-by-Side Comparison", ""]
-        lines.append("| Status | Source (EN) | Target (JA) | Match | Metadata |")
-        lines.append("|:------:|:------------|:------------|:-----:|:---------|")
+        lines.append("| Status | Source (EN) | Target (JA) | Match | Type |")
+        lines.append("|:------:|:------------|:------------|:-----:|:-----|")
 
-        # Show first 20 items
-        for mapping in result.mappings[:20]:
+        # Apply limit for side-by-side comparison
+        sidebyside_limit = self.limits["sidebyside"]
+        items_to_show = (
+            result.mappings
+            if sidebyside_limit is None
+            else result.mappings[:sidebyside_limit]
+        )
+
+        for mapping in items_to_show:
             status = self._get_status_emoji(mapping)
 
-            # Source content
-            source = mapping.source_node.content[:40]
-            if len(mapping.source_node.content) > 40:
-                source += "..."
+            # Use structural identifiers instead of content
+            source = self._get_node_identifier(mapping.source_node)
 
-            # Target content
+            # Target identifier
             if mapping.target_node:
-                target = mapping.target_node.content[:40]
-                if len(mapping.target_node.content) > 40:
-                    target += "..."
+                target = self._get_node_identifier(mapping.target_node)
             else:
                 target = "*(missing)*"
 
             # Match percentage
             match = f"{mapping.similarity * 100:.0f}%" if mapping.target_node else "0%"
 
-            # Metadata
-            metadata = []
-            if mapping.source_node.label:
-                metadata.append(f"`label: {mapping.source_node.label}`")
-            if mapping.source_node.name:
-                metadata.append(f"`name: {mapping.source_node.name}`")
-            metadata_str = " ".join(metadata) if metadata else "-"
+            # Node type as metadata
+            node_type = mapping.source_node.type.value
 
-            lines.append(
-                f"| {status} | {source} | {target} | {match} | {metadata_str} |"
-            )
+            lines.append(f"| {status} | {source} | {target} | {match} | {node_type} |")
 
-        if len(result.mappings) > 20:
-            lines.append(f"| ... | *{len(result.mappings) - 20} more items* | | | |")
+        if sidebyside_limit and len(result.mappings) > sidebyside_limit:
+            remaining = len(result.mappings) - sidebyside_limit
+            help_text = " (use --full to show all)" if self.limit_mode != "none" else ""
+            lines.append(f"| ... | *{remaining} more items{help_text}* | | | |")
 
         lines.append("")
         return lines
@@ -309,25 +379,46 @@ class MarkdownReporter:
             if hasattr(m.source_node, "file_path"):
                 by_file[m.source_node.file_path.name].append(m)
 
-        for file_name, mappings in list(by_file.items())[:5]:
+        # Apply limits for files and items per file
+        file_limit = self.limits["files"]
+        items_limit = self.limits["items_per_file"]
+
+        files_to_show = (
+            list(by_file.items())
+            if file_limit is None
+            else list(by_file.items())[:file_limit]
+        )
+
+        for file_name, mappings in files_to_show:
             lines.append(f"### 📄 {file_name} ({len(mappings)} items)")
             lines.append("")
 
-            for m in mappings[:5]:
-                node = m.source_node
-                lines.append(f"- **Line {node.line_number}** ({node.type.value})")
-                lines.append("  ```")
-                lines.append(
-                    f"  {node.content[:100]}{'...' if len(node.content) > 100 else ''}"
-                )
-                lines.append("  ```")
+            items_to_show = mappings if items_limit is None else mappings[:items_limit]
 
-            if len(mappings) > 5:
-                lines.append(f"- ... and {len(mappings) - 5} more in this file")
+            for m in items_to_show:
+                node = m.source_node
+                identifier = self._get_node_identifier(node)
+                lines.append(f"- **Line {node.line_number}** - {identifier}")
+                # Show first line of content as context (not in code block to avoid breaks)
+                if node.content:
+                    first_line = node.content.split("\n")[0][:80]
+                    if first_line:
+                        lines.append(
+                            f"  > {first_line}{'...' if len(first_line) >= 80 or '\n' in node.content else ''}"
+                        )
+
+            if items_limit and len(mappings) > items_limit:
+                remaining = len(mappings) - items_limit
+                help_text = (
+                    " (use --full to show all)" if self.limit_mode != "none" else ""
+                )
+                lines.append(f"- ... and {remaining} more in this file{help_text}")
             lines.append("")
 
-        if len(by_file) > 5:
-            lines.append(f"*... and {len(by_file) - 5} more files*")
+        if file_limit and len(by_file) > file_limit:
+            remaining = len(by_file) - file_limit
+            help_text = " (use --full to show all)" if self.limit_mode != "none" else ""
+            lines.append(f"*... and {remaining} more files{help_text}*")
             lines.append("")
 
         return lines
@@ -430,6 +521,70 @@ class MarkdownReporter:
                 groups[key].append(mapping)
 
         return dict(groups)
+
+    def _get_node_identifier(self, node) -> str:
+        """Get structural identifier for a node instead of content.
+
+        Priority: label > name > caption > title > type+line
+        """
+        # Import NodeType here to avoid circular import
+        from docdiff.models import NodeType
+
+        # Priority 1: Structural identifiers
+        if node.label:
+            return f"[{node.label}]"
+        if node.name:
+            return f"@{node.name}"
+        if node.caption:
+            return f'"{node.caption}"'
+
+        # Priority 2: Title for sections
+        if node.type == NodeType.SECTION and node.title:
+            # Clean title from markdown headers
+            title = node.title.strip()
+            if title.startswith("#"):
+                title = title.lstrip("#").strip()
+            return title
+
+        # Priority 3: Type-specific descriptions
+        if node.type == NodeType.CODE_BLOCK:
+            # Count lines in content
+            lines = len(node.content.splitlines()) if node.content else 0
+            lang = node.language or "code"
+            return f"{lang} ({lines} lines)"
+
+        if node.type == NodeType.LIST:
+            # Count list items
+            items = len(node.children_ids) if node.children_ids else 0
+            if items > 0:
+                return f"list ({items} items)"
+            else:
+                # Try to count from content
+                list_lines = node.content.splitlines() if node.content else []
+                items = sum(
+                    1
+                    for line in list_lines
+                    if line.strip().startswith(("-", "*", "+", "1."))
+                )
+                return f"list ({items} items)" if items > 0 else "list"
+
+        if node.type == NodeType.TABLE:
+            # Try to extract table info
+            table_lines = node.content.splitlines() if node.content else []
+            rows = sum(1 for line in table_lines if "|" in line)
+            return f"table ({rows} rows)" if rows > 0 else "table"
+
+        if node.type == NodeType.FIGURE:
+            return "figure"
+
+        if node.type == NodeType.MATH_BLOCK:
+            return "math block"
+
+        if node.type == NodeType.ADMONITION:
+            return "admonition"
+
+        # Default: type and line number
+        return f"{node.type.value} (L{node.line_number})"
 
     def _get_coverage_emoji(self, coverage: float) -> str:
         """Get emoji for coverage percentage."""

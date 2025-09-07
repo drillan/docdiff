@@ -173,6 +173,10 @@ def parse_conf_py(conf_path: Path) -> SphinxConfig:
                                 config.language = value
                             elif name == "locale_dirs" and isinstance(value, list):
                                 config.locale_dirs = value
+                            elif name == "gettext_compact" and isinstance(value, bool):
+                                config.gettext_compact = value
+                            elif name == "gettext_uuid" and isinstance(value, bool):
+                                config.gettext_uuid = value
                             elif name == "extensions" and isinstance(value, list):
                                 config.extensions = value
                             elif name == "html_theme" and isinstance(value, str):
@@ -405,6 +409,10 @@ def detect_sphinx_project(path: Path) -> Optional[SphinxProject]:
 
     # Detect MyST support
     has_myst = "myst_parser" in config.extensions or ".md" in config.source_suffix
+
+    # If MyST is enabled, also collect .md files
+    if has_myst and ".md" not in config.source_suffix:
+        doc_files.extend(source_dir.rglob("*.md"))
 
     # Detect i18n setup
     has_i18n = bool(locale_dirs) or bool(config.locale_dirs)

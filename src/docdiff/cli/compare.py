@@ -27,6 +27,7 @@ def compare_command(
     html_report: bool = False,
     view: str = "summary",
     verbose: bool = False,
+    full_output: bool = False,
 ) -> None:
     """Compare documents between source and target directories.
 
@@ -183,10 +184,16 @@ def compare_command(
 
         console.print(struct_table)
 
-    # Show missing translations (top 10)
+    # Show missing translations
     missing_nodes = [m for m in result.mappings if m.mapping_type == "missing"]
     if missing_nodes and verbose:
-        console.print("\n[bold]Missing Translations (Top 10)[/bold]")
+        # Determine limit based on full_output flag
+        limit = None if full_output else 10
+        title = (
+            "Missing Translations" if full_output else "Missing Translations (Top 10)"
+        )
+
+        console.print(f"\n[bold]{title}[/bold]")
 
         missing_table = Table(show_header=True, header_style="bold yellow")
         missing_table.add_column("File", style="dim")
@@ -194,7 +201,9 @@ def compare_command(
         missing_table.add_column("Type")
         missing_table.add_column("Content (Preview)", width=40)
 
-        for mapping in missing_nodes[:10]:
+        items_to_show = missing_nodes if limit is None else missing_nodes[:limit]
+
+        for mapping in items_to_show:
             node = mapping.source_node
             content_preview = (
                 node.content[:50] + "..." if len(node.content) > 50 else node.content
@@ -208,10 +217,10 @@ def compare_command(
 
         console.print(missing_table)
 
-        if len(missing_nodes) > 10:
-            console.print(
-                f"\n... and {len(missing_nodes) - 10} more missing translations"
-            )
+        if limit and len(missing_nodes) > limit:
+            remaining = len(missing_nodes) - limit
+            help_text = " (use --full to show all)" if not full_output else ""
+            console.print(f"\n... and {remaining} more missing translations{help_text}")
 
     # Save report based on file extension
     if output_report:
@@ -226,7 +235,8 @@ def compare_command(
             elif "compact" in output_report.stem.lower():
                 style = "compact"
 
-            reporter = MarkdownReporter(style=style)
+            # File output always uses no limits (complete data)
+            reporter = MarkdownReporter(style=style, limit_mode="none")
             markdown_content = reporter.generate(result, include_badges=True)
             output_report.write_text(markdown_content, encoding="utf-8")
             console.print(

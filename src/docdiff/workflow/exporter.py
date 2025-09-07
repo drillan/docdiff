@@ -122,6 +122,46 @@ class TranslationExporter:
             exclude_none=True, by_alias=False, mode="json"
         )
 
+        # Add backward compatibility for translations field
+        translations: List[Dict[str, Any]] = []
+        include_context = options.get("include_context", False)
+        include_all = options.get("include_all", False)
+        include_missing = options.get("include_missing", True)
+        include_outdated = options.get("include_outdated", False)
+
+        for mapping in result.mappings:
+            # Filter based on options
+            if mapping.mapping_type == "missing" and not include_missing:
+                continue
+            if mapping.mapping_type == "outdated" and not include_outdated:
+                continue
+            if mapping.mapping_type == "exact" and not include_all:
+                continue
+
+            trans_item: Dict[str, Any] = {
+                "id": mapping.source_node.id,
+                "status": mapping.mapping_type,
+                "source": mapping.source_node.content,
+                "target": mapping.target_node.content if mapping.target_node else "",
+            }
+
+            # Add context if requested
+            if include_context:
+                context = {}
+                if mapping.source_node.label:
+                    context["label"] = mapping.source_node.label
+                if mapping.source_node.name:
+                    context["name"] = mapping.source_node.name
+                if hasattr(mapping.source_node, "title") and mapping.source_node.title:
+                    context["title"] = mapping.source_node.title
+                if context:
+                    trans_item["context"] = context
+
+            translations.append(trans_item)
+
+        # Add backward compatibility field
+        json_content["translations"] = translations
+
         # Custom serialization for datetime
         def serialize_datetime(obj):
             if isinstance(obj, datetime):

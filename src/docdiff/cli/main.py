@@ -176,6 +176,11 @@ def compare(
         "-v",
         help="Show detailed output",
     ),
+    full_output: bool = typer.Option(
+        False,
+        "--full",
+        help="Show all items without limit in console output",
+    ),
 ) -> None:
     """Advanced document comparison with translation coverage analysis."""
     compare_command(
@@ -187,6 +192,7 @@ def compare(
         html_report,
         view,
         verbose,
+        full_output,
     )
 
 

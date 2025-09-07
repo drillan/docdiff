@@ -348,10 +348,9 @@ class TestMarkdownReporter:
         text = "\n".join(lines)
 
         assert "## Side-by-Side Comparison" in text
-        assert "| Status | Source (EN) | Target (JA) | Match | Metadata |" in text
+        assert "| Status | Source (EN) | Target (JA) | Match | Type |" in text
         assert "*(missing)*" in text
-        assert "`label: section-label`" in text
-        assert "`name: section-name`" in text
+        assert "[section-label]" in text  # Now shows as identifier, not metadata
 
     def test_generate_missing_section_empty(self):
         """Test missing section when no translations are missing."""
@@ -521,6 +520,7 @@ class TestMarkdownReporter:
         lines = reporter._generate_sidebyside_section(result)
         text = "\n".join(lines)
 
-        # Check content is truncated at 40 chars
-        assert "A" * 40 + "..." in text
-        assert "A" * 41 not in text
+        # Now we show identifiers, not content
+        assert "paragraph (L1)" in text
+        assert "*(missing)*" in text
+        # Content is no longer shown in side-by-side, just the identifier

@@ -466,6 +466,7 @@ class TestTranslationImporter:
         """Test merging imports with comparison results."""
         # Create import data
         test_data = {
+            "schema_version": "1.0",
             "translations": [
                 {
                     "id": "src_2",
@@ -508,20 +509,30 @@ class TestTranslationImporter:
         test_data = {
             "schema_version": "1.0",
             "metadata": {"source_lang": "en", "target_lang": "ja"},
-            "translations": [
-                {
-                    "id": "src_1",
-                    "source": "Source text",
-                    "target": "",  # Empty translation
-                    "status": "missing",
-                },
-                {
-                    "id": "src_2",
-                    "source": "Another source",
-                    "target": "翻訳済み",
-                    "status": "translated",
-                },
-            ]
+            "document_hierarchy": {
+                "files": {
+                    "test.md": {
+                        "nodes": {
+                            "src_1": {
+                                "source": "Source text",
+                                "target": "",  # Empty translation
+                                "status": "missing",
+                                "type": "paragraph",
+                                "context": {},
+                                "metadata": {}
+                            },
+                            "src_2": {
+                                "source": "Another source",
+                                "target": "翻訳済み",
+                                "status": "missing",  # Changed to missing so it gets imported
+                                "type": "paragraph",
+                                "context": {},
+                                "metadata": {}
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         json_path = tmp_path / "skip_empty.json"

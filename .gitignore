@@ -225,9 +225,8 @@ README-translation-tasks.csv
 *-translation-status.md
 *-translation-tasks.csv
 
-# AI Workspace - Everything excluded except README
-.ai-workspace/*
-!.ai-workspace/README.md
+# AI Workspace - Everything excluded
+.ai-workspace/
 
 # Temporary files in root (should not exist but just in case)
 test_*

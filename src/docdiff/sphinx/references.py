@@ -65,24 +65,32 @@ class ReferenceDatabase:
 
     # Patterns for reStructuredText references
     RST_REF_PATTERNS = {
-        ReferenceType.REF: re.compile(r":ref:`(?:([^<>`]+)<)?([^>`]+)`"),
-        ReferenceType.DOC: re.compile(r":doc:`(?:([^<>`]+)<)?([^>`]+)`"),
+        ReferenceType.REF: re.compile(r":ref:`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"),
+        ReferenceType.DOC: re.compile(r":doc:`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"),
         ReferenceType.TERM: re.compile(r":term:`([^`]+)`"),
-        ReferenceType.NUMREF: re.compile(r":numref:`(?:([^<>`]+)<)?([^>`]+)`"),
+        ReferenceType.NUMREF: re.compile(
+            r":numref:`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"
+        ),
         ReferenceType.CITATION: re.compile(r":cite:`([^`]+)`"),
         ReferenceType.FOOTNOTE: re.compile(r"\[#([^\]]+)\]_"),
-        ReferenceType.DOWNLOAD: re.compile(r":download:`(?:([^<>`]+)<)?([^>`]+)`"),
+        ReferenceType.DOWNLOAD: re.compile(
+            r":download:`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"
+        ),
         ReferenceType.ANY: re.compile(r":any:`([^`]+)`"),
     }
 
     # Patterns for MyST references
     MYST_REF_PATTERNS = {
-        ReferenceType.REF: re.compile(r"\{ref\}`(?:([^<>`]+)<)?([^>`]+)`"),
-        ReferenceType.DOC: re.compile(r"\{doc\}`(?:([^<>`]+)<)?([^>`]+)`"),
+        ReferenceType.REF: re.compile(r"\{ref\}`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"),
+        ReferenceType.DOC: re.compile(r"\{doc\}`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"),
         ReferenceType.TERM: re.compile(r"\{term\}`([^`]+)`"),
-        ReferenceType.NUMREF: re.compile(r"\{numref\}`(?:([^<>`]+)<)?([^>`]+)`"),
+        ReferenceType.NUMREF: re.compile(
+            r"\{numref\}`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"
+        ),
         ReferenceType.CITATION: re.compile(r"\{cite\}`([^`]+)`"),
-        ReferenceType.DOWNLOAD: re.compile(r"\{download\}`(?:([^<>`]+)<)?([^>`]+)`"),
+        ReferenceType.DOWNLOAD: re.compile(
+            r"\{download\}`(?:([^<>`]+?)\s*<([^>`]+)>|([^>`]+))`"
+        ),
         ReferenceType.ANY: re.compile(r"\{any\}`([^`]+)`"),
     }
 
@@ -206,16 +214,13 @@ class ReferenceDatabase:
                         ReferenceType.NUMREF,
                         ReferenceType.DOWNLOAD,
                     ]:
-                        if match.lastindex == 2:
+                        # Pattern has three groups: text<target> or simple target
+                        if match.group(2):  # text<target> format
                             display_text = match.group(1)
                             target = match.group(2)
-                        else:
+                        else:  # simple format
                             display_text = None
-                            target = (
-                                match.group(2)
-                                if match.lastindex == 2
-                                else match.group(1)
-                            )
+                            target = match.group(3)
                     else:
                         display_text = None
                         target = match.group(1)
@@ -259,16 +264,13 @@ class ReferenceDatabase:
                         ReferenceType.NUMREF,
                         ReferenceType.DOWNLOAD,
                     ]:
-                        if match.lastindex == 2:
+                        # Pattern has three groups: text<target> or simple target
+                        if match.group(2):  # text<target> format
                             display_text = match.group(1)
                             target = match.group(2)
-                        else:
+                        else:  # simple format
                             display_text = None
-                            target = (
-                                match.group(2)
-                                if match.lastindex == 2
-                                else match.group(1)
-                            )
+                            target = match.group(3)
                     else:
                         display_text = None
                         target = match.group(1)

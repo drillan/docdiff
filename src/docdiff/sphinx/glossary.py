@@ -178,14 +178,14 @@ class GlossaryExtractor:
         i = 0
         while i < len(lines):
             # Look for MyST glossary blocks
-            if self.MYST_GLOSSARY_START.match(lines[i]):
+            if "```{glossary}" in lines[i]:
                 start_line = i
                 i += 1
 
                 # Find the end of the glossary block
                 glossary_content = []
                 while i < len(lines):
-                    if self.MYST_GLOSSARY_END.match(lines[i]):
+                    if "```" == lines[i].strip():
                         break
                     glossary_content.append(lines[i])
                     i += 1
@@ -207,6 +207,7 @@ class GlossaryExtractor:
                             j < len(glossary_content)
                             and glossary_content[j]
                             and not glossary_content[j].startswith(" ")
+                            and not glossary_content[j].startswith(":")
                         ):
                             aliases.append(glossary_content[j].strip())
                             j += 1

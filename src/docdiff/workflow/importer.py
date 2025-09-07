@@ -75,49 +75,56 @@ class TranslationImporter:
                 "Only schema version 1.0 is supported."
             )
 
-        # Extract translations from hierarchical structure
+        # Extract translations from either flat or hierarchical structure
         translations = []
-        document_hierarchy = data.get("document_hierarchy", {})
 
-        # Process each file
-        for file_path, doc_file in document_hierarchy.get("files", {}).items():
-            nodes = doc_file.get("nodes", {})
+        # Check if this is flat format (has translations array) or hierarchical format
+        if "translations" in data:
+            # Flat format - directly use translations array
+            translations = data["translations"]
+        else:
+            # Hierarchical format - extract from document_hierarchy
+            document_hierarchy = data.get("document_hierarchy", {})
 
-            for node_id, node in nodes.items():
-                # Skip if no translation needed
-                if node.get("status") == "translated" and not options.get(
-                    "include_translated", False
-                ):
-                    continue
+            # Process each file
+            for file_path, doc_file in document_hierarchy.get("files", {}).items():
+                nodes = doc_file.get("nodes", {})
 
-                # Skip empty translations if specified
-                if options.get("skip_empty") and not node.get("target"):
-                    continue
+                for node_id, node in nodes.items():
+                    # Skip if no translation needed
+                    if node.get("status") == "translated" and not options.get(
+                        "include_translated", False
+                    ):
+                        continue
 
-                context_data = node.get("context", {})
-                metadata = node.get("metadata", {})
+                    # Skip empty translations if specified
+                    if options.get("skip_empty") and not node.get("target", "").strip():
+                        continue
 
-                translations.append(
-                    {
-                        "id": node_id,
-                        "source": node.get("source", ""),
-                        "target": node.get("target", ""),
-                        "status": node.get("status", "missing"),
-                        "file": context_data.get("file_path", file_path),
-                        "line": context_data.get("line_number"),
-                        "type": node.get("type"),
-                        "context": {
-                            "label": metadata.get("label"),
-                            "name": metadata.get("name"),
-                            "caption": metadata.get("caption"),
-                            "parent_section": context_data.get("parent_section"),
-                            "preceding_text": context_data.get("preceding_text"),
-                            "following_text": context_data.get("following_text"),
-                        },
-                        "parent_id": node.get("parent_id"),
-                        "children_ids": node.get("children_ids", []),
-                    }
-                )
+                    context_data = node.get("context", {})
+                    metadata = node.get("metadata", {})
+
+                    translations.append(
+                        {
+                            "id": node_id,
+                            "source": node.get("source", ""),
+                            "target": node.get("target", ""),
+                            "status": node.get("status", "missing"),
+                            "file": context_data.get("file_path", file_path),
+                            "line": context_data.get("line_number"),
+                            "type": node.get("type"),
+                            "context": {
+                                "label": metadata.get("label"),
+                                "name": metadata.get("name"),
+                                "caption": metadata.get("caption"),
+                                "parent_section": context_data.get("parent_section"),
+                                "preceding_text": context_data.get("preceding_text"),
+                                "following_text": context_data.get("following_text"),
+                            },
+                            "parent_id": node.get("parent_id"),
+                            "children_ids": node.get("children_ids", []),
+                        }
+                    )
 
         return translations
 
@@ -312,9 +319,12 @@ class TranslationImporter:
         # Build index of existing nodes
         node_index = {node.id: node for node in target_nodes}
 
-        # Statistics
+        # Statistics (only count non-empty translations in total)
+        non_empty_translations = [
+            t for t in translations if t.get("target", "").strip()
+        ]
         stats: Dict[str, Any] = {
-            "total": len(translations),
+            "total": len(non_empty_translations),
             "applied": 0,
             "created": 0,
             "updated": 0,
